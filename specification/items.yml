@@ -1,0 +1,353 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: mira Item API
+  description: Item API for Project-Mira
+paths:
+  /public/item/on-air:
+    get:
+      description: get a list of on air MainItems with cover image
+      operationId: onAirItem
+      parameters:
+        - name: type
+          in: query
+          required: true
+          description: 'type of MainItem, must be either anime or real'
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully returned a list of on air MainItems with cover image.
+          content:
+            application/json:
+              schema:
+                title: GetOnAirItemListResponse
+                type: object
+                required:
+                  - data
+                  - status
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/OnAirItem'
+                    description: a list of OnAirItems
+                  total:
+                    type: integer
+                    description: total number of the result
+                  status:
+                    type: integer
+                    description: 'result code, 0 is successful.'
+components:
+  schemas:
+    ItemType:
+      type: string
+      enum:
+        - anime
+        - game
+        - music
+        - book
+        - individual
+        - character
+        - real
+        - association
+        - corporation
+        - organization
+        - ship
+        - mechanic
+      x-enum-varnames:
+        - Anime
+        - Game
+        - Music
+        - Book
+        - Individual
+        - Character
+        - RealWorld
+        - Association
+        - Corporation
+        - Organization
+        - Ship
+        - Mechanic
+    ItemSubType:
+      type: string
+      enum:
+        - other
+        - TV
+        - web
+        - OVA
+        - movie
+        - Novel
+        - Comic
+        - Illustration
+        - jp
+        - en
+        - cn
+        - PC
+        - NDS
+        - PSP
+        - PS2
+        - PS3
+        - Xbox360
+        - Mac OS
+        - PS5
+        - Xbox Series X/S
+        - PS4
+        - Xbox One
+        - Nintendo Switch
+        - Wii U
+        - Wii
+        - PS Vita
+        - 3DS
+        - iOS
+        - Android
+        - ARC
+        - XBOX
+        - GameCube
+        - Dreamcast
+        - Nitendo 64
+        - PlayStation
+        - SFC
+        - FC
+        - NEOGEO Pocket Color
+        - GBA
+        - GB
+        - Virtual Boy
+        - WonderSwan Color
+        - WonderSwan
+      x-enum-varnames:
+        - Other
+        - TV
+        - Web
+        - OVA
+        - Movie
+        - Novel
+        - Comic
+        - Illustration
+        - DramaJp
+        - DramaEn
+        - DramaCn
+        - PC
+        - NDS
+        - PSP
+        - PS2
+        - PS3
+        - Xbox360
+        - Mac
+        - PS5
+        - XboxSeriesXS
+        - PS4
+        - XboxOne
+        - NintendoSwitch
+        - WiiU
+        - Wii
+        - PSVita
+        - N3DS
+        - IOS
+        - Android
+        - ARC
+        - XBOX
+        - GameCube
+        - Dreamcast
+        - Nintendo64
+        - PlayStation
+        - SFC
+        - FC
+        - NEOGEOPocketColor
+        - GBA
+        - GB
+        - VirtualBoy
+        - WonderSwanColor
+        - WonderSwan
+    OnAirItem:
+      type: object
+      required:
+        - id
+        - bgmId
+        - type
+      properties:
+        id:
+          type: integer
+        bgmId:
+          type: integer
+        publicTime:
+          type: string
+          description: RFC3339 Datetime
+          format: date-time
+          example: '2022-12-21T01:58:00Z'
+        type:
+          $ref: '#/components/schemas/ItemType'
+        subType:
+          $ref: '#/components/schemas/ItemSubType'
+        coverImage:
+          $ref: '#/components/schemas/ImageInfo'
+    EntityBase:
+      type: object
+      required:
+        - id
+        - createdTime
+        - version
+        - deleted
+      properties:
+        id:
+          type: integer
+        createdTime:
+          type: string
+          description: RFC3339 Datetime
+          format: date-time
+          example: '2022-12-21T01:58:00Z'
+        updateTime:
+          type: string
+          description: RFC3339 Datetime to set the updateTime
+        version:
+          type: integer
+        deleted:
+          type: boolean
+    ItemEntity:
+      allOf:
+        - $ref: '#/components/schemas/EntityBase'
+        - type: object
+          required:
+            - bgmId
+            - isBgmHide
+            - lockedInBgm
+            - isPublicTimeLocked
+            - properties
+            - isCoverImageLocked
+          properties:
+            bgmId:
+              type: integer
+            isBgmHide:
+              type: boolean
+            lockedInBgm:
+              type: boolean
+            publicTime:
+              type: string
+              format: date-time
+              description: Not used for ItemType.Individual and ItemType.Character
+            isPublicTimeLocked:
+              type: boolean
+              description: Not used for ItemType.Individual and ItemType.Character
+            properties:
+              type: object
+              additionalProperties:
+                $ref: '#/components/schemas/PropertyValue'
+            isCoverImageLocked:
+              type: boolean
+    MainItem:
+      allOf:
+        - $ref: '#/components/schemas/ItemEntity'
+        - type: object
+          title: MainItem
+          required:
+            - mainType
+            - type
+            - isCollection
+          properties:
+            mainType:
+              type: integer
+              enum:
+                - 0
+                - 1
+                - 2
+              x-enum-varnames:
+                - Item
+                - Person
+                - Character
+            type:
+              $ref: '#/components/schemas/ItemType'
+            subType:
+              $ref: '#/components/schemas/ItemSubType'
+            isCollection:
+              type: boolean
+              description: determine if the MainItem is collection item
+            coverImage:
+              $ref: '#/components/schemas/ImageInfo'
+            subItem:
+              type: array
+              items:
+                $ref: '#/components/schemas/SubItem'
+    PropertyValue:
+      title: PropertyValue
+      type: object
+      required:
+        - value
+        - locked
+      properties:
+        propertyType:
+          type: string
+          nullable: true
+          enum:
+            - Staff
+            - Item
+            - Character
+            - Info
+            - Cast
+        locked:
+          type: boolean
+        value:
+          oneOf:
+            - type: string
+            - type: array
+              items:
+                type: object
+                additionalProperties:
+                  type: string
+            - type: array
+              items:
+                type: string
+    ImageInfo:
+      title: ImageInfo
+      type: object
+      description: image information
+      required:
+        - id
+        - url
+        - width
+        - height
+        - dormantColor
+      properties:
+        id:
+          type: integer
+        url:
+          type: string
+        width:
+          type: integer
+        height:
+          type: integer
+        dormantColor:
+          type: string
+    SubItem:
+      allOf:
+        - $ref: '#/components/schemas/ItemEntity'
+        - type: object
+          title: SubItem
+          required:
+            - type
+            - episodeType
+            - sort
+          properties:
+            type:
+              type: integer
+              enum:
+                - 0
+                - 1
+              x-enum-varnames:
+                - Episode
+                - Song
+            episodeType:
+              type: integer
+              nullable: true
+              enum:
+                - 0
+                - 1
+              x-enum-varnames:
+                - Episode
+                - Special
+            ep:
+              type: integer
+              nullable: true
+            disc:
+              type: integer
+              nullable: true
+            sort:
+              type: number

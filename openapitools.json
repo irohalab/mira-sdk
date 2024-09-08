@@ -1,0 +1,24 @@
+{
+  "$schema": "./node_modules/@openapitools/openapi-generator-cli/config.schema.json",
+  "spaces": 2,
+  "generator-cli": {
+    "version": "7.8.0",
+    "storageDir": "openapi-generator-files",
+    "generators": {
+      "angular": {
+        "generatorName": "typescript-angular",
+        "output": "#{cwd}/sdk/angular/projects/mira-sdk-angular/src",
+        "glob": "specification/*.yml",
+        "additionalProperties": {
+          "apiModulePrefix": "Mira",
+          "configurationPrefix": "Mira",
+          "paramNaming": "original",
+          "withInterfaces": "true",
+          "supportES6": "true",
+          "serviceSuffix": "Mira",
+          "useSquareBracketsInArrayNames": "true"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "mira-sdk",
+  "version": "1.0.0",
+  "description": "SDK for project-mira",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sdk:angular": "npm run clean:sdk:angular && npx openapi-generator-cli generate --generator-key angular",
+    "clean:sdk:angular": "rimraf sdk/angular/projects/mira-sdk-angular/src/**"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/irohalab/mira-sdk.git"
+  },
+  "author": "irohalab",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/irohalab/mira-sdk/issues"
+  },
+  "homepage": "https://github.com/irohalab/mira-sdk#readme",
+  "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.13.5",
+    "rimraf": "^6.0.1"
+  }
+}
