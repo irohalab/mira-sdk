@@ -20,7 +20,7 @@ jobs:
       - name: build
         working-directory: sdk/angular
         run: |
-          run: npm ci
+          npm ci
           npm run build
       - run: npm publish
         working-directory: sdk/angular/dist/mira-sdk-angular
