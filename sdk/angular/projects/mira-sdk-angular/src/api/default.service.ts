@@ -18,7 +18,7 @@ import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 // @ts-ignore
-import { GetMainItemListResponse } from '../model/getMainItemListResponse';
+import { GetOnAirItemListResponse } from '../model/getOnAirItemListResponse';
 
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -95,35 +95,23 @@ export class DefaultMira implements DefaultMiraInterface {
     }
 
     /**
-     * get a list of MainItem
-     * @param sort can be asc or desc, default is desc
-     * @param orderBy ordered by which field, default is createdTime
-     * @param offset offset to start, default is 0
-     * @param limit how many items returned per request, default is 20, maximum is 100
+     * get a list of on air MainItems with cover image
+     * @param type type of MainItem, must be either anime or real
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public listMainItems(sort?: string, orderBy?: string, offset?: number, limit?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<GetMainItemListResponse>;
-    public listMainItems(sort?: string, orderBy?: string, offset?: number, limit?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<GetMainItemListResponse>>;
-    public listMainItems(sort?: string, orderBy?: string, offset?: number, limit?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<GetMainItemListResponse>>;
-    public listMainItems(sort?: string, orderBy?: string, offset?: number, limit?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public onAirItem(type: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<GetOnAirItemListResponse>;
+    public onAirItem(type: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<GetOnAirItemListResponse>>;
+    public onAirItem(type: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<GetOnAirItemListResponse>>;
+    public onAirItem(type: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (type === null || type === undefined) {
+            throw new Error('Required parameter type was null or undefined when calling onAirItem.');
+        }
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
-        if (sort !== undefined && sort !== null) {
+        if (type !== undefined && type !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-            <any>sort, 'sort');
-        }
-        if (orderBy !== undefined && orderBy !== null) {
-          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-            <any>orderBy, 'orderBy');
-        }
-        if (offset !== undefined && offset !== null) {
-          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-            <any>offset, 'offset');
-        }
-        if (limit !== undefined && limit !== null) {
-          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-            <any>limit, 'limit');
+            <any>type, 'type');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -162,8 +150,8 @@ export class DefaultMira implements DefaultMiraInterface {
             }
         }
 
-        let localVarPath = `/public/item/main`;
-        return this.httpClient.request<GetMainItemListResponse>('get', `${this.configuration.basePath}${localVarPath}`,
+        let localVarPath = `/public/item/on-air`;
+        return this.httpClient.request<GetOnAirItemListResponse>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 params: localVarQueryParameters,

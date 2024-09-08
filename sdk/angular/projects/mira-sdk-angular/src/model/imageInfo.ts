@@ -15,9 +15,7 @@
  */
 export interface ImageInfo { 
     id: number;
-    createTime: string;
     url: string;
-    savePath: string;
     width: number;
     height: number;
     dormantColor: string;

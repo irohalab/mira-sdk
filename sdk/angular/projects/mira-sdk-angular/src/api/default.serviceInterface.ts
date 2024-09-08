@@ -12,7 +12,7 @@ import { HttpHeaders }                                       from '@angular/comm
 
 import { Observable }                                        from 'rxjs';
 
-import { GetMainItemListResponse } from '../model/models';
+import { GetOnAirItemListResponse } from '../model/models';
 
 
 import { MiraConfiguration }                                     from '../configuration';
@@ -25,12 +25,9 @@ export interface DefaultMiraInterface {
 
     /**
      * 
-     * get a list of MainItem
-     * @param sort can be asc or desc, default is desc
-     * @param orderBy ordered by which field, default is createdTime
-     * @param offset offset to start, default is 0
-     * @param limit how many items returned per request, default is 20, maximum is 100
+     * get a list of on air MainItems with cover image
+     * @param type type of MainItem, must be either anime or real
      */
-    listMainItems(sort?: string, orderBy?: string, offset?: number, limit?: number, extraHttpRequestParams?: any): Observable<GetMainItemListResponse>;
+    onAirItem(type: string, extraHttpRequestParams?: any): Observable<GetOnAirItemListResponse>;
 
 }
