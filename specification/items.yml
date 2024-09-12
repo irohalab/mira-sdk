@@ -38,6 +38,43 @@ paths:
                   status:
                     type: integer
                     description: 'result code, 0 is successful.'
+  /public/item/main/{id}:
+    get:
+      description: get a MainItem by id
+      operationId: getMainItemById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: MainItem id
+          schema:
+            type: integer
+        - name: coverImage
+          in: query
+          required: false
+          description: 'populate coverImage if true'
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully returned a MainItem.
+          content:
+            application/json:
+              schema:
+                title: GetMainItemByIdResponse
+                type: object
+                required:
+                  - data
+                  - status
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MainItem'
+                    description: a MainItem
+                  status:
+                    type: integer
+                    description: 'result code, 0 is successful.'
 components:
   schemas:
     ItemType:
@@ -178,6 +215,10 @@ components:
           $ref: '#/components/schemas/ItemType'
         subType:
           $ref: '#/components/schemas/ItemSubType'
+        name:
+          type: string
+        name_cn:
+          type: string
         coverImage:
           $ref: '#/components/schemas/ImageInfo'
     EntityBase:

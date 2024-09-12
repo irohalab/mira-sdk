@@ -22,6 +22,8 @@ export interface OnAirItem {
     publicTime?: string;
     type: ItemType;
     subType?: ItemSubType;
+    name?: string;
+    name_cn?: string;
     coverImage?: ImageInfo;
 }
 export namespace OnAirItem {

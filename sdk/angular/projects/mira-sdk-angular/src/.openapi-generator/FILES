@@ -9,6 +9,7 @@ encoder.ts
 git_push.sh
 index.ts
 model/entityBase.ts
+model/getMainItemByIdResponse.ts
 model/getOnAirItemListResponse.ts
 model/imageInfo.ts
 model/itemEntity.ts

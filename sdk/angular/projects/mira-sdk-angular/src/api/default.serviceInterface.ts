@@ -12,6 +12,7 @@ import { HttpHeaders }                                       from '@angular/comm
 
 import { Observable }                                        from 'rxjs';
 
+import { GetMainItemByIdResponse } from '../model/models';
 import { GetOnAirItemListResponse } from '../model/models';
 
 
@@ -22,6 +23,14 @@ import { MiraConfiguration }                                     from '../config
 export interface DefaultMiraInterface {
     defaultHeaders: HttpHeaders;
     configuration: MiraConfiguration;
+
+    /**
+     * 
+     * get a MainItem by id
+     * @param id MainItem id
+     * @param coverImage populate coverImage if true
+     */
+    getMainItemById(id: number, coverImage?: string, extraHttpRequestParams?: any): Observable<GetMainItemByIdResponse>;
 
     /**
      * 

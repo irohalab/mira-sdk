@@ -1,4 +1,5 @@
 export * from './entityBase';
+export * from './getMainItemByIdResponse';
 export * from './getOnAirItemListResponse';
 export * from './imageInfo';
 export * from './itemEntity';
