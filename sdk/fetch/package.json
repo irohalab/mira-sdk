@@ -1,0 +1,24 @@
+{
+  "name": "@irohalab/mira-sdk-fetch",
+  "version": "0.1.0",
+  "description": "Fetch client for Project Mira SDK",
+  "author": "irohalab",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/@irohalab/mira-sdk.git"
+  },
+  "main": "./index.js",
+  "typings": "./index.d.ts",
+  "devDependencies": {
+    "typescript": "^5.6.2"
+  },
+  "scripts": {
+    "compile": "tsc",
+    "copy": "cp README.md dist/ && cp package.json dist/",
+    "build": "npm run compile && npm run copy"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}

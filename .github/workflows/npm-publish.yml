@@ -8,7 +8,8 @@ on:
     types: [created]
 
 jobs:
-  publish-npm:
+  publish-angular-npm:
+    if: ${{ contains(github.ref_name, 'angular') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -24,5 +25,24 @@ jobs:
           npm run build
       - run: npm publish
         working-directory: sdk/angular/dist/mira-sdk-angular
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+  publish-fetch-npm:
+    if: ${{ contains(github.ref_name, 'fetch') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org/
+          scope: '@irohalab'
+      - name: build
+        working-directory: sdk/fetch
+        run: |
+          npm ci
+          npm run build
+      - run: npm publish
+        working-directory: sdk/fetch/dist
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}

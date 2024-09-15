@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "sdk:angular": "npm run clean:sdk:angular && npx openapi-generator-cli generate --generator-key angular",
-    "clean:sdk:angular": "rimraf sdk/angular/projects/mira-sdk-angular/src/**"
+    "sdk:fetch": "npm run clean:sdk:fetch && npx openapi-generator-cli generate --generator-key fetch",
+    "clean:sdk:angular": "rimraf sdk/angular/projects/mira-sdk-angular/src/**",
+    "clean:sdk:fetch": "rimraf sdk/fetch/src/**"
   },
   "repository": {
     "type": "git",

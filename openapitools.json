@@ -18,6 +18,19 @@
           "serviceSuffix": "Mira",
           "useSquareBracketsInArrayNames": "true"
         }
+      },
+      "fetch": {
+        "generatorName": "typescript-fetch",
+        "output": "#{cwd}/sdk/fetch/src",
+        "glob": "specification/*.yml",
+        "additionalProperties": {
+          "paramNaming": "original",
+          "supportES6": "true",
+          "useSingleRequestParameter": "true",
+          "useSquareBracketsInArrayNames": "true",
+          "withInterfaces": "true",
+          "withoutRuntimeChecks": "true"
+        }
       }
     }
   }
