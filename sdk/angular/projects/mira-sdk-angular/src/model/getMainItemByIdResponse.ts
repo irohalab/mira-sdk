@@ -12,10 +12,7 @@ import { MainItem } from './mainItem';
 
 
 export interface GetMainItemByIdResponse { 
-    /**
-     * a MainItem
-     */
-    data: Array<MainItem>;
+    data: MainItem;
     /**
      * result code, 0 is successful.
      */

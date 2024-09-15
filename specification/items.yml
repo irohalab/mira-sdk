@@ -68,10 +68,7 @@ paths:
                   - status
                 properties:
                   data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/MainItem'
-                    description: a MainItem
+                    $ref: '#/components/schemas/MainItem'
                   status:
                     type: integer
                     description: 'result code, 0 is successful.'
