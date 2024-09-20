@@ -16,7 +16,7 @@ import { ImageInfo } from './imageInfo';
 
 
 export interface MainItem { 
-    id: number;
+    id: string;
     /**
      * RFC3339 Datetime
      */

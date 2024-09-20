@@ -14,7 +14,7 @@
  * image information
  */
 export interface ImageInfo { 
-    id: number;
+    id: string;
     url: string;
     width: number;
     height: number;

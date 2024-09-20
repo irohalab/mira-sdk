@@ -14,7 +14,7 @@ import { ImageInfo } from './imageInfo';
 
 
 export interface OnAirItem { 
-    id: number;
+    id: string;
     bgmId: number;
     /**
      * RFC3339 Datetime

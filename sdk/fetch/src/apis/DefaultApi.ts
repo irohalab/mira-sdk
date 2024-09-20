@@ -20,7 +20,7 @@ import type {
 } from '../models/index';
 
 export interface GetMainItemByIdRequest {
-    id: number;
+    id: string;
     coverImage?: string;
 }
 
@@ -37,7 +37,7 @@ export interface OnAirItemRequest {
 export interface DefaultApiInterface {
     /**
      * get a MainItem by id
-     * @param {number} id MainItem id
+     * @param {string} id MainItem id
      * @param {string} [coverImage] populate coverImage if true
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

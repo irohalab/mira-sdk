@@ -8,10 +8,10 @@
 export interface EntityBase {
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof EntityBase
      */
-    id: number;
+    id: string;
     /**
      * RFC3339 Datetime
      * @type {string}
@@ -89,10 +89,10 @@ export interface GetOnAirItemListResponse {
 export interface ImageInfo {
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof ImageInfo
      */
-    id: number;
+    id: string;
     /**
      * 
      * @type {string}
@@ -126,10 +126,10 @@ export interface ImageInfo {
 export interface ItemEntity {
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof ItemEntity
      */
-    id: number;
+    id: string;
     /**
      * RFC3339 Datetime
      * @type {string}
@@ -278,10 +278,10 @@ export type ItemType = typeof ItemType[keyof typeof ItemType];
 export interface MainItem {
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof MainItem
      */
-    id: number;
+    id: string;
     /**
      * RFC3339 Datetime
      * @type {string}
@@ -405,10 +405,10 @@ export type MainItemMainTypeEnum = typeof MainItemMainTypeEnum[keyof typeof Main
 export interface OnAirItem {
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof OnAirItem
      */
-    id: number;
+    id: string;
     /**
      * 
      * @type {number}
@@ -507,10 +507,10 @@ export type PropertyValueValue = Array<string> | Array<{ [key: string]: string; 
 export interface SubItem {
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof SubItem
      */
-    id: number;
+    id: string;
     /**
      * RFC3339 Datetime
      * @type {string}

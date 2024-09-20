@@ -11,7 +11,7 @@
 
 
 export interface EntityBase { 
-    id: number;
+    id: string;
     /**
      * RFC3339 Datetime
      */

@@ -48,7 +48,7 @@ paths:
           required: true
           description: MainItem id
           schema:
-            type: integer
+            type: string
         - name: coverImage
           in: query
           required: false
@@ -200,7 +200,7 @@ components:
         - type
       properties:
         id:
-          type: integer
+          type: string
         bgmId:
           type: integer
         publicTime:
@@ -227,7 +227,7 @@ components:
         - deleted
       properties:
         id:
-          type: integer
+          type: string
         createdTime:
           type: string
           description: RFC3339 Datetime
@@ -345,7 +345,7 @@ components:
         - dormantColor
       properties:
         id:
-          type: integer
+          type: string
         url:
           type: string
         width:

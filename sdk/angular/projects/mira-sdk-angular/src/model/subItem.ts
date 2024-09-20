@@ -12,7 +12,7 @@ import { PropertyValue } from './propertyValue';
 
 
 export interface SubItem { 
-    id: number;
+    id: string;
     /**
      * RFC3339 Datetime
      */

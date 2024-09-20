@@ -30,7 +30,7 @@ export interface DefaultMiraInterface {
      * @param id MainItem id
      * @param coverImage populate coverImage if true
      */
-    getMainItemById(id: number, coverImage?: string, extraHttpRequestParams?: any): Observable<GetMainItemByIdResponse>;
+    getMainItemById(id: string, coverImage?: string, extraHttpRequestParams?: any): Observable<GetMainItemByIdResponse>;
 
     /**
      * 
