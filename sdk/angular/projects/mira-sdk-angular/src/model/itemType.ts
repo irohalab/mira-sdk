@@ -1,6 +1,6 @@
 /**
- * mira Item API
- * Item API for Project-Mira
+ * mira API
+ * API for Project-Mira
  *
  * 
  *

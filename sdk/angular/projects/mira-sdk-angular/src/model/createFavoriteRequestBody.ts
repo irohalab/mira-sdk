@@ -8,11 +8,14 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { FavoriteStatus } from './favoriteStatus';
 
 
-/**
- * @type PropertyValueValue
- * @export
- */
-export type PropertyValueValue = Array<string> | Array<{ [key: string]: string; }> | string;
+export interface CreateFavoriteRequestBody { 
+    status: FavoriteStatus;
+    itemId: string;
+}
+export namespace CreateFavoriteRequestBody {
+}
+
 

@@ -8,7 +8,7 @@
       "angular": {
         "generatorName": "typescript-angular",
         "output": "#{cwd}/sdk/angular/projects/mira-sdk-angular/src",
-        "glob": "specification/*.yml",
+        "glob": "api.yml",
         "additionalProperties": {
           "apiModulePrefix": "Mira",
           "configurationPrefix": "Mira",
@@ -22,7 +22,7 @@
       "fetch": {
         "generatorName": "typescript-fetch",
         "output": "#{cwd}/sdk/fetch/src",
-        "glob": "specification/*.yml",
+        "glob": "api.yml",
         "additionalProperties": {
           "paramNaming": "original",
           "supportES6": "true",

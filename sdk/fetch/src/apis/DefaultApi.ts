@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * mira Item API
- * Item API for Project-Mira
+ * mira API
+ * API for Project-Mira
  *
  * The version of the OpenAPI document: 1.0.0
  * 
@@ -15,17 +15,78 @@
 
 import * as runtime from '../runtime';
 import type {
+  CreateFavoriteRequestBody,
+  CreateFavoriteResponse,
+  CreateSubItemFavoriteRequestBody,
+  CreateSubItemFavoriteResponse,
   GetMainItemByIdResponse,
   GetOnAirItemListResponse,
+  GetSubItemResponse,
+  ListFavoritesResponse,
+  ListMainItemResponse,
+  ListSubItemFavoriteResponse,
+  PatchFavoriteBody,
 } from '../models/index';
+
+export interface CreateFavoriteRequest {
+    CreateFavoriteRequestBody: CreateFavoriteRequestBody;
+}
+
+export interface CreateSubItemFavoriteRequest {
+    CreateSubItemFavoriteRequestBody: CreateSubItemFavoriteRequestBody;
+}
+
+export interface DeleteFavoriteRequest {
+    id: string;
+}
+
+export interface DeleteSubItemFavoriteRequest {
+    id: string;
+}
 
 export interface GetMainItemByIdRequest {
     id: string;
     coverImage?: string;
 }
 
+export interface GetSubItemByIdRequest {
+    id: string;
+}
+
+export interface ListFavoritesRequest {
+    status: string;
+    offset?: number;
+    limit?: number;
+    orderBy?: string;
+    sort?: string;
+}
+
+export interface ListMainItemsRequest {
+    mainType: string;
+    type?: string;
+    subType?: string;
+    offset?: number;
+    limit?: number;
+    orderBy?: string;
+    sort?: string;
+    keyword?: string;
+}
+
+export interface ListSubItemFavoritesRequest {
+    itemId?: string;
+    offset?: number;
+    limit?: number;
+    orderBy?: string;
+    sort?: string;
+}
+
 export interface OnAirItemRequest {
     type: string;
+}
+
+export interface PatchFavoriteRequest {
+    id: string;
+    PatchFavoriteBody: PatchFavoriteBody;
 }
 
 /**
@@ -35,6 +96,62 @@ export interface OnAirItemRequest {
  * @interface DefaultApiInterface
  */
 export interface DefaultApiInterface {
+    /**
+     * create a favorite for user and item
+     * @param {CreateFavoriteRequestBody} CreateFavoriteRequestBody 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    createFavoriteRaw(requestParameters: CreateFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreateFavoriteResponse>>;
+
+    /**
+     * create a favorite for user and item
+     */
+    createFavorite(requestParameters: CreateFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateFavoriteResponse>;
+
+    /**
+     * create a SubItemFavorite
+     * @param {CreateSubItemFavoriteRequestBody} CreateSubItemFavoriteRequestBody 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    createSubItemFavoriteRaw(requestParameters: CreateSubItemFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreateSubItemFavoriteResponse>>;
+
+    /**
+     * create a SubItemFavorite
+     */
+    createSubItemFavorite(requestParameters: CreateSubItemFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateSubItemFavoriteResponse>;
+
+    /**
+     * Delete a favorite
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    deleteFavoriteRaw(requestParameters: DeleteFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+
+    /**
+     * Delete a favorite
+     */
+    deleteFavorite(requestParameters: DeleteFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+
+    /**
+     * Delete a SubItemFavorite
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    deleteSubItemFavoriteRaw(requestParameters: DeleteSubItemFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+
+    /**
+     * Delete a SubItemFavorite
+     */
+    deleteSubItemFavorite(requestParameters: DeleteSubItemFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+
     /**
      * get a MainItem by id
      * @param {string} id MainItem id
@@ -51,6 +168,77 @@ export interface DefaultApiInterface {
     getMainItemById(requestParameters: GetMainItemByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetMainItemByIdResponse>;
 
     /**
+     * get a SubItem by id
+     * @param {string} id SubItem Id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    getSubItemByIdRaw(requestParameters: GetSubItemByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetSubItemResponse>>;
+
+    /**
+     * get a SubItem by id
+     */
+    getSubItemById(requestParameters: GetSubItemByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetSubItemResponse>;
+
+    /**
+     * list favorites for user
+     * @param {string} status 
+     * @param {number} [offset] 
+     * @param {number} [limit] 
+     * @param {string} [orderBy] 
+     * @param {string} [sort] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    listFavoritesRaw(requestParameters: ListFavoritesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListFavoritesResponse>>;
+
+    /**
+     * list favorites for user
+     */
+    listFavorites(requestParameters: ListFavoritesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListFavoritesResponse>;
+
+    /**
+     * list MainItems
+     * @param {string} mainType 
+     * @param {string} [type] 
+     * @param {string} [subType] 
+     * @param {number} [offset] 
+     * @param {number} [limit] 
+     * @param {string} [orderBy] 
+     * @param {string} [sort] 
+     * @param {string} [keyword] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    listMainItemsRaw(requestParameters: ListMainItemsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListMainItemResponse>>;
+
+    /**
+     * list MainItems
+     */
+    listMainItems(requestParameters: ListMainItemsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListMainItemResponse>;
+
+    /**
+     * list SubItemFavorite
+     * @param {string} [itemId] itemId of the SubItem, if provided then other parameters are ignored
+     * @param {number} [offset] 
+     * @param {number} [limit] 
+     * @param {string} [orderBy] 
+     * @param {string} [sort] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    listSubItemFavoritesRaw(requestParameters: ListSubItemFavoritesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListSubItemFavoriteResponse>>;
+
+    /**
+     * list SubItemFavorite
+     */
+    listSubItemFavorites(requestParameters: ListSubItemFavoritesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListSubItemFavoriteResponse>;
+
+    /**
      * get a list of on air MainItems with cover image
      * @param {string} type type of MainItem, must be either anime or real
      * @param {*} [options] Override http request option.
@@ -64,12 +252,163 @@ export interface DefaultApiInterface {
      */
     onAirItem(requestParameters: OnAirItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetOnAirItemListResponse>;
 
+    /**
+     * change status of a favorite
+     * @param {string} id 
+     * @param {PatchFavoriteBody} PatchFavoriteBody 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    patchFavoriteRaw(requestParameters: PatchFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+
+    /**
+     * change status of a favorite
+     */
+    patchFavorite(requestParameters: PatchFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+
 }
 
 /**
  * 
  */
 export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
+
+    /**
+     * create a favorite for user and item
+     */
+    async createFavoriteRaw(requestParameters: CreateFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreateFavoriteResponse>> {
+        if (requestParameters['CreateFavoriteRequestBody'] == null) {
+            throw new runtime.RequiredError(
+                'CreateFavoriteRequestBody',
+                'Required parameter "CreateFavoriteRequestBody" was null or undefined when calling createFavorite().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/favorite`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters['CreateFavoriteRequestBody'],
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response);
+    }
+
+    /**
+     * create a favorite for user and item
+     */
+    async createFavorite(requestParameters: CreateFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateFavoriteResponse> {
+        const response = await this.createFavoriteRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * create a SubItemFavorite
+     */
+    async createSubItemFavoriteRaw(requestParameters: CreateSubItemFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreateSubItemFavoriteResponse>> {
+        if (requestParameters['CreateSubItemFavoriteRequestBody'] == null) {
+            throw new runtime.RequiredError(
+                'CreateSubItemFavoriteRequestBody',
+                'Required parameter "CreateSubItemFavoriteRequestBody" was null or undefined when calling createSubItemFavorite().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/favorite/sub`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters['CreateSubItemFavoriteRequestBody'],
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response);
+    }
+
+    /**
+     * create a SubItemFavorite
+     */
+    async createSubItemFavorite(requestParameters: CreateSubItemFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateSubItemFavoriteResponse> {
+        const response = await this.createSubItemFavoriteRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Delete a favorite
+     */
+    async deleteFavoriteRaw(requestParameters: DeleteFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteFavorite().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/favorite/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Delete a favorite
+     */
+    async deleteFavorite(requestParameters: DeleteFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteFavoriteRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Delete a SubItemFavorite
+     */
+    async deleteSubItemFavoriteRaw(requestParameters: DeleteSubItemFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteSubItemFavorite().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/favorite/sub/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Delete a SubItemFavorite
+     */
+    async deleteSubItemFavorite(requestParameters: DeleteSubItemFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteSubItemFavoriteRaw(requestParameters, initOverrides);
+    }
 
     /**
      * get a MainItem by id
@@ -109,6 +448,203 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
     }
 
     /**
+     * get a SubItem by id
+     */
+    async getSubItemByIdRaw(requestParameters: GetSubItemByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetSubItemResponse>> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling getSubItemById().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/public/item/main/subItem/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response);
+    }
+
+    /**
+     * get a SubItem by id
+     */
+    async getSubItemById(requestParameters: GetSubItemByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetSubItemResponse> {
+        const response = await this.getSubItemByIdRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * list favorites for user
+     */
+    async listFavoritesRaw(requestParameters: ListFavoritesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListFavoritesResponse>> {
+        if (requestParameters['status'] == null) {
+            throw new runtime.RequiredError(
+                'status',
+                'Required parameter "status" was null or undefined when calling listFavorites().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['status'] != null) {
+            queryParameters['status'] = requestParameters['status'];
+        }
+
+        if (requestParameters['offset'] != null) {
+            queryParameters['offset'] = requestParameters['offset'];
+        }
+
+        if (requestParameters['limit'] != null) {
+            queryParameters['limit'] = requestParameters['limit'];
+        }
+
+        if (requestParameters['orderBy'] != null) {
+            queryParameters['orderBy'] = requestParameters['orderBy'];
+        }
+
+        if (requestParameters['sort'] != null) {
+            queryParameters['sort'] = requestParameters['sort'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/favorite`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response);
+    }
+
+    /**
+     * list favorites for user
+     */
+    async listFavorites(requestParameters: ListFavoritesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListFavoritesResponse> {
+        const response = await this.listFavoritesRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * list MainItems
+     */
+    async listMainItemsRaw(requestParameters: ListMainItemsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListMainItemResponse>> {
+        if (requestParameters['mainType'] == null) {
+            throw new runtime.RequiredError(
+                'mainType',
+                'Required parameter "mainType" was null or undefined when calling listMainItems().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['mainType'] != null) {
+            queryParameters['mainType'] = requestParameters['mainType'];
+        }
+
+        if (requestParameters['type'] != null) {
+            queryParameters['type'] = requestParameters['type'];
+        }
+
+        if (requestParameters['subType'] != null) {
+            queryParameters['subType'] = requestParameters['subType'];
+        }
+
+        if (requestParameters['offset'] != null) {
+            queryParameters['offset'] = requestParameters['offset'];
+        }
+
+        if (requestParameters['limit'] != null) {
+            queryParameters['limit'] = requestParameters['limit'];
+        }
+
+        if (requestParameters['orderBy'] != null) {
+            queryParameters['orderBy'] = requestParameters['orderBy'];
+        }
+
+        if (requestParameters['sort'] != null) {
+            queryParameters['sort'] = requestParameters['sort'];
+        }
+
+        if (requestParameters['keyword'] != null) {
+            queryParameters['keyword'] = requestParameters['keyword'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/public/item/main`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response);
+    }
+
+    /**
+     * list MainItems
+     */
+    async listMainItems(requestParameters: ListMainItemsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListMainItemResponse> {
+        const response = await this.listMainItemsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * list SubItemFavorite
+     */
+    async listSubItemFavoritesRaw(requestParameters: ListSubItemFavoritesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListSubItemFavoriteResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters['itemId'] != null) {
+            queryParameters['itemId'] = requestParameters['itemId'];
+        }
+
+        if (requestParameters['offset'] != null) {
+            queryParameters['offset'] = requestParameters['offset'];
+        }
+
+        if (requestParameters['limit'] != null) {
+            queryParameters['limit'] = requestParameters['limit'];
+        }
+
+        if (requestParameters['orderBy'] != null) {
+            queryParameters['orderBy'] = requestParameters['orderBy'];
+        }
+
+        if (requestParameters['sort'] != null) {
+            queryParameters['sort'] = requestParameters['sort'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/favorite/sub`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response);
+    }
+
+    /**
+     * list SubItemFavorite
+     */
+    async listSubItemFavorites(requestParameters: ListSubItemFavoritesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListSubItemFavoriteResponse> {
+        const response = await this.listSubItemFavoritesRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * get a list of on air MainItems with cover image
      */
     async onAirItemRaw(requestParameters: OnAirItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetOnAirItemListResponse>> {
@@ -143,6 +679,48 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
     async onAirItem(requestParameters: OnAirItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetOnAirItemListResponse> {
         const response = await this.onAirItemRaw(requestParameters, initOverrides);
         return await response.value();
+    }
+
+    /**
+     * change status of a favorite
+     */
+    async patchFavoriteRaw(requestParameters: PatchFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling patchFavorite().'
+            );
+        }
+
+        if (requestParameters['PatchFavoriteBody'] == null) {
+            throw new runtime.RequiredError(
+                'PatchFavoriteBody',
+                'Required parameter "PatchFavoriteBody" was null or undefined when calling patchFavorite().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/favorite/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters['PatchFavoriteBody'],
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * change status of a favorite
+     */
+    async patchFavorite(requestParameters: PatchFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.patchFavoriteRaw(requestParameters, initOverrides);
     }
 
 }

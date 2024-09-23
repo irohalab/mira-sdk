@@ -1,0 +1,271 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: mira Favorite API
+  description: Favorite API for Project-Mira
+paths:
+  /favorite:
+    get:
+      description: list favorites for user
+      operationId: listFavorites
+      parameters:
+        - name: status
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: orderBy
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully returns a list of favorite object of a user
+          content:
+            application/json:
+              schema:
+                title: listFavoritesResponse
+                type: object
+                required:
+                  - data
+                  - total
+                  - status
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Favorite'
+                    description: a list of Favorite
+                  total:
+                    type: integer
+                    description: total number of the result
+                  status:
+                    type: integer
+                    description: 'result code, 0 is successful.'
+    post:
+      description: create a favorite for user and item
+      operationId: createFavorite
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              title: createFavoriteRequestBody
+              type: object
+              required:
+                - status
+                - itemId
+              properties:
+                status:
+                  $ref: '#/components/schemas/FavoriteStatus'
+                itemId:
+                  type: string
+      responses:
+        '200':
+          description: Successfully created a favorite record for itemId
+          content:
+            application/json:
+              schema:
+                title: createFavoriteResponse
+                type: object
+                required:
+                  - data
+                  - status
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Favorite'
+                  status:
+                    type: integer
+                    description: 'result code, 0 is successful.'
+  /favorite/{id}:
+    delete:
+      description: Delete a favorite
+      operationId: deleteFavorite
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully deleted a favorite
+    patch:
+      description: change status of a favorite
+      operationId: patchFavorite
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              title: patchFavoriteBody
+              type: object
+              required:
+                - status
+              properties:
+                status:
+                  $ref: '#/components/schemas/FavoriteStatus'
+      responses:
+        '200':
+          description: Successfully patch a favorite
+  /favorite/sub:
+    get:
+      description: list SubItemFavorite
+      operationId: listSubItemFavorites
+      parameters:
+        - name: itemId
+          in: query
+          required: false
+          schema:
+            type: string
+          description: itemId of the SubItem, if provided then other parameters are ignored
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: orderBy
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully return a list of SubItemFavorite
+          content:
+            application/json:
+              schema:
+                title: listSubItemFavoriteResponse
+                type: object
+                required:
+                  - data
+                  - status
+                properties:
+                  data:
+                    $ref: '#/components/schemas/SubItemFavorite'
+                  total:
+                    type: integer
+                    description: total number of the result, if itemId is provided, this field will not available
+                  status:
+                    type: integer
+                    description: 'result code, 0 is successful.'
+    post:
+      description: create a SubItemFavorite
+      operationId: createSubItemFavorite
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              title: createSubItemFavoriteRequestBody
+              type: object
+              required:
+                - subItem
+              properties:
+                subItem:
+                  type: string
+      responses:
+        '200':
+          description: Successfully created a SubItemFavorite
+          content:
+            application/json:
+              schema:
+                title: createSubItemFavoriteResponse
+                type: object
+                required:
+                  - data
+                  - status
+                properties:
+                  data:
+                    $ref: '#/components/schemas/SubItemFavorite'
+                  status:
+                    type: integer
+                    description: 'result code, 0 is successful.'
+  /favorite/sub/{id}:
+    post:
+      description: Delete a SubItemFavorite
+      operationId: deleteSubItemFavorite
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully deleted a SubItemFavorite
+components:
+  schemas:
+    FavoriteStatus:
+      type: string
+      enum:
+        - Planned
+        - Watched
+        - Watching
+        - OnHold
+        - Dropped
+      x-enum-varnames:
+        - Planned
+        - Watched
+        - Watching
+        - OnHold
+        - Dropped
+    Favorite:
+      allOf:
+        - $ref: '#/components/schemas/EntityBase'  # not an error, the merger doesn't support local file $ref
+        - type: object
+          required:
+            - status
+            - item
+            - userId
+          properties:
+            status:
+              $ref: '#/components/schemas/FavoriteStatus'
+            item:
+              $ref: '#/components/schemas/MainItem' # not an error, the merger doesn't support local file $ref
+            userId:
+              type: string
+    SubItemFavorite:
+      allOf:
+        - $ref: '#/components/schemas/EntityBase'  # not an error, the merger doesn't support local file $ref
+        - type: object
+          required:
+            - subItem
+            - userId
+          properties:
+            subItem:
+              $ref: '#/components/schemas/SubItem'  # not an error, the merger doesn't support local file $ref
+            userId:
+              type: string

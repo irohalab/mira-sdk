@@ -8,11 +8,14 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { SubItem } from './subItem';
 
 
-/**
- * @type PropertyValueValue
- * @export
- */
-export type PropertyValueValue = Array<string> | Array<{ [key: string]: string; }> | string;
+export interface GetSubItemResponse { 
+    data: SubItem;
+    /**
+     * result code, 0 is successful.
+     */
+    status: number;
+}
 

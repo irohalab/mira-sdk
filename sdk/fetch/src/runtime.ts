@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * mira Item API
- * Item API for Project-Mira
+ * mira API
+ * API for Project-Mira
  *
  * The version of the OpenAPI document: 1.0.0
  * 

@@ -8,18 +8,18 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { OnAirItem } from './onAirItem';
+import { Favorite } from './favorite';
 
 
-export interface GetOnAirItemListResponse { 
+export interface ListFavoritesResponse { 
     /**
-     * a list of OnAirItems
+     * a list of Favorite
      */
-    data: Array<OnAirItem>;
+    data: Array<Favorite>;
     /**
      * total number of the result
      */
-    total?: number;
+    total: number;
     /**
      * result code, 0 is successful.
      */

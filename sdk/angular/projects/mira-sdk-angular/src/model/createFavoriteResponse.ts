@@ -8,11 +8,14 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { Favorite } from './favorite';
 
 
-/**
- * @type PropertyValueValue
- * @export
- */
-export type PropertyValueValue = Array<string> | Array<{ [key: string]: string; }> | string;
+export interface CreateFavoriteResponse { 
+    data: Favorite;
+    /**
+     * result code, 0 is successful.
+     */
+    status: number;
+}
 

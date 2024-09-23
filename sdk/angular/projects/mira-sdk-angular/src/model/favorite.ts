@@ -8,9 +8,11 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { FavoriteStatus } from './favoriteStatus';
+import { MainItem } from './mainItem';
 
 
-export interface EntityBase { 
+export interface Favorite { 
     id: string;
     /**
      * RFC3339 Datetime
@@ -22,5 +24,11 @@ export interface EntityBase {
     updateTime?: string;
     version: number;
     deleted: boolean;
+    status: FavoriteStatus;
+    item: MainItem;
+    userId: string;
 }
+export namespace Favorite {
+}
+
 

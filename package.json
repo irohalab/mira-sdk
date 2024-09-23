@@ -1,10 +1,11 @@
 {
   "name": "mira-sdk",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "SDK for project-mira",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "merge": "openapi-merge-cli",
     "sdk:angular": "npm run clean:sdk:angular && npx openapi-generator-cli generate --generator-key angular",
     "sdk:fetch": "npm run clean:sdk:fetch && npx openapi-generator-cli generate --generator-key fetch",
     "clean:sdk:angular": "rimraf sdk/angular/projects/mira-sdk-angular/src/**",
@@ -21,6 +22,7 @@
   },
   "homepage": "https://github.com/irohalab/mira-sdk#readme",
   "devDependencies": {
+    "@iouring-engineering/openapi-merge-cli": "^1.5.1",
     "@openapitools/openapi-generator-cli": "^2.13.5",
     "rimraf": "^6.0.1"
   }

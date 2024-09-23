@@ -1,0 +1,16 @@
+{
+  "inputs": [
+    {
+      "inputFile": "./specification/items.yml"
+    },
+    {
+      "inputFile": "./specification/favorites.yml"
+    }
+  ],
+  "info": {
+    "version": "1.0.0",
+    "title": "mira API",
+    "description": "API for Project-Mira"
+  },
+  "output": "./api.yml"
+}

@@ -8,9 +8,10 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { SubItem } from './subItem';
 
 
-export interface EntityBase { 
+export interface SubItemFavorite { 
     id: string;
     /**
      * RFC3339 Datetime
@@ -22,5 +23,7 @@ export interface EntityBase {
     updateTime?: string;
     version: number;
     deleted: boolean;
+    subItem: SubItem;
+    userId: string;
 }
 

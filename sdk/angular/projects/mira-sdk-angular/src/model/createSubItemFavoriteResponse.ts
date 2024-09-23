@@ -8,11 +8,14 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { SubItemFavorite } from './subItemFavorite';
 
 
-/**
- * @type PropertyValueValue
- * @export
- */
-export type PropertyValueValue = Array<string> | Array<{ [key: string]: string; }> | string;
+export interface CreateSubItemFavoriteResponse { 
+    data: SubItemFavorite;
+    /**
+     * result code, 0 is successful.
+     */
+    status: number;
+}
 

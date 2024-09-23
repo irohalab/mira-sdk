@@ -1,6 +1,6 @@
 /**
- * mira Item API
- * Item API for Project-Mira
+ * mira API
+ * API for Project-Mira
  *
  * 
  *
@@ -12,8 +12,17 @@ import { HttpHeaders }                                       from '@angular/comm
 
 import { Observable }                                        from 'rxjs';
 
+import { CreateFavoriteRequestBody } from '../model/models';
+import { CreateFavoriteResponse } from '../model/models';
+import { CreateSubItemFavoriteRequestBody } from '../model/models';
+import { CreateSubItemFavoriteResponse } from '../model/models';
 import { GetMainItemByIdResponse } from '../model/models';
 import { GetOnAirItemListResponse } from '../model/models';
+import { GetSubItemResponse } from '../model/models';
+import { ListFavoritesResponse } from '../model/models';
+import { ListMainItemResponse } from '../model/models';
+import { ListSubItemFavoriteResponse } from '../model/models';
+import { PatchFavoriteBody } from '../model/models';
 
 
 import { MiraConfiguration }                                     from '../configuration';
@@ -26,6 +35,34 @@ export interface DefaultMiraInterface {
 
     /**
      * 
+     * create a favorite for user and item
+     * @param CreateFavoriteRequestBody 
+     */
+    createFavorite(CreateFavoriteRequestBody: CreateFavoriteRequestBody, extraHttpRequestParams?: any): Observable<CreateFavoriteResponse>;
+
+    /**
+     * 
+     * create a SubItemFavorite
+     * @param CreateSubItemFavoriteRequestBody 
+     */
+    createSubItemFavorite(CreateSubItemFavoriteRequestBody: CreateSubItemFavoriteRequestBody, extraHttpRequestParams?: any): Observable<CreateSubItemFavoriteResponse>;
+
+    /**
+     * 
+     * Delete a favorite
+     * @param id 
+     */
+    deleteFavorite(id: string, extraHttpRequestParams?: any): Observable<{}>;
+
+    /**
+     * 
+     * Delete a SubItemFavorite
+     * @param id 
+     */
+    deleteSubItemFavorite(id: string, extraHttpRequestParams?: any): Observable<{}>;
+
+    /**
+     * 
      * get a MainItem by id
      * @param id MainItem id
      * @param coverImage populate coverImage if true
@@ -34,9 +71,60 @@ export interface DefaultMiraInterface {
 
     /**
      * 
+     * get a SubItem by id
+     * @param id SubItem Id
+     */
+    getSubItemById(id: string, extraHttpRequestParams?: any): Observable<GetSubItemResponse>;
+
+    /**
+     * 
+     * list favorites for user
+     * @param status 
+     * @param offset 
+     * @param limit 
+     * @param orderBy 
+     * @param sort 
+     */
+    listFavorites(status: string, offset?: number, limit?: number, orderBy?: string, sort?: string, extraHttpRequestParams?: any): Observable<ListFavoritesResponse>;
+
+    /**
+     * 
+     * list MainItems
+     * @param mainType 
+     * @param type 
+     * @param subType 
+     * @param offset 
+     * @param limit 
+     * @param orderBy 
+     * @param sort 
+     * @param keyword 
+     */
+    listMainItems(mainType: string, type?: string, subType?: string, offset?: number, limit?: number, orderBy?: string, sort?: string, keyword?: string, extraHttpRequestParams?: any): Observable<ListMainItemResponse>;
+
+    /**
+     * 
+     * list SubItemFavorite
+     * @param itemId itemId of the SubItem, if provided then other parameters are ignored
+     * @param offset 
+     * @param limit 
+     * @param orderBy 
+     * @param sort 
+     */
+    listSubItemFavorites(itemId?: string, offset?: number, limit?: number, orderBy?: string, sort?: string, extraHttpRequestParams?: any): Observable<ListSubItemFavoriteResponse>;
+
+    /**
+     * 
      * get a list of on air MainItems with cover image
      * @param type type of MainItem, must be either anime or real
      */
     onAirItem(type: string, extraHttpRequestParams?: any): Observable<GetOnAirItemListResponse>;
+
+    /**
+     * 
+     * change status of a favorite
+     * @param id 
+     * @param PatchFavoriteBody 
+     */
+    patchFavorite(id: string, PatchFavoriteBody: PatchFavoriteBody, extraHttpRequestParams?: any): Observable<{}>;
 
 }

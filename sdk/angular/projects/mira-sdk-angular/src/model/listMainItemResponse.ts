@@ -8,18 +8,18 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { OnAirItem } from './onAirItem';
+import { MainItem } from './mainItem';
 
 
-export interface GetOnAirItemListResponse { 
+export interface ListMainItemResponse { 
     /**
-     * a list of OnAirItems
+     * a list of MainItems
      */
-    data: Array<OnAirItem>;
+    data: Array<MainItem>;
     /**
      * total number of the result
      */
-    total?: number;
+    total: number;
     /**
      * result code, 0 is successful.
      */

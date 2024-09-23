@@ -3,6 +3,78 @@
 /**
  * 
  * @export
+ * @interface CreateFavoriteRequestBody
+ */
+export interface CreateFavoriteRequestBody {
+    /**
+     * 
+     * @type {FavoriteStatus}
+     * @memberof CreateFavoriteRequestBody
+     */
+    status: FavoriteStatus;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateFavoriteRequestBody
+     */
+    itemId: string;
+}
+
+
+/**
+ * 
+ * @export
+ * @interface CreateFavoriteResponse
+ */
+export interface CreateFavoriteResponse {
+    /**
+     * 
+     * @type {Favorite}
+     * @memberof CreateFavoriteResponse
+     */
+    data: Favorite;
+    /**
+     * result code, 0 is successful.
+     * @type {number}
+     * @memberof CreateFavoriteResponse
+     */
+    status: number;
+}
+/**
+ * 
+ * @export
+ * @interface CreateSubItemFavoriteRequestBody
+ */
+export interface CreateSubItemFavoriteRequestBody {
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateSubItemFavoriteRequestBody
+     */
+    subItem: string;
+}
+/**
+ * 
+ * @export
+ * @interface CreateSubItemFavoriteResponse
+ */
+export interface CreateSubItemFavoriteResponse {
+    /**
+     * 
+     * @type {SubItemFavorite}
+     * @memberof CreateSubItemFavoriteResponse
+     */
+    data: SubItemFavorite;
+    /**
+     * result code, 0 is successful.
+     * @type {number}
+     * @memberof CreateSubItemFavoriteResponse
+     */
+    status: number;
+}
+/**
+ * 
+ * @export
  * @interface EntityBase
  */
 export interface EntityBase {
@@ -37,6 +109,77 @@ export interface EntityBase {
      */
     deleted: boolean;
 }
+/**
+ * 
+ * @export
+ * @interface Favorite
+ */
+export interface Favorite {
+    /**
+     * 
+     * @type {string}
+     * @memberof Favorite
+     */
+    id: string;
+    /**
+     * RFC3339 Datetime
+     * @type {string}
+     * @memberof Favorite
+     */
+    createdTime: string;
+    /**
+     * RFC3339 Datetime to set the updateTime
+     * @type {string}
+     * @memberof Favorite
+     */
+    updateTime?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof Favorite
+     */
+    version: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Favorite
+     */
+    deleted: boolean;
+    /**
+     * 
+     * @type {FavoriteStatus}
+     * @memberof Favorite
+     */
+    status: FavoriteStatus;
+    /**
+     * 
+     * @type {MainItem}
+     * @memberof Favorite
+     */
+    item: MainItem;
+    /**
+     * 
+     * @type {string}
+     * @memberof Favorite
+     */
+    userId: string;
+}
+
+
+
+/**
+ * 
+ * @export
+ */
+export const FavoriteStatus = {
+    Planned: 'Planned',
+    Watched: 'Watched',
+    Watching: 'Watching',
+    OnHold: 'OnHold',
+    Dropped: 'Dropped'
+} as const;
+export type FavoriteStatus = typeof FavoriteStatus[keyof typeof FavoriteStatus];
+
 /**
  * 
  * @export
@@ -78,6 +221,25 @@ export interface GetOnAirItemListResponse {
      * result code, 0 is successful.
      * @type {number}
      * @memberof GetOnAirItemListResponse
+     */
+    status: number;
+}
+/**
+ * 
+ * @export
+ * @interface GetSubItemResponse
+ */
+export interface GetSubItemResponse {
+    /**
+     * 
+     * @type {SubItem}
+     * @memberof GetSubItemResponse
+     */
+    data: SubItem;
+    /**
+     * result code, 0 is successful.
+     * @type {number}
+     * @memberof GetSubItemResponse
      */
     status: number;
 }
@@ -273,6 +435,81 @@ export type ItemType = typeof ItemType[keyof typeof ItemType];
 /**
  * 
  * @export
+ * @interface ListFavoritesResponse
+ */
+export interface ListFavoritesResponse {
+    /**
+     * a list of Favorite
+     * @type {Array<Favorite>}
+     * @memberof ListFavoritesResponse
+     */
+    data: Array<Favorite>;
+    /**
+     * total number of the result
+     * @type {number}
+     * @memberof ListFavoritesResponse
+     */
+    total: number;
+    /**
+     * result code, 0 is successful.
+     * @type {number}
+     * @memberof ListFavoritesResponse
+     */
+    status: number;
+}
+/**
+ * 
+ * @export
+ * @interface ListMainItemResponse
+ */
+export interface ListMainItemResponse {
+    /**
+     * a list of MainItems
+     * @type {Array<MainItem>}
+     * @memberof ListMainItemResponse
+     */
+    data: Array<MainItem>;
+    /**
+     * total number of the result
+     * @type {number}
+     * @memberof ListMainItemResponse
+     */
+    total: number;
+    /**
+     * result code, 0 is successful.
+     * @type {number}
+     * @memberof ListMainItemResponse
+     */
+    status: number;
+}
+/**
+ * 
+ * @export
+ * @interface ListSubItemFavoriteResponse
+ */
+export interface ListSubItemFavoriteResponse {
+    /**
+     * 
+     * @type {SubItemFavorite}
+     * @memberof ListSubItemFavoriteResponse
+     */
+    data: SubItemFavorite;
+    /**
+     * total number of the result, if itemId is provided, this field will not available
+     * @type {number}
+     * @memberof ListSubItemFavoriteResponse
+     */
+    total?: number;
+    /**
+     * result code, 0 is successful.
+     * @type {number}
+     * @memberof ListSubItemFavoriteResponse
+     */
+    status: number;
+}
+/**
+ * 
+ * @export
  * @interface MainItem
  */
 export interface MainItem {
@@ -457,6 +694,21 @@ export interface OnAirItem {
 /**
  * 
  * @export
+ * @interface PatchFavoriteBody
+ */
+export interface PatchFavoriteBody {
+    /**
+     * 
+     * @type {FavoriteStatus}
+     * @memberof PatchFavoriteBody
+     */
+    status: FavoriteStatus;
+}
+
+
+/**
+ * 
+ * @export
  * @interface PropertyValue
  */
 export interface PropertyValue {
@@ -628,3 +880,52 @@ export const SubItemEpisodeTypeEnum = {
 } as const;
 export type SubItemEpisodeTypeEnum = typeof SubItemEpisodeTypeEnum[keyof typeof SubItemEpisodeTypeEnum];
 
+/**
+ * 
+ * @export
+ * @interface SubItemFavorite
+ */
+export interface SubItemFavorite {
+    /**
+     * 
+     * @type {string}
+     * @memberof SubItemFavorite
+     */
+    id: string;
+    /**
+     * RFC3339 Datetime
+     * @type {string}
+     * @memberof SubItemFavorite
+     */
+    createdTime: string;
+    /**
+     * RFC3339 Datetime to set the updateTime
+     * @type {string}
+     * @memberof SubItemFavorite
+     */
+    updateTime?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SubItemFavorite
+     */
+    version: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SubItemFavorite
+     */
+    deleted: boolean;
+    /**
+     * 
+     * @type {SubItem}
+     * @memberof SubItemFavorite
+     */
+    subItem: SubItem;
+    /**
+     * 
+     * @type {string}
+     * @memberof SubItemFavorite
+     */
+    userId: string;
+}

@@ -10,9 +10,7 @@
  */
 
 
-/**
- * @type PropertyValueValue
- * @export
- */
-export type PropertyValueValue = Array<string> | Array<{ [key: string]: string; }> | string;
+export interface CreateSubItemFavoriteRequestBody { 
+    subItem: string;
+}
 
