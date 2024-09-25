@@ -8,33 +8,18 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { PropertyValue } from './propertyValue';
+import { ItemEntityPropertiesValue } from './itemEntityPropertiesValue';
 
 
 export interface ItemEntity { 
     id: string;
-    /**
-     * RFC3339 Datetime
-     */
-    createdTime: string;
-    /**
-     * RFC3339 Datetime to set the updateTime
-     */
-    updateTime?: string;
-    version: number;
-    deleted: boolean;
     bgmId: number;
-    isBgmHide: boolean;
-    lockedInBgm: boolean;
     /**
      * Not used for ItemType.Individual and ItemType.Character
      */
     publicTime?: string;
-    /**
-     * Not used for ItemType.Individual and ItemType.Character
-     */
-    isPublicTimeLocked: boolean;
-    properties: { [key: string]: PropertyValue; };
-    isCoverImageLocked: boolean;
+    name?: string;
+    name_cn?: string;
+    properties: { [key: string]: ItemEntityPropertiesValue; };
 }
 

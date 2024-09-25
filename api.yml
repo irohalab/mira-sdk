@@ -361,9 +361,9 @@ paths:
               title: createSubItemFavoriteRequestBody
               type: object
               required:
-                - subItem
+                - subItemId
               properties:
-                subItem:
+                subItemId:
                   type: string
       responses:
         '200':
@@ -541,59 +541,38 @@ components:
           type: string
         coverImage:
           $ref: '#/components/schemas/ImageInfo'
-    EntityBase:
+    ItemEntity:
       type: object
       required:
         - id
-        - createdTime
-        - version
-        - deleted
+        - bgmId
+        - properties
       properties:
         id:
           type: string
-        createdTime:
-          type: string
-          description: RFC3339 Datetime
-          format: date-time
-          example: '2022-12-21T01:58:00Z'
-        updateTime:
-          type: string
-          description: RFC3339 Datetime to set the updateTime
-        version:
+        bgmId:
           type: integer
-        deleted:
-          type: boolean
-    ItemEntity:
-      allOf:
-        - $ref: '#/components/schemas/EntityBase'
-        - type: object
-          required:
-            - bgmId
-            - isBgmHide
-            - lockedInBgm
-            - isPublicTimeLocked
-            - properties
-            - isCoverImageLocked
-          properties:
-            bgmId:
-              type: integer
-            isBgmHide:
-              type: boolean
-            lockedInBgm:
-              type: boolean
-            publicTime:
-              type: string
-              format: date-time
-              description: Not used for ItemType.Individual and ItemType.Character
-            isPublicTimeLocked:
-              type: boolean
-              description: Not used for ItemType.Individual and ItemType.Character
-            properties:
-              type: object
-              additionalProperties:
-                $ref: '#/components/schemas/PropertyValue'
-            isCoverImageLocked:
-              type: boolean
+        publicTime:
+          type: string
+          format: date-time
+          description: Not used for ItemType.Individual and ItemType.Character
+        name:
+          type: string
+        name_cn:
+          type: string
+        properties:
+          type: object
+          additionalProperties:
+            oneOf:
+              - type: string
+              - type: array
+                items:
+                  type: object
+                  additionalProperties:
+                    type: string
+              - type: array
+                items:
+                  type: string
     MainItem:
       allOf:
         - $ref: '#/components/schemas/ItemEntity'
@@ -623,39 +602,14 @@ components:
               description: determine if the MainItem is collection item
             coverImage:
               $ref: '#/components/schemas/ImageInfo'
+            squareImage:
+              $ref: '#/components/schemas/ImageInfo'
             subItem:
               type: array
               items:
                 $ref: '#/components/schemas/SubItem'
-    PropertyValue:
-      title: PropertyValue
-      type: object
-      required:
-        - value
-        - locked
-      properties:
-        propertyType:
-          type: string
-          nullable: true
-          enum:
-            - Staff
-            - Item
-            - Character
-            - Info
-            - Cast
-        locked:
-          type: boolean
-        value:
-          oneOf:
-            - type: string
-            - type: array
-              items:
-                type: object
-                additionalProperties:
-                  type: string
-            - type: array
-              items:
-                type: string
+            summary:
+              type: string
     ImageInfo:
       title: ImageInfo
       type: object
@@ -686,6 +640,7 @@ components:
             - type
             - episodeType
             - sort
+            - mainItemId
           properties:
             type:
               type: integer
@@ -710,8 +665,14 @@ components:
             disc:
               type: integer
               nullable: true
+            desc:
+              type: string
             sort:
               type: number
+            mainItemId:
+              type: string
+            mainItem:
+              $ref: '#/components/schemas/MainItem'
     FavoriteStatus:
       type: string
       enum:
@@ -727,29 +688,31 @@ components:
         - OnHold
         - Dropped
     Favorite:
-      allOf:
-        - $ref: '#/components/schemas/EntityBase'
-        - type: object
-          required:
-            - status
-            - item
-            - userId
-          properties:
-            status:
-              $ref: '#/components/schemas/FavoriteStatus'
-            item:
-              $ref: '#/components/schemas/MainItem'
-            userId:
-              type: string
+      type: object
+      required:
+        - id
+        - status
+        - item
+        - userId
+      properties:
+        id:
+          type: string
+        status:
+          $ref: '#/components/schemas/FavoriteStatus'
+        item:
+          $ref: '#/components/schemas/MainItem'
+        userId:
+          type: string
     SubItemFavorite:
-      allOf:
-        - $ref: '#/components/schemas/EntityBase'
-        - type: object
-          required:
-            - subItem
-            - userId
-          properties:
-            subItem:
-              $ref: '#/components/schemas/SubItem'
-            userId:
-              type: string
+      type: object
+      required:
+        - id
+        - subItem
+        - userId
+      properties:
+        id:
+          type: string
+        subItem:
+          $ref: '#/components/schemas/SubItem'
+        userId:
+          type: string

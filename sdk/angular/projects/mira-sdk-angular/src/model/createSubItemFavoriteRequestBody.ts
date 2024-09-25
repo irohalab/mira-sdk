@@ -11,6 +11,6 @@
 
 
 export interface CreateSubItemFavoriteRequestBody { 
-    subItem: string;
+    subItemId: string;
 }
 

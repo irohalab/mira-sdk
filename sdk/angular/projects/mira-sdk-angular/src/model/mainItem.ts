@@ -9,37 +9,22 @@
  * Do not edit the class manually.
  */
 import { ItemSubType } from './itemSubType';
+import { ItemEntityPropertiesValue } from './itemEntityPropertiesValue';
 import { ItemType } from './itemType';
 import { SubItem } from './subItem';
-import { PropertyValue } from './propertyValue';
 import { ImageInfo } from './imageInfo';
 
 
 export interface MainItem { 
     id: string;
-    /**
-     * RFC3339 Datetime
-     */
-    createdTime: string;
-    /**
-     * RFC3339 Datetime to set the updateTime
-     */
-    updateTime?: string;
-    version: number;
-    deleted: boolean;
     bgmId: number;
-    isBgmHide: boolean;
-    lockedInBgm: boolean;
     /**
      * Not used for ItemType.Individual and ItemType.Character
      */
     publicTime?: string;
-    /**
-     * Not used for ItemType.Individual and ItemType.Character
-     */
-    isPublicTimeLocked: boolean;
-    properties: { [key: string]: PropertyValue; };
-    isCoverImageLocked: boolean;
+    name?: string;
+    name_cn?: string;
+    properties: { [key: string]: ItemEntityPropertiesValue; };
     mainType: MainItem.MainTypeEnum;
     type: ItemType;
     subType?: ItemSubType;
@@ -48,7 +33,9 @@ export interface MainItem {
      */
     isCollection: boolean;
     coverImage?: ImageInfo;
+    squareImage?: ImageInfo;
     subItem?: Array<SubItem>;
+    summary?: string;
 }
 export namespace MainItem {
     export type MainTypeEnum = 0 | 1 | 2;

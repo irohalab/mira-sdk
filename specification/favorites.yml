@@ -192,9 +192,9 @@ paths:
               title: createSubItemFavoriteRequestBody
               type: object
               required:
-                - subItem
+                - subItemId
               properties:
-                subItem:
+                subItemId:
                   type: string
       responses:
         '200':
@@ -243,29 +243,31 @@ components:
         - OnHold
         - Dropped
     Favorite:
-      allOf:
-        - $ref: '#/components/schemas/EntityBase'  # not an error, the merger doesn't support local file $ref
-        - type: object
-          required:
-            - status
-            - item
-            - userId
-          properties:
-            status:
-              $ref: '#/components/schemas/FavoriteStatus'
-            item:
-              $ref: '#/components/schemas/MainItem' # not an error, the merger doesn't support local file $ref
-            userId:
-              type: string
+      type: object
+      required:
+        - id
+        - status
+        - item
+        - userId
+      properties:
+        id:
+          type: string
+        status:
+          $ref: '#/components/schemas/FavoriteStatus'
+        item:
+          $ref: '#/components/schemas/MainItem' # not an error, the merger doesn't support local file $ref
+        userId:
+          type: string
     SubItemFavorite:
-      allOf:
-        - $ref: '#/components/schemas/EntityBase'  # not an error, the merger doesn't support local file $ref
-        - type: object
-          required:
-            - subItem
-            - userId
-          properties:
-            subItem:
-              $ref: '#/components/schemas/SubItem'  # not an error, the merger doesn't support local file $ref
-            userId:
-              type: string
+      type: object
+      required:
+        - id
+        - subItem
+        - userId
+      properties:
+        id:
+          type: string
+        subItem:
+          $ref: '#/components/schemas/SubItem'  # not an error, the merger doesn't support local file $ref
+        userId:
+          type: string

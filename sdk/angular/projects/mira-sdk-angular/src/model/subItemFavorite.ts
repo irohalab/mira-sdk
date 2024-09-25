@@ -13,16 +13,6 @@ import { SubItem } from './subItem';
 
 export interface SubItemFavorite { 
     id: string;
-    /**
-     * RFC3339 Datetime
-     */
-    createdTime: string;
-    /**
-     * RFC3339 Datetime to set the updateTime
-     */
-    updateTime?: string;
-    version: number;
-    deleted: boolean;
     subItem: SubItem;
     userId: string;
 }

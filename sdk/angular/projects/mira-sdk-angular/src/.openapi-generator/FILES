@@ -12,7 +12,6 @@ model/createFavoriteRequestBody.ts
 model/createFavoriteResponse.ts
 model/createSubItemFavoriteRequestBody.ts
 model/createSubItemFavoriteResponse.ts
-model/entityBase.ts
 model/favorite.ts
 model/favoriteStatus.ts
 model/getMainItemByIdResponse.ts
@@ -20,6 +19,7 @@ model/getOnAirItemListResponse.ts
 model/getSubItemResponse.ts
 model/imageInfo.ts
 model/itemEntity.ts
+model/itemEntityPropertiesValue.ts
 model/itemSubType.ts
 model/itemType.ts
 model/listFavoritesResponse.ts
@@ -29,8 +29,6 @@ model/mainItem.ts
 model/models.ts
 model/onAirItem.ts
 model/patchFavoriteBody.ts
-model/propertyValue.ts
-model/propertyValueValue.ts
 model/subItem.ts
 model/subItemFavorite.ts
 param.ts

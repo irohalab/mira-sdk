@@ -14,16 +14,6 @@ import { MainItem } from './mainItem';
 
 export interface Favorite { 
     id: string;
-    /**
-     * RFC3339 Datetime
-     */
-    createdTime: string;
-    /**
-     * RFC3339 Datetime to set the updateTime
-     */
-    updateTime?: string;
-    version: number;
-    deleted: boolean;
     status: FavoriteStatus;
     item: MainItem;
     userId: string;

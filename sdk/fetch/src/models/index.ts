@@ -51,7 +51,7 @@ export interface CreateSubItemFavoriteRequestBody {
      * @type {string}
      * @memberof CreateSubItemFavoriteRequestBody
      */
-    subItem: string;
+    subItemId: string;
 }
 /**
  * 
@@ -75,43 +75,6 @@ export interface CreateSubItemFavoriteResponse {
 /**
  * 
  * @export
- * @interface EntityBase
- */
-export interface EntityBase {
-    /**
-     * 
-     * @type {string}
-     * @memberof EntityBase
-     */
-    id: string;
-    /**
-     * RFC3339 Datetime
-     * @type {string}
-     * @memberof EntityBase
-     */
-    createdTime: string;
-    /**
-     * RFC3339 Datetime to set the updateTime
-     * @type {string}
-     * @memberof EntityBase
-     */
-    updateTime?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof EntityBase
-     */
-    version: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof EntityBase
-     */
-    deleted: boolean;
-}
-/**
- * 
- * @export
  * @interface Favorite
  */
 export interface Favorite {
@@ -121,30 +84,6 @@ export interface Favorite {
      * @memberof Favorite
      */
     id: string;
-    /**
-     * RFC3339 Datetime
-     * @type {string}
-     * @memberof Favorite
-     */
-    createdTime: string;
-    /**
-     * RFC3339 Datetime to set the updateTime
-     * @type {string}
-     * @memberof Favorite
-     */
-    updateTime?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof Favorite
-     */
-    version: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof Favorite
-     */
-    deleted: boolean;
     /**
      * 
      * @type {FavoriteStatus}
@@ -293,47 +232,11 @@ export interface ItemEntity {
      */
     id: string;
     /**
-     * RFC3339 Datetime
-     * @type {string}
-     * @memberof ItemEntity
-     */
-    createdTime: string;
-    /**
-     * RFC3339 Datetime to set the updateTime
-     * @type {string}
-     * @memberof ItemEntity
-     */
-    updateTime?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof ItemEntity
-     */
-    version: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof ItemEntity
-     */
-    deleted: boolean;
-    /**
      * 
      * @type {number}
      * @memberof ItemEntity
      */
     bgmId: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof ItemEntity
-     */
-    isBgmHide: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof ItemEntity
-     */
-    lockedInBgm: boolean;
     /**
      * Not used for ItemType.Individual and ItemType.Character
      * @type {string}
@@ -341,24 +244,30 @@ export interface ItemEntity {
      */
     publicTime?: string;
     /**
-     * Not used for ItemType.Individual and ItemType.Character
-     * @type {boolean}
+     * 
+     * @type {string}
      * @memberof ItemEntity
      */
-    isPublicTimeLocked: boolean;
+    name?: string;
     /**
      * 
-     * @type {{ [key: string]: PropertyValue; }}
+     * @type {string}
      * @memberof ItemEntity
      */
-    properties: { [key: string]: PropertyValue; };
+    nameCn?: string;
     /**
      * 
-     * @type {boolean}
+     * @type {{ [key: string]: ItemEntityPropertiesValue; }}
      * @memberof ItemEntity
      */
-    isCoverImageLocked: boolean;
+    properties: { [key: string]: ItemEntityPropertiesValue; };
 }
+/**
+ * @type ItemEntityPropertiesValue
+ * 
+ * @export
+ */
+export type ItemEntityPropertiesValue = Array<string> | Array<{ [key: string]: string; }> | string;
 
 /**
  * 
@@ -520,47 +429,11 @@ export interface MainItem {
      */
     id: string;
     /**
-     * RFC3339 Datetime
-     * @type {string}
-     * @memberof MainItem
-     */
-    createdTime: string;
-    /**
-     * RFC3339 Datetime to set the updateTime
-     * @type {string}
-     * @memberof MainItem
-     */
-    updateTime?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof MainItem
-     */
-    version: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof MainItem
-     */
-    deleted: boolean;
-    /**
      * 
      * @type {number}
      * @memberof MainItem
      */
     bgmId: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof MainItem
-     */
-    isBgmHide: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof MainItem
-     */
-    lockedInBgm: boolean;
     /**
      * Not used for ItemType.Individual and ItemType.Character
      * @type {string}
@@ -568,23 +441,23 @@ export interface MainItem {
      */
     publicTime?: string;
     /**
-     * Not used for ItemType.Individual and ItemType.Character
-     * @type {boolean}
+     * 
+     * @type {string}
      * @memberof MainItem
      */
-    isPublicTimeLocked: boolean;
+    name?: string;
     /**
      * 
-     * @type {{ [key: string]: PropertyValue; }}
+     * @type {string}
      * @memberof MainItem
      */
-    properties: { [key: string]: PropertyValue; };
+    nameCn?: string;
     /**
      * 
-     * @type {boolean}
+     * @type {{ [key: string]: ItemEntityPropertiesValue; }}
      * @memberof MainItem
      */
-    isCoverImageLocked: boolean;
+    properties: { [key: string]: ItemEntityPropertiesValue; };
     /**
      * 
      * @type {number}
@@ -617,10 +490,22 @@ export interface MainItem {
     coverImage?: ImageInfo;
     /**
      * 
+     * @type {ImageInfo}
+     * @memberof MainItem
+     */
+    squareImage?: ImageInfo;
+    /**
+     * 
      * @type {Array<SubItem>}
      * @memberof MainItem
      */
     subItem?: Array<SubItem>;
+    /**
+     * 
+     * @type {string}
+     * @memberof MainItem
+     */
+    summary?: string;
 }
 
 
@@ -709,51 +594,6 @@ export interface PatchFavoriteBody {
 /**
  * 
  * @export
- * @interface PropertyValue
- */
-export interface PropertyValue {
-    /**
-     * 
-     * @type {string}
-     * @memberof PropertyValue
-     */
-    propertyType?: PropertyValuePropertyTypeEnum | null;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PropertyValue
-     */
-    locked: boolean;
-    /**
-     * 
-     * @type {PropertyValueValue}
-     * @memberof PropertyValue
-     */
-    value: PropertyValueValue;
-}
-
-
-/**
- * @export
- */
-export const PropertyValuePropertyTypeEnum = {
-    Staff: 'Staff',
-    Item: 'Item',
-    Character: 'Character',
-    Info: 'Info',
-    Cast: 'Cast'
-} as const;
-export type PropertyValuePropertyTypeEnum = typeof PropertyValuePropertyTypeEnum[keyof typeof PropertyValuePropertyTypeEnum];
-
-/**
- * @type PropertyValueValue
- * 
- * @export
- */
-export type PropertyValueValue = Array<string> | Array<{ [key: string]: string; }> | string;
-/**
- * 
- * @export
  * @interface SubItem
  */
 export interface SubItem {
@@ -764,47 +604,11 @@ export interface SubItem {
      */
     id: string;
     /**
-     * RFC3339 Datetime
-     * @type {string}
-     * @memberof SubItem
-     */
-    createdTime: string;
-    /**
-     * RFC3339 Datetime to set the updateTime
-     * @type {string}
-     * @memberof SubItem
-     */
-    updateTime?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SubItem
-     */
-    version: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof SubItem
-     */
-    deleted: boolean;
-    /**
      * 
      * @type {number}
      * @memberof SubItem
      */
     bgmId: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof SubItem
-     */
-    isBgmHide: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof SubItem
-     */
-    lockedInBgm: boolean;
     /**
      * Not used for ItemType.Individual and ItemType.Character
      * @type {string}
@@ -812,23 +616,23 @@ export interface SubItem {
      */
     publicTime?: string;
     /**
-     * Not used for ItemType.Individual and ItemType.Character
-     * @type {boolean}
+     * 
+     * @type {string}
      * @memberof SubItem
      */
-    isPublicTimeLocked: boolean;
+    name?: string;
     /**
      * 
-     * @type {{ [key: string]: PropertyValue; }}
+     * @type {string}
      * @memberof SubItem
      */
-    properties: { [key: string]: PropertyValue; };
+    nameCn?: string;
     /**
      * 
-     * @type {boolean}
+     * @type {{ [key: string]: ItemEntityPropertiesValue; }}
      * @memberof SubItem
      */
-    isCoverImageLocked: boolean;
+    properties: { [key: string]: ItemEntityPropertiesValue; };
     /**
      * 
      * @type {number}
@@ -855,10 +659,28 @@ export interface SubItem {
     disc?: number | null;
     /**
      * 
+     * @type {string}
+     * @memberof SubItem
+     */
+    desc?: string;
+    /**
+     * 
      * @type {number}
      * @memberof SubItem
      */
     sort: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SubItem
+     */
+    mainItemId: string;
+    /**
+     * 
+     * @type {MainItem}
+     * @memberof SubItem
+     */
+    mainItem?: MainItem;
 }
 
 
@@ -892,30 +714,6 @@ export interface SubItemFavorite {
      * @memberof SubItemFavorite
      */
     id: string;
-    /**
-     * RFC3339 Datetime
-     * @type {string}
-     * @memberof SubItemFavorite
-     */
-    createdTime: string;
-    /**
-     * RFC3339 Datetime to set the updateTime
-     * @type {string}
-     * @memberof SubItemFavorite
-     */
-    updateTime?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SubItemFavorite
-     */
-    version: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof SubItemFavorite
-     */
-    deleted: boolean;
     /**
      * 
      * @type {SubItem}
