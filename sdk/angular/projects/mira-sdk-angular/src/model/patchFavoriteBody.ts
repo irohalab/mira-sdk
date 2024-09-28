@@ -13,6 +13,8 @@ import { FavoriteStatus } from './favoriteStatus';
 
 export interface PatchFavoriteBody { 
     status: FavoriteStatus;
+    reviewComment?: string;
+    rating?: number;
 }
 export namespace PatchFavoriteBody {
 }

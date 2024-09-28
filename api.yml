@@ -294,6 +294,10 @@ paths:
               properties:
                 status:
                   $ref: '#/components/schemas/FavoriteStatus'
+                reviewComment:
+                  type: string
+                rating:
+                  type: integer
       responses:
         '200':
           description: Successfully patch a favorite

@@ -619,6 +619,18 @@ export interface PatchFavoriteBody {
      * @memberof PatchFavoriteBody
      */
     status: FavoriteStatus;
+    /**
+     * 
+     * @type {string}
+     * @memberof PatchFavoriteBody
+     */
+    reviewComment?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof PatchFavoriteBody
+     */
+    rating?: number;
 }
 
 
