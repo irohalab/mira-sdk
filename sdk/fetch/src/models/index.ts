@@ -122,6 +122,25 @@ export type FavoriteStatus = typeof FavoriteStatus[keyof typeof FavoriteStatus];
 /**
  * 
  * @export
+ * @interface GetFavoriteByMainItemIdResponse
+ */
+export interface GetFavoriteByMainItemIdResponse {
+    /**
+     * 
+     * @type {Favorite}
+     * @memberof GetFavoriteByMainItemIdResponse
+     */
+    data: Favorite;
+    /**
+     * result code, 0 is successful.
+     * @type {number}
+     * @memberof GetFavoriteByMainItemIdResponse
+     */
+    status: number;
+}
+/**
+ * 
+ * @export
  * @interface GetMainItemByIdResponse
  */
 export interface GetMainItemByIdResponse {

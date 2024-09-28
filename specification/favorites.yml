@@ -130,6 +130,33 @@ paths:
       responses:
         '200':
           description: Successfully patch a favorite
+  /favorite/main/{id}:
+    get:
+      description: get favorite by MainItem id
+      operationId: getFavoriteByMainItemId
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully get a favorite
+          content:
+            application/json:
+              schema:
+                title: getFavoriteByMainItemIdResponse
+                type: object
+                required:
+                  - data
+                  - status
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Favorite'
+                  status:
+                    type: integer
+                    description: 'result code, 0 is successful.'
   /favorite/sub:
     get:
       description: list SubItemFavorite

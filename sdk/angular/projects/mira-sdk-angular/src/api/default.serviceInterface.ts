@@ -16,6 +16,7 @@ import { CreateFavoriteRequestBody } from '../model/models';
 import { CreateFavoriteResponse } from '../model/models';
 import { CreateSubItemFavoriteRequestBody } from '../model/models';
 import { CreateSubItemFavoriteResponse } from '../model/models';
+import { GetFavoriteByMainItemIdResponse } from '../model/models';
 import { GetMainItemByIdResponse } from '../model/models';
 import { GetOnAirItemListResponse } from '../model/models';
 import { GetSubItemResponse } from '../model/models';
@@ -60,6 +61,13 @@ export interface DefaultMiraInterface {
      * @param id 
      */
     deleteSubItemFavorite(id: string, extraHttpRequestParams?: any): Observable<{}>;
+
+    /**
+     * 
+     * get favorite by MainItem id
+     * @param id 
+     */
+    getFavoriteByMainItemId(id: string, extraHttpRequestParams?: any): Observable<GetFavoriteByMainItemIdResponse>;
 
     /**
      * 

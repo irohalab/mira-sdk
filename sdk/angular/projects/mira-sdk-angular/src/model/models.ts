@@ -4,6 +4,7 @@ export * from './createSubItemFavoriteRequestBody';
 export * from './createSubItemFavoriteResponse';
 export * from './favorite';
 export * from './favoriteStatus';
+export * from './getFavoriteByMainItemIdResponse';
 export * from './getMainItemByIdResponse';
 export * from './getOnAirItemListResponse';
 export * from './getSubItemResponse';
