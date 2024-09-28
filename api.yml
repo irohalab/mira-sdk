@@ -726,6 +726,10 @@ components:
           type: string
         status:
           $ref: '#/components/schemas/FavoriteStatus'
+        reviewComment:
+          type: string
+        rating:
+          type: integer
         item:
           $ref: '#/components/schemas/MainItem'
         userId:

@@ -15,6 +15,8 @@ import { MainItem } from './mainItem';
 export interface Favorite { 
     id: string;
     status: FavoriteStatus;
+    reviewComment?: string;
+    rating?: number;
     item: MainItem;
     userId: string;
 }

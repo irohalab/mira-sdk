@@ -281,6 +281,10 @@ components:
           type: string
         status:
           $ref: '#/components/schemas/FavoriteStatus'
+        reviewComment:
+          type: string
+        rating:
+          type: integer
         item:
           $ref: '#/components/schemas/MainItem' # not an error, the merger doesn't support local file $ref
         userId:

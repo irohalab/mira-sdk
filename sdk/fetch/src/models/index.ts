@@ -92,6 +92,18 @@ export interface Favorite {
     status: FavoriteStatus;
     /**
      * 
+     * @type {string}
+     * @memberof Favorite
+     */
+    reviewComment?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof Favorite
+     */
+    rating?: number;
+    /**
+     * 
      * @type {MainItem}
      * @memberof Favorite
      */
