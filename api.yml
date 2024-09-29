@@ -233,16 +233,7 @@ paths:
         content:
           application/json:
             schema:
-              title: createFavoriteRequestBody
-              type: object
-              required:
-                - status
-                - itemId
-              properties:
-                status:
-                  $ref: '#/components/schemas/FavoriteStatus'
-                itemId:
-                  type: string
+              $ref: '#/components/schemas/Favorite'
       responses:
         '200':
           description: Successfully created a favorite record for itemId
@@ -327,7 +318,9 @@ paths:
                     $ref: '#/components/schemas/Favorite'
                   status:
                     type: integer
-                    description: 'result code, 0 is successful.'
+                    description: >-
+                      result code, 0 is successful. 1 is favorite not created
+                      yet
   /favorite/sub:
     get:
       description: list SubItemFavorite
@@ -721,12 +714,12 @@ components:
     Favorite:
       type: object
       required:
-        - id
         - status
         - item
         - userId
       properties:
         id:
+          readOnly: true
           type: string
         status:
           $ref: '#/components/schemas/FavoriteStatus'

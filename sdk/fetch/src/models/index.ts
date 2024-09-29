@@ -3,27 +3,6 @@
 /**
  * 
  * @export
- * @interface CreateFavoriteRequestBody
- */
-export interface CreateFavoriteRequestBody {
-    /**
-     * 
-     * @type {FavoriteStatus}
-     * @memberof CreateFavoriteRequestBody
-     */
-    status: FavoriteStatus;
-    /**
-     * 
-     * @type {string}
-     * @memberof CreateFavoriteRequestBody
-     */
-    itemId: string;
-}
-
-
-/**
- * 
- * @export
  * @interface CreateFavoriteResponse
  */
 export interface CreateFavoriteResponse {
@@ -83,7 +62,7 @@ export interface Favorite {
      * @type {string}
      * @memberof Favorite
      */
-    id: string;
+    readonly id?: string;
     /**
      * 
      * @type {FavoriteStatus}
@@ -144,7 +123,7 @@ export interface GetFavoriteByMainItemIdResponse {
      */
     data: Favorite;
     /**
-     * result code, 0 is successful.
+     * result code, 0 is successful. 1 is favorite not created yet
      * @type {number}
      * @memberof GetFavoriteByMainItemIdResponse
      */

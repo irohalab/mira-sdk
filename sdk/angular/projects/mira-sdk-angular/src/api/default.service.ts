@@ -18,13 +18,13 @@ import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 // @ts-ignore
-import { CreateFavoriteRequestBody } from '../model/createFavoriteRequestBody';
-// @ts-ignore
 import { CreateFavoriteResponse } from '../model/createFavoriteResponse';
 // @ts-ignore
 import { CreateSubItemFavoriteRequestBody } from '../model/createSubItemFavoriteRequestBody';
 // @ts-ignore
 import { CreateSubItemFavoriteResponse } from '../model/createSubItemFavoriteResponse';
+// @ts-ignore
+import { Favorite } from '../model/favorite';
 // @ts-ignore
 import { GetFavoriteByMainItemIdResponse } from '../model/getFavoriteByMainItemIdResponse';
 // @ts-ignore
@@ -118,16 +118,16 @@ export class DefaultMira implements DefaultMiraInterface {
 
     /**
      * create a favorite for user and item
-     * @param CreateFavoriteRequestBody 
+     * @param Favorite 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createFavorite(CreateFavoriteRequestBody: CreateFavoriteRequestBody, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<CreateFavoriteResponse>;
-    public createFavorite(CreateFavoriteRequestBody: CreateFavoriteRequestBody, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<CreateFavoriteResponse>>;
-    public createFavorite(CreateFavoriteRequestBody: CreateFavoriteRequestBody, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<CreateFavoriteResponse>>;
-    public createFavorite(CreateFavoriteRequestBody: CreateFavoriteRequestBody, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        if (CreateFavoriteRequestBody === null || CreateFavoriteRequestBody === undefined) {
-            throw new Error('Required parameter CreateFavoriteRequestBody was null or undefined when calling createFavorite.');
+    public createFavorite(Favorite: Favorite, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<CreateFavoriteResponse>;
+    public createFavorite(Favorite: Favorite, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<CreateFavoriteResponse>>;
+    public createFavorite(Favorite: Favorite, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<CreateFavoriteResponse>>;
+    public createFavorite(Favorite: Favorite, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (Favorite === null || Favorite === undefined) {
+            throw new Error('Required parameter Favorite was null or undefined when calling createFavorite.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -179,7 +179,7 @@ export class DefaultMira implements DefaultMiraInterface {
         return this.httpClient.request<CreateFavoriteResponse>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: CreateFavoriteRequestBody,
+                body: Favorite,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,

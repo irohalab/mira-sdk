@@ -14,7 +14,7 @@ import { Favorite } from './favorite';
 export interface GetFavoriteByMainItemIdResponse { 
     data: Favorite;
     /**
-     * result code, 0 is successful.
+     * result code, 0 is successful. 1 is favorite not created yet
      */
     status: number;
 }

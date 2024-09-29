@@ -1,4 +1,3 @@
-export * from './createFavoriteRequestBody';
 export * from './createFavoriteResponse';
 export * from './createSubItemFavoriteRequestBody';
 export * from './createSubItemFavoriteResponse';

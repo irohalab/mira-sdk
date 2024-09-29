@@ -13,7 +13,7 @@ import { MainItem } from './mainItem';
 
 
 export interface Favorite { 
-    id: string;
+    readonly id?: string;
     status: FavoriteStatus;
     reviewComment?: string;
     rating?: number;

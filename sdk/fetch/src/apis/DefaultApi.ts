@@ -15,10 +15,10 @@
 
 import * as runtime from '../runtime';
 import type {
-  CreateFavoriteRequestBody,
   CreateFavoriteResponse,
   CreateSubItemFavoriteRequestBody,
   CreateSubItemFavoriteResponse,
+  Favorite,
   GetFavoriteByMainItemIdResponse,
   GetMainItemByIdResponse,
   GetOnAirItemListResponse,
@@ -30,7 +30,7 @@ import type {
 } from '../models/index';
 
 export interface CreateFavoriteRequest {
-    CreateFavoriteRequestBody: CreateFavoriteRequestBody;
+    Favorite: Omit<Favorite, 'id'>;
 }
 
 export interface CreateSubItemFavoriteRequest {
@@ -103,7 +103,7 @@ export interface PatchFavoriteRequest {
 export interface DefaultApiInterface {
     /**
      * create a favorite for user and item
-     * @param {CreateFavoriteRequestBody} CreateFavoriteRequestBody 
+     * @param {Favorite} Favorite 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApiInterface
@@ -297,10 +297,10 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
      * create a favorite for user and item
      */
     async createFavoriteRaw(requestParameters: CreateFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreateFavoriteResponse>> {
-        if (requestParameters['CreateFavoriteRequestBody'] == null) {
+        if (requestParameters['Favorite'] == null) {
             throw new runtime.RequiredError(
-                'CreateFavoriteRequestBody',
-                'Required parameter "CreateFavoriteRequestBody" was null or undefined when calling createFavorite().'
+                'Favorite',
+                'Required parameter "Favorite" was null or undefined when calling createFavorite().'
             );
         }
 
@@ -315,7 +315,7 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: requestParameters['CreateFavoriteRequestBody'],
+            body: requestParameters['Favorite'],
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response);

@@ -12,10 +12,10 @@ import { HttpHeaders }                                       from '@angular/comm
 
 import { Observable }                                        from 'rxjs';
 
-import { CreateFavoriteRequestBody } from '../model/models';
 import { CreateFavoriteResponse } from '../model/models';
 import { CreateSubItemFavoriteRequestBody } from '../model/models';
 import { CreateSubItemFavoriteResponse } from '../model/models';
+import { Favorite } from '../model/models';
 import { GetFavoriteByMainItemIdResponse } from '../model/models';
 import { GetMainItemByIdResponse } from '../model/models';
 import { GetOnAirItemListResponse } from '../model/models';
@@ -37,9 +37,9 @@ export interface DefaultMiraInterface {
     /**
      * 
      * create a favorite for user and item
-     * @param CreateFavoriteRequestBody 
+     * @param Favorite 
      */
-    createFavorite(CreateFavoriteRequestBody: CreateFavoriteRequestBody, extraHttpRequestParams?: any): Observable<CreateFavoriteResponse>;
+    createFavorite(Favorite: Favorite, extraHttpRequestParams?: any): Observable<CreateFavoriteResponse>;
 
     /**
      * 

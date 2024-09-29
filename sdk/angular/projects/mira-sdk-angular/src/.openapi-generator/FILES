@@ -8,7 +8,6 @@ configuration.ts
 encoder.ts
 git_push.sh
 index.ts
-model/createFavoriteRequestBody.ts
 model/createFavoriteResponse.ts
 model/createSubItemFavoriteRequestBody.ts
 model/createSubItemFavoriteResponse.ts
