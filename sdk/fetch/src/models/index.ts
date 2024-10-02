@@ -409,10 +409,10 @@ export interface ListMainItemResponse {
 export interface ListSubItemFavoriteResponse {
     /**
      * 
-     * @type {SubItemFavorite}
+     * @type {Array<SubItemFavorite>}
      * @memberof ListSubItemFavoriteResponse
      */
-    data: SubItemFavorite;
+    data: Array<SubItemFavorite>;
     /**
      * total number of the result, if itemId is provided, this field will not available
      * @type {number}

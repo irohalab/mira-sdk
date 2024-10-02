@@ -196,7 +196,9 @@ paths:
                   - status
                 properties:
                   data:
-                    $ref: '#/components/schemas/SubItemFavorite'
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SubItemFavorite'
                   total:
                     type: integer
                     description: total number of the result, if itemId is provided, this field will not available

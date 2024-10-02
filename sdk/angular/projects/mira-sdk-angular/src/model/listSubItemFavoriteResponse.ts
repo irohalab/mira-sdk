@@ -12,7 +12,7 @@ import { SubItemFavorite } from './subItemFavorite';
 
 
 export interface ListSubItemFavoriteResponse { 
-    data: SubItemFavorite;
+    data: Array<SubItemFavorite>;
     /**
      * total number of the result, if itemId is provided, this field will not available
      */
