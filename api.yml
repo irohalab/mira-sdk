@@ -154,6 +154,12 @@ paths:
           description: populate coverImage if true
           schema:
             type: string
+        - name: subItems
+          in: query
+          required: false
+          description: populate subItems if true
+          schema:
+            type: string
       responses:
         '200':
           description: Successfully returned a MainItem.

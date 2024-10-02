@@ -52,6 +52,7 @@ export interface GetFavoriteByMainItemIdRequest {
 export interface GetMainItemByIdRequest {
     id: string;
     coverImage?: string;
+    subItems?: string;
 }
 
 export interface GetSubItemByIdRequest {
@@ -175,6 +176,7 @@ export interface DefaultApiInterface {
      * get a MainItem by id
      * @param {string} id MainItem id
      * @param {string} [coverImage] populate coverImage if true
+     * @param {string} [subItems] populate subItems if true
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApiInterface
@@ -477,6 +479,10 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
 
         if (requestParameters['coverImage'] != null) {
             queryParameters['coverImage'] = requestParameters['coverImage'];
+        }
+
+        if (requestParameters['subItems'] != null) {
+            queryParameters['subItems'] = requestParameters['subItems'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};

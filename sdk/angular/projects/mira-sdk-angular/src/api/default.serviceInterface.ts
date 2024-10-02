@@ -74,8 +74,9 @@ export interface DefaultMiraInterface {
      * get a MainItem by id
      * @param id MainItem id
      * @param coverImage populate coverImage if true
+     * @param subItems populate subItems if true
      */
-    getMainItemById(id: string, coverImage?: string, extraHttpRequestParams?: any): Observable<GetMainItemByIdResponse>;
+    getMainItemById(id: string, coverImage?: string, subItems?: string, extraHttpRequestParams?: any): Observable<GetMainItemByIdResponse>;
 
     /**
      * 
