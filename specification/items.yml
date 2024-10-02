@@ -384,7 +384,7 @@ components:
               $ref: '#/components/schemas/ImageInfo'
             squareImage:
               $ref: '#/components/schemas/ImageInfo'
-            subItem:
+            subItems:
               type: array
               items:
                 $ref: '#/components/schemas/SubItem'

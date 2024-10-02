@@ -34,7 +34,7 @@ export interface MainItem {
     isCollection: boolean;
     coverImage?: ImageInfo;
     squareImage?: ImageInfo;
-    subItem?: Array<SubItem>;
+    subItems?: Array<SubItem>;
     summary?: string;
 }
 export namespace MainItem {

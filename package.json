@@ -1,11 +1,12 @@
 {
   "name": "mira-sdk",
-  "version": "1.5.4",
+  "version": "1.5.5",
   "description": "SDK for project-mira",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "merge": "openapi-merge-cli",
+    "sdk": "npm run sdk:angular && npm run sdk:fetch",
     "sdk:angular": "npm run clean:sdk:angular && npx openapi-generator-cli generate --generator-key angular",
     "sdk:fetch": "npm run clean:sdk:fetch && npx openapi-generator-cli generate --generator-key fetch",
     "clean:sdk:angular": "rimraf sdk/angular/projects/mira-sdk-angular/src/**",

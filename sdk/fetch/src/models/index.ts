@@ -509,7 +509,7 @@ export interface MainItem {
      * @type {Array<SubItem>}
      * @memberof MainItem
      */
-    subItem?: Array<SubItem>;
+    subItems?: Array<SubItem>;
     /**
      * 
      * @type {string}
