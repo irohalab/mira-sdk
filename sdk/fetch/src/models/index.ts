@@ -3,25 +3,6 @@
 /**
  * 
  * @export
- * @interface CreateFavoriteResponse
- */
-export interface CreateFavoriteResponse {
-    /**
-     * 
-     * @type {Favorite}
-     * @memberof CreateFavoriteResponse
-     */
-    data: Favorite;
-    /**
-     * result code, 0 is successful.
-     * @type {number}
-     * @memberof CreateFavoriteResponse
-     */
-    status: number;
-}
-/**
- * 
- * @export
  * @interface CreateSubItemFavoriteRequestBody
  */
 export interface CreateSubItemFavoriteRequestBody {
@@ -35,21 +16,21 @@ export interface CreateSubItemFavoriteRequestBody {
 /**
  * 
  * @export
- * @interface CreateSubItemFavoriteResponse
+ * @interface ErrorResponse
  */
-export interface CreateSubItemFavoriteResponse {
+export interface ErrorResponse {
     /**
      * 
-     * @type {SubItemFavorite}
-     * @memberof CreateSubItemFavoriteResponse
+     * @type {string}
+     * @memberof ErrorResponse
      */
-    data: SubItemFavorite;
+    message?: string;
     /**
-     * result code, 0 is successful.
+     * 
      * @type {number}
-     * @memberof CreateSubItemFavoriteResponse
+     * @memberof ErrorResponse
      */
-    status: number;
+    status?: number;
 }
 /**
  * 
@@ -113,44 +94,6 @@ export type FavoriteStatus = typeof FavoriteStatus[keyof typeof FavoriteStatus];
 /**
  * 
  * @export
- * @interface GetFavoriteByMainItemIdResponse
- */
-export interface GetFavoriteByMainItemIdResponse {
-    /**
-     * 
-     * @type {Favorite}
-     * @memberof GetFavoriteByMainItemIdResponse
-     */
-    data: Favorite;
-    /**
-     * result code, 0 is successful. 1 is favorite not created yet
-     * @type {number}
-     * @memberof GetFavoriteByMainItemIdResponse
-     */
-    status: number;
-}
-/**
- * 
- * @export
- * @interface GetMainItemByIdResponse
- */
-export interface GetMainItemByIdResponse {
-    /**
-     * 
-     * @type {MainItem}
-     * @memberof GetMainItemByIdResponse
-     */
-    data: MainItem;
-    /**
-     * result code, 0 is successful.
-     * @type {number}
-     * @memberof GetMainItemByIdResponse
-     */
-    status: number;
-}
-/**
- * 
- * @export
  * @interface GetOnAirItemListResponse
  */
 export interface GetOnAirItemListResponse {
@@ -160,37 +103,6 @@ export interface GetOnAirItemListResponse {
      * @memberof GetOnAirItemListResponse
      */
     data: Array<OnAirItem>;
-    /**
-     * total number of the result
-     * @type {number}
-     * @memberof GetOnAirItemListResponse
-     */
-    total?: number;
-    /**
-     * result code, 0 is successful.
-     * @type {number}
-     * @memberof GetOnAirItemListResponse
-     */
-    status: number;
-}
-/**
- * 
- * @export
- * @interface GetSubItemResponse
- */
-export interface GetSubItemResponse {
-    /**
-     * 
-     * @type {SubItem}
-     * @memberof GetSubItemResponse
-     */
-    data: SubItem;
-    /**
-     * result code, 0 is successful.
-     * @type {number}
-     * @memberof GetSubItemResponse
-     */
-    status: number;
 }
 /**
  * image information
@@ -369,12 +281,6 @@ export interface ListFavoritesResponse {
      * @memberof ListFavoritesResponse
      */
     total: number;
-    /**
-     * result code, 0 is successful.
-     * @type {number}
-     * @memberof ListFavoritesResponse
-     */
-    status: number;
 }
 /**
  * 
@@ -394,12 +300,6 @@ export interface ListMainItemResponse {
      * @memberof ListMainItemResponse
      */
     total: number;
-    /**
-     * result code, 0 is successful.
-     * @type {number}
-     * @memberof ListMainItemResponse
-     */
-    status: number;
 }
 /**
  * 
@@ -419,12 +319,6 @@ export interface ListSubItemFavoriteResponse {
      * @memberof ListSubItemFavoriteResponse
      */
     total?: number;
-    /**
-     * result code, 0 is successful.
-     * @type {number}
-     * @memberof ListSubItemFavoriteResponse
-     */
-    status: number;
 }
 /**
  * 
@@ -748,4 +642,17 @@ export interface SubItemFavorite {
      * @memberof SubItemFavorite
      */
     userId: string;
+}
+/**
+ * 
+ * @export
+ * @interface SucceedEmptyResponse
+ */
+export interface SucceedEmptyResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof SucceedEmptyResponse
+     */
+    message: string;
 }

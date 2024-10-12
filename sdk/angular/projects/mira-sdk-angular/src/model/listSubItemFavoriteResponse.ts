@@ -17,9 +17,5 @@ export interface ListSubItemFavoriteResponse {
      * total number of the result, if itemId is provided, this field will not available
      */
     total?: number;
-    /**
-     * result code, 0 is successful.
-     */
-    status: number;
 }
 

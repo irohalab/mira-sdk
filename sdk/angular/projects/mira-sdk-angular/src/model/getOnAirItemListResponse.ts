@@ -16,13 +16,5 @@ export interface GetOnAirItemListResponse {
      * a list of OnAirItems
      */
     data: Array<OnAirItem>;
-    /**
-     * total number of the result
-     */
-    total?: number;
-    /**
-     * result code, 0 is successful.
-     */
-    status: number;
 }
 

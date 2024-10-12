@@ -18,21 +18,11 @@ import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 // @ts-ignore
-import { CreateFavoriteResponse } from '../model/createFavoriteResponse';
-// @ts-ignore
 import { CreateSubItemFavoriteRequestBody } from '../model/createSubItemFavoriteRequestBody';
-// @ts-ignore
-import { CreateSubItemFavoriteResponse } from '../model/createSubItemFavoriteResponse';
 // @ts-ignore
 import { Favorite } from '../model/favorite';
 // @ts-ignore
-import { GetFavoriteByMainItemIdResponse } from '../model/getFavoriteByMainItemIdResponse';
-// @ts-ignore
-import { GetMainItemByIdResponse } from '../model/getMainItemByIdResponse';
-// @ts-ignore
 import { GetOnAirItemListResponse } from '../model/getOnAirItemListResponse';
-// @ts-ignore
-import { GetSubItemResponse } from '../model/getSubItemResponse';
 // @ts-ignore
 import { ListFavoritesResponse } from '../model/listFavoritesResponse';
 // @ts-ignore
@@ -40,7 +30,15 @@ import { ListMainItemResponse } from '../model/listMainItemResponse';
 // @ts-ignore
 import { ListSubItemFavoriteResponse } from '../model/listSubItemFavoriteResponse';
 // @ts-ignore
+import { MainItem } from '../model/mainItem';
+// @ts-ignore
 import { PatchFavoriteBody } from '../model/patchFavoriteBody';
+// @ts-ignore
+import { SubItem } from '../model/subItem';
+// @ts-ignore
+import { SubItemFavorite } from '../model/subItemFavorite';
+// @ts-ignore
+import { SucceedEmptyResponse } from '../model/succeedEmptyResponse';
 
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -122,9 +120,9 @@ export class DefaultMira implements DefaultMiraInterface {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createFavorite(Favorite: Favorite, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<CreateFavoriteResponse>;
-    public createFavorite(Favorite: Favorite, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<CreateFavoriteResponse>>;
-    public createFavorite(Favorite: Favorite, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<CreateFavoriteResponse>>;
+    public createFavorite(Favorite: Favorite, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<Favorite>;
+    public createFavorite(Favorite: Favorite, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<Favorite>>;
+    public createFavorite(Favorite: Favorite, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<Favorite>>;
     public createFavorite(Favorite: Favorite, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (Favorite === null || Favorite === undefined) {
             throw new Error('Required parameter Favorite was null or undefined when calling createFavorite.');
@@ -176,7 +174,7 @@ export class DefaultMira implements DefaultMiraInterface {
         }
 
         let localVarPath = `/favorite`;
-        return this.httpClient.request<CreateFavoriteResponse>('post', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.request<Favorite>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 body: Favorite,
@@ -196,9 +194,9 @@ export class DefaultMira implements DefaultMiraInterface {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createSubItemFavorite(CreateSubItemFavoriteRequestBody: CreateSubItemFavoriteRequestBody, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<CreateSubItemFavoriteResponse>;
-    public createSubItemFavorite(CreateSubItemFavoriteRequestBody: CreateSubItemFavoriteRequestBody, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<CreateSubItemFavoriteResponse>>;
-    public createSubItemFavorite(CreateSubItemFavoriteRequestBody: CreateSubItemFavoriteRequestBody, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<CreateSubItemFavoriteResponse>>;
+    public createSubItemFavorite(CreateSubItemFavoriteRequestBody: CreateSubItemFavoriteRequestBody, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<SubItemFavorite>;
+    public createSubItemFavorite(CreateSubItemFavoriteRequestBody: CreateSubItemFavoriteRequestBody, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<SubItemFavorite>>;
+    public createSubItemFavorite(CreateSubItemFavoriteRequestBody: CreateSubItemFavoriteRequestBody, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<SubItemFavorite>>;
     public createSubItemFavorite(CreateSubItemFavoriteRequestBody: CreateSubItemFavoriteRequestBody, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (CreateSubItemFavoriteRequestBody === null || CreateSubItemFavoriteRequestBody === undefined) {
             throw new Error('Required parameter CreateSubItemFavoriteRequestBody was null or undefined when calling createSubItemFavorite.');
@@ -250,7 +248,7 @@ export class DefaultMira implements DefaultMiraInterface {
         }
 
         let localVarPath = `/favorite/sub`;
-        return this.httpClient.request<CreateSubItemFavoriteResponse>('post', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.request<SubItemFavorite>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 body: CreateSubItemFavoriteRequestBody,
@@ -270,10 +268,10 @@ export class DefaultMira implements DefaultMiraInterface {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteFavorite(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
-    public deleteFavorite(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
-    public deleteFavorite(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
-    public deleteFavorite(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public deleteFavorite(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<SucceedEmptyResponse>;
+    public deleteFavorite(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<SucceedEmptyResponse>>;
+    public deleteFavorite(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<SucceedEmptyResponse>>;
+    public deleteFavorite(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling deleteFavorite.');
         }
@@ -284,6 +282,7 @@ export class DefaultMira implements DefaultMiraInterface {
         if (localVarHttpHeaderAcceptSelected === undefined) {
             // to determine the Accept header
             const httpHeaderAccepts: string[] = [
+                'application/json'
             ];
             localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         }
@@ -314,7 +313,7 @@ export class DefaultMira implements DefaultMiraInterface {
         }
 
         let localVarPath = `/favorite/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
-        return this.httpClient.request<any>('delete', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.request<SucceedEmptyResponse>('delete', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -333,10 +332,10 @@ export class DefaultMira implements DefaultMiraInterface {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteSubItemFavorite(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
-    public deleteSubItemFavorite(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
-    public deleteSubItemFavorite(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
-    public deleteSubItemFavorite(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public deleteSubItemFavorite(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<SucceedEmptyResponse>;
+    public deleteSubItemFavorite(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<SucceedEmptyResponse>>;
+    public deleteSubItemFavorite(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<SucceedEmptyResponse>>;
+    public deleteSubItemFavorite(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling deleteSubItemFavorite.');
         }
@@ -347,6 +346,7 @@ export class DefaultMira implements DefaultMiraInterface {
         if (localVarHttpHeaderAcceptSelected === undefined) {
             // to determine the Accept header
             const httpHeaderAccepts: string[] = [
+                'application/json'
             ];
             localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         }
@@ -377,7 +377,7 @@ export class DefaultMira implements DefaultMiraInterface {
         }
 
         let localVarPath = `/favorite/sub/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
-        return this.httpClient.request<any>('post', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.request<SucceedEmptyResponse>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -396,9 +396,9 @@ export class DefaultMira implements DefaultMiraInterface {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getFavoriteByMainItemId(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<GetFavoriteByMainItemIdResponse>;
-    public getFavoriteByMainItemId(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<GetFavoriteByMainItemIdResponse>>;
-    public getFavoriteByMainItemId(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<GetFavoriteByMainItemIdResponse>>;
+    public getFavoriteByMainItemId(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<Favorite>;
+    public getFavoriteByMainItemId(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<Favorite>>;
+    public getFavoriteByMainItemId(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<Favorite>>;
     public getFavoriteByMainItemId(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling getFavoriteByMainItemId.');
@@ -441,7 +441,7 @@ export class DefaultMira implements DefaultMiraInterface {
         }
 
         let localVarPath = `/favorite/main/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
-        return this.httpClient.request<GetFavoriteByMainItemIdResponse>('get', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.request<Favorite>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -462,9 +462,9 @@ export class DefaultMira implements DefaultMiraInterface {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getMainItemById(id: string, coverImage?: string, subItems?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<GetMainItemByIdResponse>;
-    public getMainItemById(id: string, coverImage?: string, subItems?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<GetMainItemByIdResponse>>;
-    public getMainItemById(id: string, coverImage?: string, subItems?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<GetMainItemByIdResponse>>;
+    public getMainItemById(id: string, coverImage?: string, subItems?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MainItem>;
+    public getMainItemById(id: string, coverImage?: string, subItems?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MainItem>>;
+    public getMainItemById(id: string, coverImage?: string, subItems?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MainItem>>;
     public getMainItemById(id: string, coverImage?: string, subItems?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling getMainItemById.');
@@ -517,7 +517,7 @@ export class DefaultMira implements DefaultMiraInterface {
         }
 
         let localVarPath = `/public/item/main/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
-        return this.httpClient.request<GetMainItemByIdResponse>('get', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.request<MainItem>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 params: localVarQueryParameters,
@@ -537,9 +537,9 @@ export class DefaultMira implements DefaultMiraInterface {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getSubItemById(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<GetSubItemResponse>;
-    public getSubItemById(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<GetSubItemResponse>>;
-    public getSubItemById(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<GetSubItemResponse>>;
+    public getSubItemById(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<SubItem>;
+    public getSubItemById(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<SubItem>>;
+    public getSubItemById(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<SubItem>>;
     public getSubItemById(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling getSubItemById.');
@@ -582,7 +582,7 @@ export class DefaultMira implements DefaultMiraInterface {
         }
 
         let localVarPath = `/public/item/main/subItem/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
-        return this.httpClient.request<GetSubItemResponse>('get', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.request<SubItem>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -958,10 +958,10 @@ export class DefaultMira implements DefaultMiraInterface {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public patchFavorite(id: string, PatchFavoriteBody: PatchFavoriteBody, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
-    public patchFavorite(id: string, PatchFavoriteBody: PatchFavoriteBody, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
-    public patchFavorite(id: string, PatchFavoriteBody: PatchFavoriteBody, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
-    public patchFavorite(id: string, PatchFavoriteBody: PatchFavoriteBody, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public patchFavorite(id: string, PatchFavoriteBody: PatchFavoriteBody, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<SucceedEmptyResponse>;
+    public patchFavorite(id: string, PatchFavoriteBody: PatchFavoriteBody, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<SucceedEmptyResponse>>;
+    public patchFavorite(id: string, PatchFavoriteBody: PatchFavoriteBody, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<SucceedEmptyResponse>>;
+    public patchFavorite(id: string, PatchFavoriteBody: PatchFavoriteBody, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling patchFavorite.');
         }
@@ -975,6 +975,7 @@ export class DefaultMira implements DefaultMiraInterface {
         if (localVarHttpHeaderAcceptSelected === undefined) {
             // to determine the Accept header
             const httpHeaderAccepts: string[] = [
+                'application/json'
             ];
             localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         }
@@ -1014,7 +1015,7 @@ export class DefaultMira implements DefaultMiraInterface {
         }
 
         let localVarPath = `/favorite/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
-        return this.httpClient.request<any>('patch', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.request<SucceedEmptyResponse>('patch', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 body: PatchFavoriteBody,

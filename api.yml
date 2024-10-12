@@ -25,19 +25,12 @@ paths:
                 type: object
                 required:
                   - data
-                  - status
                 properties:
                   data:
                     type: array
                     items:
                       $ref: '#/components/schemas/OnAirItem'
                     description: a list of OnAirItems
-                  total:
-                    type: integer
-                    description: total number of the result
-                  status:
-                    type: integer
-                    description: 'result code, 0 is successful.'
   /public/item/main:
     get:
       description: list MainItems
@@ -106,9 +99,6 @@ paths:
                   total:
                     type: integer
                     description: total number of the result
-                  status:
-                    type: integer
-                    description: 'result code, 0 is successful.'
   '/public/item/main/subItem/{id}':
     get:
       description: get a SubItem by id
@@ -126,17 +116,7 @@ paths:
           content:
             application/json:
               schema:
-                title: GetSubItemResponse
-                type: object
-                required:
-                  - data
-                  - status
-                properties:
-                  data:
-                    $ref: '#/components/schemas/SubItem'
-                  status:
-                    type: integer
-                    description: 'result code, 0 is successful.'
+                $ref: '#/components/schemas/SubItem'
   '/public/item/main/{id}':
     get:
       description: get a MainItem by id
@@ -166,17 +146,7 @@ paths:
           content:
             application/json:
               schema:
-                title: GetMainItemByIdResponse
-                type: object
-                required:
-                  - data
-                  - status
-                properties:
-                  data:
-                    $ref: '#/components/schemas/MainItem'
-                  status:
-                    type: integer
-                    description: 'result code, 0 is successful.'
+                $ref: '#/components/schemas/MainItem'
   /favorite:
     get:
       description: list favorites for user
@@ -228,9 +198,6 @@ paths:
                   total:
                     type: integer
                     description: total number of the result
-                  status:
-                    type: integer
-                    description: 'result code, 0 is successful.'
     post:
       description: create a favorite for user and item
       operationId: createFavorite
@@ -246,17 +213,7 @@ paths:
           content:
             application/json:
               schema:
-                title: createFavoriteResponse
-                type: object
-                required:
-                  - data
-                  - status
-                properties:
-                  data:
-                    $ref: '#/components/schemas/Favorite'
-                  status:
-                    type: integer
-                    description: 'result code, 0 is successful.'
+                $ref: '#/components/schemas/Favorite'
   '/favorite/{id}':
     delete:
       description: Delete a favorite
@@ -269,7 +226,7 @@ paths:
             type: string
       responses:
         '200':
-          description: Successfully deleted a favorite
+          $ref: '#/components/responses/200'
     patch:
       description: change status of a favorite
       operationId: patchFavorite
@@ -297,7 +254,7 @@ paths:
                   type: integer
       responses:
         '200':
-          description: Successfully patch a favorite
+          $ref: '#/components/responses/200'
   '/favorite/main/{id}':
     get:
       description: get favorite by MainItem id
@@ -314,19 +271,9 @@ paths:
           content:
             application/json:
               schema:
-                title: getFavoriteByMainItemIdResponse
-                type: object
-                required:
-                  - data
-                  - status
-                properties:
-                  data:
-                    $ref: '#/components/schemas/Favorite'
-                  status:
-                    type: integer
-                    description: >-
-                      result code, 0 is successful. 1 is favorite not created
-                      yet
+                $ref: '#/components/schemas/Favorite'
+        '404':
+          description: Not found
   /favorite/sub:
     get:
       description: list SubItemFavorite
@@ -379,9 +326,6 @@ paths:
                     description: >-
                       total number of the result, if itemId is provided, this
                       field will not available
-                  status:
-                    type: integer
-                    description: 'result code, 0 is successful.'
     post:
       description: create a SubItemFavorite
       operationId: createSubItemFavorite
@@ -403,17 +347,7 @@ paths:
           content:
             application/json:
               schema:
-                title: createSubItemFavoriteResponse
-                type: object
-                required:
-                  - data
-                  - status
-                properties:
-                  data:
-                    $ref: '#/components/schemas/SubItemFavorite'
-                  status:
-                    type: integer
-                    description: 'result code, 0 is successful.'
+                $ref: '#/components/schemas/SubItemFavorite'
   '/favorite/sub/{id}':
     post:
       description: Delete a SubItemFavorite
@@ -426,7 +360,7 @@ paths:
             type: string
       responses:
         '200':
-          description: Successfully deleted a SubItemFavorite
+          $ref: '#/components/responses/200'
 components:
   schemas:
     ItemType:
@@ -752,3 +686,24 @@ components:
           $ref: '#/components/schemas/SubItem'
         userId:
           type: string
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      properties:
+        message:
+          type: string
+        status:
+          type: integer
+  responses:
+    '200':
+      description: Operation Complete Successfully
+      content:
+        application/json:
+          schema:
+            title: SucceedEmptyResponse
+            type: object
+            required:
+              - message
+            properties:
+              message:
+                type: string

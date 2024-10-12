@@ -8,14 +8,9 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { SubItem } from './subItem';
 
 
-export interface GetSubItemResponse { 
-    data: SubItem;
-    /**
-     * result code, 0 is successful.
-     */
-    status: number;
+export interface SucceedEmptyResponse { 
+    message: string;
 }
 

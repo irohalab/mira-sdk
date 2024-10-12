@@ -12,18 +12,17 @@ import { HttpHeaders }                                       from '@angular/comm
 
 import { Observable }                                        from 'rxjs';
 
-import { CreateFavoriteResponse } from '../model/models';
 import { CreateSubItemFavoriteRequestBody } from '../model/models';
-import { CreateSubItemFavoriteResponse } from '../model/models';
 import { Favorite } from '../model/models';
-import { GetFavoriteByMainItemIdResponse } from '../model/models';
-import { GetMainItemByIdResponse } from '../model/models';
 import { GetOnAirItemListResponse } from '../model/models';
-import { GetSubItemResponse } from '../model/models';
 import { ListFavoritesResponse } from '../model/models';
 import { ListMainItemResponse } from '../model/models';
 import { ListSubItemFavoriteResponse } from '../model/models';
+import { MainItem } from '../model/models';
 import { PatchFavoriteBody } from '../model/models';
+import { SubItem } from '../model/models';
+import { SubItemFavorite } from '../model/models';
+import { SucceedEmptyResponse } from '../model/models';
 
 
 import { MiraConfiguration }                                     from '../configuration';
@@ -39,35 +38,35 @@ export interface DefaultMiraInterface {
      * create a favorite for user and item
      * @param Favorite 
      */
-    createFavorite(Favorite: Favorite, extraHttpRequestParams?: any): Observable<CreateFavoriteResponse>;
+    createFavorite(Favorite: Favorite, extraHttpRequestParams?: any): Observable<Favorite>;
 
     /**
      * 
      * create a SubItemFavorite
      * @param CreateSubItemFavoriteRequestBody 
      */
-    createSubItemFavorite(CreateSubItemFavoriteRequestBody: CreateSubItemFavoriteRequestBody, extraHttpRequestParams?: any): Observable<CreateSubItemFavoriteResponse>;
+    createSubItemFavorite(CreateSubItemFavoriteRequestBody: CreateSubItemFavoriteRequestBody, extraHttpRequestParams?: any): Observable<SubItemFavorite>;
 
     /**
      * 
      * Delete a favorite
      * @param id 
      */
-    deleteFavorite(id: string, extraHttpRequestParams?: any): Observable<{}>;
+    deleteFavorite(id: string, extraHttpRequestParams?: any): Observable<SucceedEmptyResponse>;
 
     /**
      * 
      * Delete a SubItemFavorite
      * @param id 
      */
-    deleteSubItemFavorite(id: string, extraHttpRequestParams?: any): Observable<{}>;
+    deleteSubItemFavorite(id: string, extraHttpRequestParams?: any): Observable<SucceedEmptyResponse>;
 
     /**
      * 
      * get favorite by MainItem id
      * @param id 
      */
-    getFavoriteByMainItemId(id: string, extraHttpRequestParams?: any): Observable<GetFavoriteByMainItemIdResponse>;
+    getFavoriteByMainItemId(id: string, extraHttpRequestParams?: any): Observable<Favorite>;
 
     /**
      * 
@@ -76,14 +75,14 @@ export interface DefaultMiraInterface {
      * @param coverImage populate coverImage if true
      * @param subItems populate subItems if true
      */
-    getMainItemById(id: string, coverImage?: string, subItems?: string, extraHttpRequestParams?: any): Observable<GetMainItemByIdResponse>;
+    getMainItemById(id: string, coverImage?: string, subItems?: string, extraHttpRequestParams?: any): Observable<MainItem>;
 
     /**
      * 
      * get a SubItem by id
      * @param id SubItem Id
      */
-    getSubItemById(id: string, extraHttpRequestParams?: any): Observable<GetSubItemResponse>;
+    getSubItemById(id: string, extraHttpRequestParams?: any): Observable<SubItem>;
 
     /**
      * 
@@ -134,6 +133,6 @@ export interface DefaultMiraInterface {
      * @param id 
      * @param PatchFavoriteBody 
      */
-    patchFavorite(id: string, PatchFavoriteBody: PatchFavoriteBody, extraHttpRequestParams?: any): Observable<{}>;
+    patchFavorite(id: string, PatchFavoriteBody: PatchFavoriteBody, extraHttpRequestParams?: any): Observable<SucceedEmptyResponse>;
 
 }

@@ -8,14 +8,10 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Favorite } from './favorite';
 
 
-export interface GetFavoriteByMainItemIdResponse { 
-    data: Favorite;
-    /**
-     * result code, 0 is successful. 1 is favorite not created yet
-     */
-    status: number;
+export interface ErrorResponse { 
+    message?: string;
+    status?: number;
 }
 

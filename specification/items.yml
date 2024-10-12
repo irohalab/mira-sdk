@@ -25,19 +25,12 @@ paths:
                 type: object
                 required:
                   - data
-                  - status
                 properties:
                   data:
                     type: array
                     items:
                       $ref: '#/components/schemas/OnAirItem'
                     description: a list of OnAirItems
-                  total:
-                    type: integer
-                    description: total number of the result
-                  status:
-                    type: integer
-                    description: 'result code, 0 is successful.'
   /public/item/main:
     get:
       description: list MainItems
@@ -104,9 +97,6 @@ paths:
                   total:
                     type: integer
                     description: total number of the result
-                  status:
-                    type: integer
-                    description: 'result code, 0 is successful.'
   /public/item/main/subItem/{id}:
     get:
       description: get a SubItem by id
@@ -124,17 +114,7 @@ paths:
           content:
             application/json:
               schema:
-                title: GetSubItemResponse
-                type: object
-                required:
-                  - data
-                  - status
-                properties:
-                  data:
-                    $ref: '#/components/schemas/SubItem'
-                  status:
-                    type: integer
-                    description: 'result code, 0 is successful.'
+                $ref: '#/components/schemas/SubItem'
   /public/item/main/{id}:
     get:
       description: get a MainItem by id
@@ -164,17 +144,7 @@ paths:
           content:
             application/json:
               schema:
-                title: GetMainItemByIdResponse
-                type: object
-                required:
-                  - data
-                  - status
-                properties:
-                  data:
-                    $ref: '#/components/schemas/MainItem'
-                  status:
-                    type: integer
-                    description: 'result code, 0 is successful.'
+                $ref: '#/components/schemas/MainItem'
 components:
   schemas:
     ItemType:

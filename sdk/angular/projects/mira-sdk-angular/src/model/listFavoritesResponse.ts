@@ -20,9 +20,5 @@ export interface ListFavoritesResponse {
      * total number of the result
      */
     total: number;
-    /**
-     * result code, 0 is successful.
-     */
-    status: number;
 }
 

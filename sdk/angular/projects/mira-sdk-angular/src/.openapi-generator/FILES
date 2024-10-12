@@ -8,15 +8,11 @@ configuration.ts
 encoder.ts
 git_push.sh
 index.ts
-model/createFavoriteResponse.ts
 model/createSubItemFavoriteRequestBody.ts
-model/createSubItemFavoriteResponse.ts
+model/errorResponse.ts
 model/favorite.ts
 model/favoriteStatus.ts
-model/getFavoriteByMainItemIdResponse.ts
-model/getMainItemByIdResponse.ts
 model/getOnAirItemListResponse.ts
-model/getSubItemResponse.ts
 model/imageInfo.ts
 model/itemEntity.ts
 model/itemEntityPropertiesValue.ts
@@ -31,5 +27,6 @@ model/onAirItem.ts
 model/patchFavoriteBody.ts
 model/subItem.ts
 model/subItemFavorite.ts
+model/succeedEmptyResponse.ts
 param.ts
 variables.ts
