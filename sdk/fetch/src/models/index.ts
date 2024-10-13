@@ -179,17 +179,11 @@ export interface ItemEntity {
     nameCn?: string;
     /**
      * 
-     * @type {{ [key: string]: ItemEntityPropertiesValue; }}
+     * @type {{ [key: string]: PropertyValue; }}
      * @memberof ItemEntity
      */
-    properties: { [key: string]: ItemEntityPropertiesValue; };
+    properties: { [key: string]: PropertyValue; };
 }
-/**
- * @type ItemEntityPropertiesValue
- * 
- * @export
- */
-export type ItemEntityPropertiesValue = Array<string> | Array<{ [key: string]: string; }> | string;
 
 /**
  * 
@@ -358,10 +352,10 @@ export interface MainItem {
     nameCn?: string;
     /**
      * 
-     * @type {{ [key: string]: ItemEntityPropertiesValue; }}
+     * @type {{ [key: string]: PropertyValue; }}
      * @memberof MainItem
      */
-    properties: { [key: string]: ItemEntityPropertiesValue; };
+    properties: { [key: string]: PropertyValue; };
     /**
      * 
      * @type {number}
@@ -510,6 +504,51 @@ export interface PatchFavoriteBody {
 /**
  * 
  * @export
+ * @interface PropertyValue
+ */
+export interface PropertyValue {
+    /**
+     * 
+     * @type {string}
+     * @memberof PropertyValue
+     */
+    propertyType?: PropertyValuePropertyTypeEnum | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PropertyValue
+     */
+    locked: boolean;
+    /**
+     * 
+     * @type {PropertyValueValue}
+     * @memberof PropertyValue
+     */
+    value: PropertyValueValue;
+}
+
+
+/**
+ * @export
+ */
+export const PropertyValuePropertyTypeEnum = {
+    Staff: 'Staff',
+    Item: 'Item',
+    Character: 'Character',
+    Info: 'Info',
+    Cast: 'Cast'
+} as const;
+export type PropertyValuePropertyTypeEnum = typeof PropertyValuePropertyTypeEnum[keyof typeof PropertyValuePropertyTypeEnum];
+
+/**
+ * @type PropertyValueValue
+ * 
+ * @export
+ */
+export type PropertyValueValue = Array<string> | Array<{ [key: string]: string; }> | string;
+/**
+ * 
+ * @export
  * @interface SubItem
  */
 export interface SubItem {
@@ -545,10 +584,10 @@ export interface SubItem {
     nameCn?: string;
     /**
      * 
-     * @type {{ [key: string]: ItemEntityPropertiesValue; }}
+     * @type {{ [key: string]: PropertyValue; }}
      * @memberof SubItem
      */
-    properties: { [key: string]: ItemEntityPropertiesValue; };
+    properties: { [key: string]: PropertyValue; };
     /**
      * 
      * @type {number}

@@ -11,8 +11,8 @@
 
 
 /**
- * @type ItemEntityPropertiesValue
+ * @type PropertyValueValue
  * @export
  */
-export type ItemEntityPropertiesValue = Array<string> | Array<{ [key: string]: string; }> | string;
+export type PropertyValueValue = Array<string> | Array<{ [key: string]: string; }> | string;
 

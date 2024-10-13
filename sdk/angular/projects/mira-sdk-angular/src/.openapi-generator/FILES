@@ -15,7 +15,6 @@ model/favoriteStatus.ts
 model/getOnAirItemListResponse.ts
 model/imageInfo.ts
 model/itemEntity.ts
-model/itemEntityPropertiesValue.ts
 model/itemSubType.ts
 model/itemType.ts
 model/listFavoritesResponse.ts
@@ -25,6 +24,8 @@ model/mainItem.ts
 model/models.ts
 model/onAirItem.ts
 model/patchFavoriteBody.ts
+model/propertyValue.ts
+model/propertyValueValue.ts
 model/subItem.ts
 model/subItemFavorite.ts
 model/succeedEmptyResponse.ts

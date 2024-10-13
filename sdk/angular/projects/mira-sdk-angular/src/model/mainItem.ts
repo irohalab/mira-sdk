@@ -9,9 +9,9 @@
  * Do not edit the class manually.
  */
 import { ItemSubType } from './itemSubType';
-import { ItemEntityPropertiesValue } from './itemEntityPropertiesValue';
 import { ItemType } from './itemType';
 import { SubItem } from './subItem';
+import { PropertyValue } from './propertyValue';
 import { ImageInfo } from './imageInfo';
 
 
@@ -24,7 +24,7 @@ export interface MainItem {
     publicTime?: string;
     name?: string;
     name_cn?: string;
-    properties: { [key: string]: ItemEntityPropertiesValue; };
+    properties: { [key: string]: PropertyValue; };
     mainType: MainItem.MainTypeEnum;
     type: ItemType;
     subType?: ItemSubType;

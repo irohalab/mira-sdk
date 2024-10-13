@@ -8,7 +8,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ItemEntityPropertiesValue } from './itemEntityPropertiesValue';
+import { PropertyValue } from './propertyValue';
 
 
 export interface ItemEntity { 
@@ -20,6 +20,6 @@ export interface ItemEntity {
     publicTime?: string;
     name?: string;
     name_cn?: string;
-    properties: { [key: string]: ItemEntityPropertiesValue; };
+    properties: { [key: string]: PropertyValue; };
 }
 

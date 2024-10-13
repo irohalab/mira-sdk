@@ -8,8 +8,8 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ItemEntityPropertiesValue } from './itemEntityPropertiesValue';
 import { MainItem } from './mainItem';
+import { PropertyValue } from './propertyValue';
 
 
 export interface SubItem { 
@@ -21,7 +21,7 @@ export interface SubItem {
     publicTime?: string;
     name?: string;
     name_cn?: string;
-    properties: { [key: string]: ItemEntityPropertiesValue; };
+    properties: { [key: string]: PropertyValue; };
     type: SubItem.TypeEnum;
     episodeType: SubItem.EpisodeTypeEnum | null;
     ep?: number | null;

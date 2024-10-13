@@ -481,6 +481,35 @@ components:
         - VirtualBoy
         - WonderSwanColor
         - WonderSwan
+    PropertyValue:
+      title: PropertyValue
+      type: object
+      required:
+        - value
+        - locked
+      properties:
+        propertyType:
+          type: string
+          nullable: true
+          enum:
+            - Staff
+            - Item
+            - Character
+            - Info
+            - Cast
+        locked:
+          type: boolean
+        value:
+          oneOf:
+            - type: string
+            - type: array
+              items:
+                type: object
+                additionalProperties:
+                  type: string
+            - type: array
+              items:
+                type: string
     OnAirItem:
       type: object
       required:
@@ -529,16 +558,7 @@ components:
         properties:
           type: object
           additionalProperties:
-            oneOf:
-              - type: string
-              - type: array
-                items:
-                  type: object
-                  additionalProperties:
-                    type: string
-              - type: array
-                items:
-                  type: string
+            $ref: '#/components/schemas/PropertyValue'
     MainItem:
       allOf:
         - $ref: '#/components/schemas/ItemEntity'
