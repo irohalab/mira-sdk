@@ -29,7 +29,8 @@
           "useSingleRequestParameter": "true",
           "useSquareBracketsInArrayNames": "true",
           "withInterfaces": "true",
-          "withoutRuntimeChecks": "true"
+          "withoutRuntimeChecks": "true",
+          "modelPropertyNaming": "original"
         }
       }
     }

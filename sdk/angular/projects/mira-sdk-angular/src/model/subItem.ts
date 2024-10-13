@@ -20,7 +20,7 @@ export interface SubItem {
      */
     publicTime?: string;
     name?: string;
-    name_cn?: string;
+    nameCn?: string;
     properties: { [key: string]: PropertyValue; };
     type: SubItem.TypeEnum;
     episodeType: SubItem.EpisodeTypeEnum | null;

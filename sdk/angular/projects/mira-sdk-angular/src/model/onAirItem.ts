@@ -23,7 +23,7 @@ export interface OnAirItem {
     type: ItemType;
     subType?: ItemSubType;
     name?: string;
-    name_cn?: string;
+    nameCn?: string;
     coverImage?: ImageInfo;
 }
 export namespace OnAirItem {

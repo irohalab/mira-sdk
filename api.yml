@@ -532,7 +532,7 @@ components:
           $ref: '#/components/schemas/ItemSubType'
         name:
           type: string
-        name_cn:
+        nameCn:
           type: string
         coverImage:
           $ref: '#/components/schemas/ImageInfo'
@@ -553,7 +553,7 @@ components:
           description: Not used for ItemType.Individual and ItemType.Character
         name:
           type: string
-        name_cn:
+        nameCn:
           type: string
         properties:
           type: object

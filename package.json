@@ -1,6 +1,6 @@
 {
   "name": "mira-sdk",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "SDK for project-mira",
   "main": "index.js",
   "scripts": {

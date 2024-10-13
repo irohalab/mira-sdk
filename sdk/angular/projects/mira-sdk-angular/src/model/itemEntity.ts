@@ -19,7 +19,7 @@ export interface ItemEntity {
      */
     publicTime?: string;
     name?: string;
-    name_cn?: string;
+    nameCn?: string;
     properties: { [key: string]: PropertyValue; };
 }
 
