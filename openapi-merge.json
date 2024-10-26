@@ -5,6 +5,9 @@
     },
     {
       "inputFile": "./specification/favorites.yml"
+    },
+    {
+      "inputFile": "./specification/auth-schemas.yaml"
     }
   ],
   "info": {

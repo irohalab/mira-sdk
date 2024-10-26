@@ -311,6 +311,11 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
+        }
+
         const response = await this.request({
             path: `/favorite`,
             method: 'POST',
@@ -347,6 +352,11 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
+        }
+
         const response = await this.request({
             path: `/favorite/sub`,
             method: 'POST',
@@ -381,6 +391,11 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
+        }
+
         const response = await this.request({
             path: `/favorite/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
             method: 'DELETE',
@@ -414,6 +429,11 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
+        }
+
         const response = await this.request({
             path: `/favorite/sub/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
             method: 'POST',
@@ -446,6 +466,11 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
+        }
 
         const response = await this.request({
             path: `/favorite/main/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
@@ -488,6 +513,11 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
+        }
+
         const response = await this.request({
             path: `/public/item/main/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
             method: 'GET',
@@ -520,6 +550,11 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
+        }
 
         const response = await this.request({
             path: `/public/item/main/subItem/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
@@ -573,6 +608,11 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
+        }
 
         const response = await this.request({
             path: `/favorite`,
@@ -639,6 +679,11 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
+        }
+
         const response = await this.request({
             path: `/public/item/main`,
             method: 'GET',
@@ -685,6 +730,11 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
+        }
+
         const response = await this.request({
             path: `/favorite/sub`,
             method: 'GET',
@@ -721,6 +771,11 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
+        }
 
         const response = await this.request({
             path: `/public/item/on-air`,
@@ -763,6 +818,11 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
+        }
 
         const response = await this.request({
             path: `/favorite/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),

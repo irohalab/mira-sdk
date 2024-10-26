@@ -86,6 +86,15 @@ export class MiraConfiguration {
         else {
             this.credentials = {};
         }
+
+        // init default oAuth2 credential
+        if (!this.credentials['oAuth2']) {
+            this.credentials['oAuth2'] = () => {
+                return typeof this.accessToken === 'function'
+                    ? this.accessToken()
+                    : this.accessToken;
+            };
+        }
     }
 
     /**

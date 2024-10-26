@@ -3,6 +3,9 @@ info:
   version: 1.0.0
   title: mira API
   description: API for Project-Mira
+security:
+  - oAuth2:
+      - bookmark
 paths:
   /public/item/on-air:
     get:
@@ -727,3 +730,13 @@ components:
             properties:
               message:
                 type: string
+  securitySchemes:
+    oAuth2:
+      type: oauth2
+      description: 'OAuth with Client Credentials Flow, Authorization Code Flow'
+      flows:
+        authorizationCode:
+          authorizationUrl: 'https://authorization.box.moe/oauth2/token'
+          tokenUrl: 'https://authorization.box.moe/oauth2/token'
+          scopes:
+            bookmark: will grant application to access the user's bookmarks and reviews
