@@ -15,7 +15,9 @@
 
 import * as runtime from '../runtime';
 import type {
+  ClientMapping,
   CreateSubItemFavoriteRequestBody,
+  DeleteClientMappingByMainItemResponse,
   Favorite,
   GetOnAirItemListResponse,
   ListFavoritesResponse,
@@ -28,12 +30,20 @@ import type {
   SucceedEmptyResponse,
 } from '../models/index';
 
+export interface AddClientMappingRequest {
+    request_body: Array<string>;
+}
+
 export interface CreateFavoriteRequest {
     Favorite: Omit<Favorite, 'id'>;
 }
 
 export interface CreateSubItemFavoriteRequest {
     CreateSubItemFavoriteRequestBody: CreateSubItemFavoriteRequestBody;
+}
+
+export interface DeleteClientMappingByMainItemIdRequest {
+    id: string;
 }
 
 export interface DeleteFavoriteRequest {
@@ -102,6 +112,20 @@ export interface PatchFavoriteRequest {
  */
 export interface DefaultApiInterface {
     /**
+     * Add ClientMapping
+     * @param {Array<string>} request_body 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    addClientMappingRaw(requestParameters: AddClientMappingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ClientMapping>>;
+
+    /**
+     * Add ClientMapping
+     */
+    addClientMapping(requestParameters: AddClientMappingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ClientMapping>;
+
+    /**
      * create a favorite for user and item
      * @param {Favorite} Favorite 
      * @param {*} [options] Override http request option.
@@ -128,6 +152,20 @@ export interface DefaultApiInterface {
      * create a SubItemFavorite
      */
     createSubItemFavorite(requestParameters: CreateSubItemFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SubItemFavorite>;
+
+    /**
+     * Delete ClientMapping by MainItem id
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    deleteClientMappingByMainItemIdRaw(requestParameters: DeleteClientMappingByMainItemIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteClientMappingByMainItemResponse>>;
+
+    /**
+     * Delete ClientMapping by MainItem id
+     */
+    deleteClientMappingByMainItemId(requestParameters: DeleteClientMappingByMainItemIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeleteClientMappingByMainItemResponse>;
 
     /**
      * Delete a favorite
@@ -295,6 +333,47 @@ export interface DefaultApiInterface {
 export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
 
     /**
+     * Add ClientMapping
+     */
+    async addClientMappingRaw(requestParameters: AddClientMappingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ClientMapping>> {
+        if (requestParameters['request_body'] == null) {
+            throw new runtime.RequiredError(
+                'request_body',
+                'Required parameter "request_body" was null or undefined when calling addClientMapping().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
+        }
+
+        const response = await this.request({
+            path: `/client-mapping`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters['request_body'],
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response);
+    }
+
+    /**
+     * Add ClientMapping
+     */
+    async addClientMapping(requestParameters: AddClientMappingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ClientMapping> {
+        const response = await this.addClientMappingRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * create a favorite for user and item
      */
     async createFavoriteRaw(requestParameters: CreateFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Favorite>> {
@@ -373,6 +452,44 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
      */
     async createSubItemFavorite(requestParameters: CreateSubItemFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SubItemFavorite> {
         const response = await this.createSubItemFavoriteRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Delete ClientMapping by MainItem id
+     */
+    async deleteClientMappingByMainItemIdRaw(requestParameters: DeleteClientMappingByMainItemIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteClientMappingByMainItemResponse>> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteClientMappingByMainItemId().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
+        }
+
+        const response = await this.request({
+            path: `/client-mapping/main/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response);
+    }
+
+    /**
+     * Delete ClientMapping by MainItem id
+     */
+    async deleteClientMappingByMainItemId(requestParameters: DeleteClientMappingByMainItemIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeleteClientMappingByMainItemResponse> {
+        const response = await this.deleteClientMappingByMainItemIdRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

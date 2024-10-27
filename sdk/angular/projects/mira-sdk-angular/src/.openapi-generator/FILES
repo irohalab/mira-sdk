@@ -8,7 +8,9 @@ configuration.ts
 encoder.ts
 git_push.sh
 index.ts
+model/clientMapping.ts
 model/createSubItemFavoriteRequestBody.ts
+model/deleteClientMappingByMainItemResponse.ts
 model/errorResponse.ts
 model/favorite.ts
 model/favoriteStatus.ts

@@ -1,4 +1,6 @@
+export * from './clientMapping';
 export * from './createSubItemFavoriteRequestBody';
+export * from './deleteClientMappingByMainItemResponse';
 export * from './errorResponse';
 export * from './favorite';
 export * from './favoriteStatus';

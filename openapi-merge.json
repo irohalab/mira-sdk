@@ -1,13 +1,16 @@
 {
   "inputs": [
     {
-      "inputFile": "./specification/items.yml"
-    },
-    {
-      "inputFile": "./specification/favorites.yml"
-    },
-    {
       "inputFile": "./specification/auth-schemas.yaml"
+    },
+    {
+      "inputFile": "./specification/items.yaml"
+    },
+    {
+      "inputFile": "./specification/favorites.yaml"
+    },
+    {
+      "inputFile": "./specification/client-mapping.yaml"
     }
   ],
   "info": {

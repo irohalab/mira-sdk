@@ -1,0 +1,66 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: mira Favorite API
+  description: Favorite API for Project-Mira
+paths:
+  /client-mapping:
+    get:
+      description: Add ClientMapping
+      operationId: AddClientMapping
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              title: addClientMappingRequestBody
+              type: array
+              items:
+                type: string
+      responses:
+        '200':
+          description: Successfully added ClientMapping
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientMapping'
+  /client-mapping/main/{id}:
+    delete:
+      description: Delete ClientMapping by MainItem id
+      operationId: DeleteClientMappingByMainItemId
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: return the result of the operation
+          content:
+            application/json:
+              schema:
+                title: DeleteClientMappingByMainItemResponse
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    type: integer
+                    description: how many entries are deleted, 1 is successful, 0 is unsuccessful.
+
+components:
+  schemas:
+    ClientMapping:
+      type: object
+      required:
+        - id
+        - clientId
+        - item
+      properties:
+        id:
+          type: string
+        clientId:
+          type: string
+        item:
+          $ref: '#/components/schemas/MainItem'

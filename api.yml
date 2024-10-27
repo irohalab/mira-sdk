@@ -364,7 +364,63 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/200'
+  /client-mapping:
+    get:
+      description: Add ClientMapping
+      operationId: AddClientMapping
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              title: addClientMappingRequestBody
+              type: array
+              items:
+                type: string
+      responses:
+        '200':
+          description: Successfully added ClientMapping
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientMapping'
+  '/client-mapping/main/{id}':
+    delete:
+      description: Delete ClientMapping by MainItem id
+      operationId: DeleteClientMappingByMainItemId
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: return the result of the operation
+          content:
+            application/json:
+              schema:
+                title: DeleteClientMappingByMainItemResponse
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    type: integer
+                    description: >-
+                      how many entries are deleted, 1 is successful, 0 is
+                      unsuccessful.
 components:
+  securitySchemes:
+    oAuth2:
+      type: oauth2
+      description: 'OAuth with Client Credentials Flow, Authorization Code Flow'
+      flows:
+        authorizationCode:
+          authorizationUrl: 'https://authorization.box.moe/oauth2/token'
+          tokenUrl: 'https://authorization.box.moe/oauth2/token'
+          scopes:
+            bookmark: will grant application to access the user's bookmarks and reviews
   schemas:
     ItemType:
       type: string
@@ -717,6 +773,19 @@ components:
           type: string
         status:
           type: integer
+    ClientMapping:
+      type: object
+      required:
+        - id
+        - clientId
+        - item
+      properties:
+        id:
+          type: string
+        clientId:
+          type: string
+        item:
+          $ref: '#/components/schemas/MainItem'
   responses:
     '200':
       description: Operation Complete Successfully
@@ -730,13 +799,3 @@ components:
             properties:
               message:
                 type: string
-  securitySchemes:
-    oAuth2:
-      type: oauth2
-      description: 'OAuth with Client Credentials Flow, Authorization Code Flow'
-      flows:
-        authorizationCode:
-          authorizationUrl: 'https://authorization.box.moe/oauth2/token'
-          tokenUrl: 'https://authorization.box.moe/oauth2/token'
-          scopes:
-            bookmark: will grant application to access the user's bookmarks and reviews

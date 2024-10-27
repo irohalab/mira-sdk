@@ -12,7 +12,9 @@ import { HttpHeaders }                                       from '@angular/comm
 
 import { Observable }                                        from 'rxjs';
 
+import { ClientMapping } from '../model/models';
 import { CreateSubItemFavoriteRequestBody } from '../model/models';
+import { DeleteClientMappingByMainItemResponse } from '../model/models';
 import { Favorite } from '../model/models';
 import { GetOnAirItemListResponse } from '../model/models';
 import { ListFavoritesResponse } from '../model/models';
@@ -35,6 +37,13 @@ export interface DefaultMiraInterface {
 
     /**
      * 
+     * Add ClientMapping
+     * @param request_body 
+     */
+    addClientMapping(request_body: Array<string>, extraHttpRequestParams?: any): Observable<ClientMapping>;
+
+    /**
+     * 
      * create a favorite for user and item
      * @param Favorite 
      */
@@ -46,6 +55,13 @@ export interface DefaultMiraInterface {
      * @param CreateSubItemFavoriteRequestBody 
      */
     createSubItemFavorite(CreateSubItemFavoriteRequestBody: CreateSubItemFavoriteRequestBody, extraHttpRequestParams?: any): Observable<SubItemFavorite>;
+
+    /**
+     * 
+     * Delete ClientMapping by MainItem id
+     * @param id 
+     */
+    deleteClientMappingByMainItemId(id: string, extraHttpRequestParams?: any): Observable<DeleteClientMappingByMainItemResponse>;
 
     /**
      * 

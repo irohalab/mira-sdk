@@ -3,6 +3,31 @@
 /**
  * 
  * @export
+ * @interface ClientMapping
+ */
+export interface ClientMapping {
+    /**
+     * 
+     * @type {string}
+     * @memberof ClientMapping
+     */
+    id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ClientMapping
+     */
+    clientId: string;
+    /**
+     * 
+     * @type {MainItem}
+     * @memberof ClientMapping
+     */
+    item: MainItem;
+}
+/**
+ * 
+ * @export
  * @interface CreateSubItemFavoriteRequestBody
  */
 export interface CreateSubItemFavoriteRequestBody {
@@ -12,6 +37,19 @@ export interface CreateSubItemFavoriteRequestBody {
      * @memberof CreateSubItemFavoriteRequestBody
      */
     subItemId: string;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteClientMappingByMainItemResponse
+ */
+export interface DeleteClientMappingByMainItemResponse {
+    /**
+     * how many entries are deleted, 1 is successful, 0 is unsuccessful.
+     * @type {number}
+     * @memberof DeleteClientMappingByMainItemResponse
+     */
+    data: number;
 }
 /**
  * 
