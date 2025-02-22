@@ -185,7 +185,7 @@ export class DefaultMira implements DefaultMiraInterface {
         }
 
         let localVarPath = `/client-mapping`;
-        return this.httpClient.request<ClientMapping>('get', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.request<ClientMapping>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 body: request_body,

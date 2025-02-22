@@ -356,7 +356,7 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
 
         const response = await this.request({
             path: `/client-mapping`,
-            method: 'GET',
+            method: 'POST',
             headers: headerParameters,
             query: queryParameters,
             body: requestParameters['request_body'],

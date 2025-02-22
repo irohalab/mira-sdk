@@ -5,7 +5,7 @@ info:
   description: Favorite API for Project-Mira
 paths:
   /client-mapping:
-    get:
+    post:
       description: Add ClientMapping
       operationId: AddClientMapping
       requestBody:

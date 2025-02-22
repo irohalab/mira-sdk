@@ -365,7 +365,7 @@ paths:
         '200':
           $ref: '#/components/responses/200'
   /client-mapping:
-    get:
+    post:
       description: Add ClientMapping
       operationId: AddClientMapping
       requestBody:
