@@ -1,0 +1,53 @@
+name: manually-publish.yml
+on:
+  workflow_dispatch:
+    inputs:
+      client_type:
+        description: 'client_type to publish'
+        required: true
+        default: 'angular'
+        type: choice
+        options:
+          - ALL
+          - angular
+          - fetch
+
+jobs:
+  publish-angular-npm:
+    if: ${{ inputs.client_type == 'angular' || inputs.client_type == 'ALL' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org/
+          scope: '@irohalab'
+      - name: build
+        working-directory: sdk/angular
+        run: |
+          npm ci
+          npm run build
+      - run: npm publish
+        working-directory: sdk/angular/dist/mira-sdk-angular
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+  publish-fetch-npm:
+    if: ${{ inputs.client_type == 'fetch' || inputs.client_type == 'ALL' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org/
+          scope: '@irohalab'
+      - name: build
+        working-directory: sdk/fetch
+        run: |
+          npm ci
+          npm run build
+      - run: npm publish
+        working-directory: sdk/fetch/dist
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
