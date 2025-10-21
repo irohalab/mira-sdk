@@ -20,6 +20,7 @@ import type {
   DeleteClientMappingByMainItemResponse,
   Favorite,
   GetOnAirItemListResponse,
+  IdListRequestBody,
   ListFavoritesResponse,
   ListMainItemResponse,
   ListSubItemFavoriteResponse,
@@ -32,6 +33,14 @@ import type {
 
 export interface AddClientMappingRequest {
     request_body: Array<string>;
+}
+
+export interface BatchGetMainItemByIdListRequest {
+    IdListRequestBody: IdListRequestBody;
+}
+
+export interface BatchGetSubItemsByIdListRequest {
+    IdListRequestBody: IdListRequestBody;
 }
 
 export interface CreateFavoriteRequest {
@@ -124,6 +133,34 @@ export interface DefaultApiInterface {
      * Add ClientMapping
      */
     addClientMapping(requestParameters: AddClientMappingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ClientMapping>;
+
+    /**
+     * get mainItems by id list
+     * @param {IdListRequestBody} IdListRequestBody 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    batchGetMainItemByIdListRaw(requestParameters: BatchGetMainItemByIdListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MainItem>>;
+
+    /**
+     * get mainItems by id list
+     */
+    batchGetMainItemByIdList(requestParameters: BatchGetMainItemByIdListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MainItem>;
+
+    /**
+     * get SubItems by id list
+     * @param {IdListRequestBody} IdListRequestBody 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    batchGetSubItemsByIdListRaw(requestParameters: BatchGetSubItemsByIdListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SubItem>>;
+
+    /**
+     * get SubItems by id list
+     */
+    batchGetSubItemsByIdList(requestParameters: BatchGetSubItemsByIdListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SubItem>;
 
     /**
      * create a favorite for user and item
@@ -370,6 +407,88 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
      */
     async addClientMapping(requestParameters: AddClientMappingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ClientMapping> {
         const response = await this.addClientMappingRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * get mainItems by id list
+     */
+    async batchGetMainItemByIdListRaw(requestParameters: BatchGetMainItemByIdListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MainItem>> {
+        if (requestParameters['IdListRequestBody'] == null) {
+            throw new runtime.RequiredError(
+                'IdListRequestBody',
+                'Required parameter "IdListRequestBody" was null or undefined when calling batchGetMainItemByIdList().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
+        }
+
+        const response = await this.request({
+            path: `/public/item/batch/main`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters['IdListRequestBody'],
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response);
+    }
+
+    /**
+     * get mainItems by id list
+     */
+    async batchGetMainItemByIdList(requestParameters: BatchGetMainItemByIdListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MainItem> {
+        const response = await this.batchGetMainItemByIdListRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * get SubItems by id list
+     */
+    async batchGetSubItemsByIdListRaw(requestParameters: BatchGetSubItemsByIdListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SubItem>> {
+        if (requestParameters['IdListRequestBody'] == null) {
+            throw new runtime.RequiredError(
+                'IdListRequestBody',
+                'Required parameter "IdListRequestBody" was null or undefined when calling batchGetSubItemsByIdList().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
+        }
+
+        const response = await this.request({
+            path: `/public/item/batch/subItem`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters['IdListRequestBody'],
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response);
+    }
+
+    /**
+     * get SubItems by id list
+     */
+    async batchGetSubItemsByIdList(requestParameters: BatchGetSubItemsByIdListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SubItem> {
+        const response = await this.batchGetSubItemsByIdListRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

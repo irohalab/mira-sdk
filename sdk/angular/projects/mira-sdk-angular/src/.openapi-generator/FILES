@@ -15,6 +15,7 @@ model/errorResponse.ts
 model/favorite.ts
 model/favoriteStatus.ts
 model/getOnAirItemListResponse.ts
+model/idListRequestBody.ts
 model/imageInfo.ts
 model/itemEntity.ts
 model/itemSubType.ts

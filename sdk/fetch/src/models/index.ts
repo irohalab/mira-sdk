@@ -143,6 +143,19 @@ export interface GetOnAirItemListResponse {
     data: Array<OnAirItem>;
 }
 /**
+ * 
+ * @export
+ * @interface IdListRequestBody
+ */
+export interface IdListRequestBody {
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof IdListRequestBody
+     */
+    ids: Array<string>;
+}
+/**
  * image information
  * @export
  * @interface ImageInfo

@@ -5,6 +5,7 @@ export * from './errorResponse';
 export * from './favorite';
 export * from './favoriteStatus';
 export * from './getOnAirItemListResponse';
+export * from './idListRequestBody';
 export * from './imageInfo';
 export * from './itemEntity';
 export * from './itemSubType';

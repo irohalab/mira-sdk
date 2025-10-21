@@ -17,6 +17,7 @@ import { CreateSubItemFavoriteRequestBody } from '../model/models';
 import { DeleteClientMappingByMainItemResponse } from '../model/models';
 import { Favorite } from '../model/models';
 import { GetOnAirItemListResponse } from '../model/models';
+import { IdListRequestBody } from '../model/models';
 import { ListFavoritesResponse } from '../model/models';
 import { ListMainItemResponse } from '../model/models';
 import { ListSubItemFavoriteResponse } from '../model/models';
@@ -41,6 +42,20 @@ export interface DefaultMiraInterface {
      * @param request_body 
      */
     addClientMapping(request_body: Array<string>, extraHttpRequestParams?: any): Observable<ClientMapping>;
+
+    /**
+     * 
+     * get mainItems by id list
+     * @param IdListRequestBody 
+     */
+    batchGetMainItemByIdList(IdListRequestBody: IdListRequestBody, extraHttpRequestParams?: any): Observable<MainItem>;
+
+    /**
+     * 
+     * get SubItems by id list
+     * @param IdListRequestBody 
+     */
+    batchGetSubItemsByIdList(IdListRequestBody: IdListRequestBody, extraHttpRequestParams?: any): Observable<SubItem>;
 
     /**
      * 
