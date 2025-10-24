@@ -1,3 +1,5 @@
+export * from './batchGetMainItemByIdListResult';
+export * from './batchGetSubItemByIdListResult';
 export * from './clientMapping';
 export * from './createSubItemFavoriteRequestBody';
 export * from './deleteClientMappingByMainItemResponse';

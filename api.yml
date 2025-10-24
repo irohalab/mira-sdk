@@ -166,7 +166,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MainItem'
+                title: batchGetMainItemByIdListResult
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MainItem'
   /public/item/batch/subItem:
     post:
       operationId: batchGetSubItemsByIdList
@@ -183,7 +191,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SubItem'
+                title: batchGetSubItemByIdListResult
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SubItem'
   /favorite:
     get:
       description: list favorites for user

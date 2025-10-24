@@ -8,6 +8,8 @@ configuration.ts
 encoder.ts
 git_push.sh
 index.ts
+model/batchGetMainItemByIdListResult.ts
+model/batchGetSubItemByIdListResult.ts
 model/clientMapping.ts
 model/createSubItemFavoriteRequestBody.ts
 model/deleteClientMappingByMainItemResponse.ts

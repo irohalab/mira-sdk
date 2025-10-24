@@ -18,6 +18,10 @@ import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 // @ts-ignore
+import { BatchGetMainItemByIdListResult } from '../model/batchGetMainItemByIdListResult';
+// @ts-ignore
+import { BatchGetSubItemByIdListResult } from '../model/batchGetSubItemByIdListResult';
+// @ts-ignore
 import { ClientMapping } from '../model/clientMapping';
 // @ts-ignore
 import { CreateSubItemFavoriteRequestBody } from '../model/createSubItemFavoriteRequestBody';
@@ -207,9 +211,9 @@ export class DefaultMira implements DefaultMiraInterface {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public batchGetMainItemByIdList(IdListRequestBody: IdListRequestBody, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MainItem>;
-    public batchGetMainItemByIdList(IdListRequestBody: IdListRequestBody, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MainItem>>;
-    public batchGetMainItemByIdList(IdListRequestBody: IdListRequestBody, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MainItem>>;
+    public batchGetMainItemByIdList(IdListRequestBody: IdListRequestBody, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<BatchGetMainItemByIdListResult>;
+    public batchGetMainItemByIdList(IdListRequestBody: IdListRequestBody, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<BatchGetMainItemByIdListResult>>;
+    public batchGetMainItemByIdList(IdListRequestBody: IdListRequestBody, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<BatchGetMainItemByIdListResult>>;
     public batchGetMainItemByIdList(IdListRequestBody: IdListRequestBody, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (IdListRequestBody === null || IdListRequestBody === undefined) {
             throw new Error('Required parameter IdListRequestBody was null or undefined when calling batchGetMainItemByIdList.');
@@ -268,7 +272,7 @@ export class DefaultMira implements DefaultMiraInterface {
         }
 
         let localVarPath = `/public/item/batch/main`;
-        return this.httpClient.request<MainItem>('post', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.request<BatchGetMainItemByIdListResult>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 body: IdListRequestBody,
@@ -288,9 +292,9 @@ export class DefaultMira implements DefaultMiraInterface {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public batchGetSubItemsByIdList(IdListRequestBody: IdListRequestBody, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<SubItem>;
-    public batchGetSubItemsByIdList(IdListRequestBody: IdListRequestBody, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<SubItem>>;
-    public batchGetSubItemsByIdList(IdListRequestBody: IdListRequestBody, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<SubItem>>;
+    public batchGetSubItemsByIdList(IdListRequestBody: IdListRequestBody, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<BatchGetSubItemByIdListResult>;
+    public batchGetSubItemsByIdList(IdListRequestBody: IdListRequestBody, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<BatchGetSubItemByIdListResult>>;
+    public batchGetSubItemsByIdList(IdListRequestBody: IdListRequestBody, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<BatchGetSubItemByIdListResult>>;
     public batchGetSubItemsByIdList(IdListRequestBody: IdListRequestBody, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (IdListRequestBody === null || IdListRequestBody === undefined) {
             throw new Error('Required parameter IdListRequestBody was null or undefined when calling batchGetSubItemsByIdList.');
@@ -349,7 +353,7 @@ export class DefaultMira implements DefaultMiraInterface {
         }
 
         let localVarPath = `/public/item/batch/subItem`;
-        return this.httpClient.request<SubItem>('post', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.request<BatchGetSubItemByIdListResult>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 body: IdListRequestBody,

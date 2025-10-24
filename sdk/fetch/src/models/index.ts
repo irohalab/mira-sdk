@@ -3,6 +3,32 @@
 /**
  * 
  * @export
+ * @interface BatchGetMainItemByIdListResult
+ */
+export interface BatchGetMainItemByIdListResult {
+    /**
+     * 
+     * @type {Array<MainItem>}
+     * @memberof BatchGetMainItemByIdListResult
+     */
+    data: Array<MainItem>;
+}
+/**
+ * 
+ * @export
+ * @interface BatchGetSubItemByIdListResult
+ */
+export interface BatchGetSubItemByIdListResult {
+    /**
+     * 
+     * @type {Array<SubItem>}
+     * @memberof BatchGetSubItemByIdListResult
+     */
+    data: Array<SubItem>;
+}
+/**
+ * 
+ * @export
  * @interface ClientMapping
  */
 export interface ClientMapping {

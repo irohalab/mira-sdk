@@ -15,6 +15,8 @@
 
 import * as runtime from '../runtime';
 import type {
+  BatchGetMainItemByIdListResult,
+  BatchGetSubItemByIdListResult,
   ClientMapping,
   CreateSubItemFavoriteRequestBody,
   DeleteClientMappingByMainItemResponse,
@@ -141,12 +143,12 @@ export interface DefaultApiInterface {
      * @throws {RequiredError}
      * @memberof DefaultApiInterface
      */
-    batchGetMainItemByIdListRaw(requestParameters: BatchGetMainItemByIdListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MainItem>>;
+    batchGetMainItemByIdListRaw(requestParameters: BatchGetMainItemByIdListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BatchGetMainItemByIdListResult>>;
 
     /**
      * get mainItems by id list
      */
-    batchGetMainItemByIdList(requestParameters: BatchGetMainItemByIdListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MainItem>;
+    batchGetMainItemByIdList(requestParameters: BatchGetMainItemByIdListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BatchGetMainItemByIdListResult>;
 
     /**
      * get SubItems by id list
@@ -155,12 +157,12 @@ export interface DefaultApiInterface {
      * @throws {RequiredError}
      * @memberof DefaultApiInterface
      */
-    batchGetSubItemsByIdListRaw(requestParameters: BatchGetSubItemsByIdListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SubItem>>;
+    batchGetSubItemsByIdListRaw(requestParameters: BatchGetSubItemsByIdListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BatchGetSubItemByIdListResult>>;
 
     /**
      * get SubItems by id list
      */
-    batchGetSubItemsByIdList(requestParameters: BatchGetSubItemsByIdListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SubItem>;
+    batchGetSubItemsByIdList(requestParameters: BatchGetSubItemsByIdListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BatchGetSubItemByIdListResult>;
 
     /**
      * create a favorite for user and item
@@ -413,7 +415,7 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
     /**
      * get mainItems by id list
      */
-    async batchGetMainItemByIdListRaw(requestParameters: BatchGetMainItemByIdListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MainItem>> {
+    async batchGetMainItemByIdListRaw(requestParameters: BatchGetMainItemByIdListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BatchGetMainItemByIdListResult>> {
         if (requestParameters['IdListRequestBody'] == null) {
             throw new runtime.RequiredError(
                 'IdListRequestBody',
@@ -446,7 +448,7 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
     /**
      * get mainItems by id list
      */
-    async batchGetMainItemByIdList(requestParameters: BatchGetMainItemByIdListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MainItem> {
+    async batchGetMainItemByIdList(requestParameters: BatchGetMainItemByIdListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BatchGetMainItemByIdListResult> {
         const response = await this.batchGetMainItemByIdListRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -454,7 +456,7 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
     /**
      * get SubItems by id list
      */
-    async batchGetSubItemsByIdListRaw(requestParameters: BatchGetSubItemsByIdListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SubItem>> {
+    async batchGetSubItemsByIdListRaw(requestParameters: BatchGetSubItemsByIdListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BatchGetSubItemByIdListResult>> {
         if (requestParameters['IdListRequestBody'] == null) {
             throw new runtime.RequiredError(
                 'IdListRequestBody',
@@ -487,7 +489,7 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
     /**
      * get SubItems by id list
      */
-    async batchGetSubItemsByIdList(requestParameters: BatchGetSubItemsByIdListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SubItem> {
+    async batchGetSubItemsByIdList(requestParameters: BatchGetSubItemsByIdListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BatchGetSubItemByIdListResult> {
         const response = await this.batchGetSubItemsByIdListRaw(requestParameters, initOverrides);
         return await response.value();
     }

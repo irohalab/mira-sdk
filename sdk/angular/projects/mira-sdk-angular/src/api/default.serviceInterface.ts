@@ -12,6 +12,8 @@ import { HttpHeaders }                                       from '@angular/comm
 
 import { Observable }                                        from 'rxjs';
 
+import { BatchGetMainItemByIdListResult } from '../model/models';
+import { BatchGetSubItemByIdListResult } from '../model/models';
 import { ClientMapping } from '../model/models';
 import { CreateSubItemFavoriteRequestBody } from '../model/models';
 import { DeleteClientMappingByMainItemResponse } from '../model/models';
@@ -48,14 +50,14 @@ export interface DefaultMiraInterface {
      * get mainItems by id list
      * @param IdListRequestBody 
      */
-    batchGetMainItemByIdList(IdListRequestBody: IdListRequestBody, extraHttpRequestParams?: any): Observable<MainItem>;
+    batchGetMainItemByIdList(IdListRequestBody: IdListRequestBody, extraHttpRequestParams?: any): Observable<BatchGetMainItemByIdListResult>;
 
     /**
      * 
      * get SubItems by id list
      * @param IdListRequestBody 
      */
-    batchGetSubItemsByIdList(IdListRequestBody: IdListRequestBody, extraHttpRequestParams?: any): Observable<SubItem>;
+    batchGetSubItemsByIdList(IdListRequestBody: IdListRequestBody, extraHttpRequestParams?: any): Observable<BatchGetSubItemByIdListResult>;
 
     /**
      * 
