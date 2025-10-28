@@ -48,6 +48,56 @@ paths:
                   data:
                     type: integer
                     description: how many entries are deleted, 1 is successful, 0 is unsuccessful.
+  /client-mapping/batch/main:
+    post:
+      operationId: batchGetMainItemByIdList
+      description: get mainItems by id list
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdListRequestBody'
+      responses:
+        '200':
+          description: Successfully return a list of MainItems
+          content:
+            application/json:
+              schema:
+                title: batchGetMainItemByIdListResult
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MainItem'
+  /client-mapping/batch/subItem:
+    post:
+      operationId: batchGetSubItemsByIdList
+      description: get SubItems by id list
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdListRequestBody'
+      responses:
+        '200':
+          description: Successfully return a list of SubItems
+          content:
+            application/json:
+              schema:
+                title: batchGetSubItemByIdListResult
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SubItem'
 
 components:
   schemas:
@@ -64,3 +114,13 @@ components:
           type: string
         item:
           $ref: '#/components/schemas/MainItem'
+    IdListRequestBody:
+      title: IdListRequestBody
+      type: object
+      required:
+        - ids
+      properties:
+        ids:
+          type: array
+          items:
+            type: string

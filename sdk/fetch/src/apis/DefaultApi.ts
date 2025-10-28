@@ -435,7 +435,7 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
         }
 
         const response = await this.request({
-            path: `/public/item/batch/main`,
+            path: `/client-mapping/batch/main`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -476,7 +476,7 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
         }
 
         const response = await this.request({
-            path: `/public/item/batch/subItem`,
+            path: `/client-mapping/batch/subItem`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,

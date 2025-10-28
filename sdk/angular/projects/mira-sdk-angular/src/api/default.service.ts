@@ -271,7 +271,7 @@ export class DefaultMira implements DefaultMiraInterface {
             }
         }
 
-        let localVarPath = `/public/item/batch/main`;
+        let localVarPath = `/client-mapping/batch/main`;
         return this.httpClient.request<BatchGetMainItemByIdListResult>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -352,7 +352,7 @@ export class DefaultMira implements DefaultMiraInterface {
             }
         }
 
-        let localVarPath = `/public/item/batch/subItem`;
+        let localVarPath = `/client-mapping/batch/subItem`;
         return this.httpClient.request<BatchGetSubItemByIdListResult>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
