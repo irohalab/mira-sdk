@@ -1124,7 +1124,7 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
         }
 
         const response = await this.request({
-            path: `/public/item/main/predict`,
+            path: `/public/item/predict`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

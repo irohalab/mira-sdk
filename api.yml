@@ -102,7 +102,7 @@ paths:
                   total:
                     type: integer
                     description: total number of the result
-  '/public/item/main/predict':
+  /public/item/predict:
     get:
       description: predict Main Item names base on provided prefix
       operationId: predictMainItemName
