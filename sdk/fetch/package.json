@@ -1,6 +1,6 @@
 {
   "name": "@irohalab/mira-sdk-fetch",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "Fetch client for Project Mira SDK",
   "author": "irohalab",
   "repository": {

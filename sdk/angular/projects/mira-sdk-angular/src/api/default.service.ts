@@ -1500,7 +1500,7 @@ export class DefaultMira implements DefaultMiraInterface {
             }
         }
 
-        let localVarPath = `/main/predict`;
+        let localVarPath = `/public/item/main/predict`;
         return this.httpClient.request<Array<string>>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
