@@ -168,4 +168,11 @@ export interface DefaultMiraInterface {
      */
     patchFavorite(id: string, PatchFavoriteBody: PatchFavoriteBody, extraHttpRequestParams?: any): Observable<SucceedEmptyResponse>;
 
+    /**
+     * 
+     * predict Main Item names base on provided prefix
+     * @param prefix start part of the name
+     */
+    predictMainItemName(prefix: string, extraHttpRequestParams?: any): Observable<Array<string>>;
+
 }

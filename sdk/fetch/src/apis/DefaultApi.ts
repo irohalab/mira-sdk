@@ -115,6 +115,10 @@ export interface PatchFavoriteRequest {
     PatchFavoriteBody: PatchFavoriteBody;
 }
 
+export interface PredictMainItemNameRequest {
+    prefix: string;
+}
+
 /**
  * DefaultApi - interface
  * 
@@ -363,6 +367,20 @@ export interface DefaultApiInterface {
      * change status of a favorite
      */
     patchFavorite(requestParameters: PatchFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SucceedEmptyResponse>;
+
+    /**
+     * predict Main Item names base on provided prefix
+     * @param {string} prefix start part of the name
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    predictMainItemNameRaw(requestParameters: PredictMainItemNameRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<string>>>;
+
+    /**
+     * predict Main Item names base on provided prefix
+     */
+    predictMainItemName(requestParameters: PredictMainItemNameRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<string>>;
 
 }
 
@@ -1078,6 +1096,48 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
      */
     async patchFavorite(requestParameters: PatchFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SucceedEmptyResponse> {
         const response = await this.patchFavoriteRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * predict Main Item names base on provided prefix
+     */
+    async predictMainItemNameRaw(requestParameters: PredictMainItemNameRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<string>>> {
+        if (requestParameters['prefix'] == null) {
+            throw new runtime.RequiredError(
+                'prefix',
+                'Required parameter "prefix" was null or undefined when calling predictMainItemName().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['prefix'] != null) {
+            queryParameters['prefix'] = requestParameters['prefix'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
+        }
+
+        const response = await this.request({
+            path: `/main/predict`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse<any>(response);
+    }
+
+    /**
+     * predict Main Item names base on provided prefix
+     */
+    async predictMainItemName(requestParameters: PredictMainItemNameRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<string>> {
+        const response = await this.predictMainItemNameRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

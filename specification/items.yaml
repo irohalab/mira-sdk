@@ -97,6 +97,26 @@ paths:
                   total:
                     type: integer
                     description: total number of the result
+  /main/predict:
+    get:
+      description: predict Main Item names base on provided prefix
+      operationId: predictMainItemName
+      parameters:
+        - name: prefix
+          in: query
+          required: true
+          description: start part of the name
+          schema:
+            type: string
+      responses:
+        '200':
+          description: candidate name list which matches the start characters of prefix, if the prefix length less than 3 then an empty array will return.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
   /public/item/main/subItem/{id}:
     get:
       description: get a SubItem by id
