@@ -88,7 +88,8 @@ export interface ListFavoritesRequest {
 }
 
 export interface ListMainItemsRequest {
-    mainType: string;
+    serviceClientId?: string;
+    mainType?: string;
     type?: string;
     subType?: string;
     offset?: number;
@@ -302,7 +303,8 @@ export interface DefaultApiInterface {
 
     /**
      * list MainItems
-     * @param {string} mainType 
+     * @param {string} [serviceClientId] 
+     * @param {string} [mainType] 
      * @param {string} [type] 
      * @param {string} [subType] 
      * @param {number} [offset] 
@@ -892,14 +894,11 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
      * list MainItems
      */
     async listMainItemsRaw(requestParameters: ListMainItemsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListMainItemResponse>> {
-        if (requestParameters['mainType'] == null) {
-            throw new runtime.RequiredError(
-                'mainType',
-                'Required parameter "mainType" was null or undefined when calling listMainItems().'
-            );
-        }
-
         const queryParameters: any = {};
+
+        if (requestParameters['serviceClientId'] != null) {
+            queryParameters['serviceClientId'] = requestParameters['serviceClientId'];
+        }
 
         if (requestParameters['mainType'] != null) {
             queryParameters['mainType'] = requestParameters['mainType'];
@@ -953,7 +952,7 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
     /**
      * list MainItems
      */
-    async listMainItems(requestParameters: ListMainItemsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListMainItemResponse> {
+    async listMainItems(requestParameters: ListMainItemsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListMainItemResponse> {
         const response = await this.listMainItemsRaw(requestParameters, initOverrides);
         return await response.value();
     }

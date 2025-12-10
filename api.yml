@@ -39,9 +39,14 @@ paths:
       description: list MainItems
       operationId: listMainItems
       parameters:
+        - name: serviceClientId
+          in: query
+          required: false
+          schema:
+            type: string
         - name: mainType
           in: query
-          required: true
+          required: false
           schema:
             type: string
         - name: type

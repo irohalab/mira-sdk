@@ -1068,6 +1068,7 @@ export class DefaultMira implements DefaultMiraInterface {
 
     /**
      * list MainItems
+     * @param serviceClientId 
      * @param mainType 
      * @param type 
      * @param subType 
@@ -1079,15 +1080,16 @@ export class DefaultMira implements DefaultMiraInterface {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public listMainItems(mainType: string, type?: string, subType?: string, offset?: number, limit?: number, orderBy?: string, sort?: string, keyword?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<ListMainItemResponse>;
-    public listMainItems(mainType: string, type?: string, subType?: string, offset?: number, limit?: number, orderBy?: string, sort?: string, keyword?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<ListMainItemResponse>>;
-    public listMainItems(mainType: string, type?: string, subType?: string, offset?: number, limit?: number, orderBy?: string, sort?: string, keyword?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<ListMainItemResponse>>;
-    public listMainItems(mainType: string, type?: string, subType?: string, offset?: number, limit?: number, orderBy?: string, sort?: string, keyword?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        if (mainType === null || mainType === undefined) {
-            throw new Error('Required parameter mainType was null or undefined when calling listMainItems.');
-        }
+    public listMainItems(serviceClientId?: string, mainType?: string, type?: string, subType?: string, offset?: number, limit?: number, orderBy?: string, sort?: string, keyword?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<ListMainItemResponse>;
+    public listMainItems(serviceClientId?: string, mainType?: string, type?: string, subType?: string, offset?: number, limit?: number, orderBy?: string, sort?: string, keyword?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<ListMainItemResponse>>;
+    public listMainItems(serviceClientId?: string, mainType?: string, type?: string, subType?: string, offset?: number, limit?: number, orderBy?: string, sort?: string, keyword?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<ListMainItemResponse>>;
+    public listMainItems(serviceClientId?: string, mainType?: string, type?: string, subType?: string, offset?: number, limit?: number, orderBy?: string, sort?: string, keyword?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
+        if (serviceClientId !== undefined && serviceClientId !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>serviceClientId, 'serviceClientId');
+        }
         if (mainType !== undefined && mainType !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
             <any>mainType, 'mainType');

@@ -131,6 +131,7 @@ export interface DefaultMiraInterface {
     /**
      * 
      * list MainItems
+     * @param serviceClientId 
      * @param mainType 
      * @param type 
      * @param subType 
@@ -140,7 +141,7 @@ export interface DefaultMiraInterface {
      * @param sort 
      * @param keyword 
      */
-    listMainItems(mainType: string, type?: string, subType?: string, offset?: number, limit?: number, orderBy?: string, sort?: string, keyword?: string, extraHttpRequestParams?: any): Observable<ListMainItemResponse>;
+    listMainItems(serviceClientId?: string, mainType?: string, type?: string, subType?: string, offset?: number, limit?: number, orderBy?: string, sort?: string, keyword?: string, extraHttpRequestParams?: any): Observable<ListMainItemResponse>;
 
     /**
      * 
