@@ -4,8 +4,7 @@
   "description": "Fetch client for Project Mira SDK",
   "author": "irohalab",
   "repository": {
-    "type": "git",
-    "url": "https://github.com/@irohalab/mira-sdk.git"
+    "url": "https://github.com/irohalab/mira-sdk"
   },
   "main": "./index.js",
   "typings": "./index.d.ts",
