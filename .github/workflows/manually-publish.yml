@@ -12,6 +12,10 @@ on:
           - angular
           - fetch
 
+permissions:
+  id-token: write  # Required for OIDC
+  contents: read
+
 jobs:
   publish-angular-npm:
     if: ${{ inputs.client_type == 'angular' || inputs.client_type == 'ALL' }}
@@ -30,8 +34,6 @@ jobs:
           npm run build
       - run: npm publish
         working-directory: sdk/angular/dist/mira-sdk-angular
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
   publish-fetch-npm:
     if: ${{ inputs.client_type == 'fetch' || inputs.client_type == 'ALL' }}
     runs-on: ubuntu-latest
@@ -49,5 +51,3 @@ jobs:
           npm run build
       - run: npm publish
         working-directory: sdk/fetch/dist
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
