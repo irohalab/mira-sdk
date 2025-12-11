@@ -27,6 +27,8 @@ jobs:
           node-version: 20
           registry-url: https://registry.npmjs.org/
           scope: '@irohalab'
+      - name: Update npm
+        run: npm install -g npm@latest
       - name: build
         working-directory: sdk/angular
         run: |
@@ -44,6 +46,8 @@ jobs:
           node-version: 20
           registry-url: https://registry.npmjs.org/
           scope: '@irohalab'
+      - name: Update npm
+        run: npm install -g npm@latest
       - name: build
         working-directory: sdk/fetch
         run: |
