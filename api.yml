@@ -304,7 +304,7 @@ paths:
                 $ref: '#/components/schemas/Favorite'
         '404':
           description: Not found
-  /progress:
+  /favorite/progress:
     get:
       description: >-
         get favorite progress (number of SubItemFavorite from the beginning) of

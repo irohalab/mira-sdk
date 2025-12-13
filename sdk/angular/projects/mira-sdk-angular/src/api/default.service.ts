@@ -886,7 +886,7 @@ export class DefaultMira implements DefaultMiraInterface {
             }
         }
 
-        let localVarPath = `/progress`;
+        let localVarPath = `/favorite/progress`;
         return this.httpClient.request<FavoriteProgress>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -1689,7 +1689,7 @@ export class DefaultMira implements DefaultMiraInterface {
             }
         }
 
-        let localVarPath = `/progress`;
+        let localVarPath = `/favorite/progress`;
         return this.httpClient.request<SucceedEmptyResponse>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,

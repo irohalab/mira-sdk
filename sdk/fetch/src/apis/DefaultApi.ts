@@ -829,7 +829,7 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
         }
 
         const response = await this.request({
-            path: `/progress`,
+            path: `/favorite/progress`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1289,7 +1289,7 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
         }
 
         const response = await this.request({
-            path: `/progress`,
+            path: `/favorite/progress`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
