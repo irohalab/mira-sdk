@@ -21,6 +21,7 @@ import type {
   CreateSubItemFavoriteRequestBody,
   DeleteClientMappingByMainItemResponse,
   Favorite,
+  FavoriteProgress,
   GetOnAirItemListResponse,
   IdListRequestBody,
   ListFavoritesResponse,
@@ -69,6 +70,11 @@ export interface GetFavoriteByMainItemIdRequest {
     id: string;
 }
 
+export interface GetFavoriteProgressByMainItemIdRequest {
+    mainItemId: string;
+    epType: number;
+}
+
 export interface GetMainItemByIdRequest {
     id: string;
     coverImage?: string;
@@ -105,6 +111,7 @@ export interface ListSubItemFavoritesRequest {
     limit?: number;
     orderBy?: string;
     sort?: string;
+    subItem?: boolean;
 }
 
 export interface OnAirItemRequest {
@@ -118,6 +125,12 @@ export interface PatchFavoriteRequest {
 
 export interface PredictMainItemNameRequest {
     prefix: string;
+}
+
+export interface UpdateFavoriteProgressRequest {
+    mainItemId: string;
+    progress: number;
+    epType: number;
 }
 
 /**
@@ -254,6 +267,21 @@ export interface DefaultApiInterface {
     getFavoriteByMainItemId(requestParameters: GetFavoriteByMainItemIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Favorite>;
 
     /**
+     * get favorite progress (number of SubItemFavorite from the beginning) of a episode type for mainItem
+     * @param {string} mainItemId 
+     * @param {number} epType 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    getFavoriteProgressByMainItemIdRaw(requestParameters: GetFavoriteProgressByMainItemIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FavoriteProgress>>;
+
+    /**
+     * get favorite progress (number of SubItemFavorite from the beginning) of a episode type for mainItem
+     */
+    getFavoriteProgressByMainItemId(requestParameters: GetFavoriteProgressByMainItemIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FavoriteProgress>;
+
+    /**
      * get a MainItem by id
      * @param {string} id MainItem id
      * @param {string} [coverImage] populate coverImage if true
@@ -330,6 +358,7 @@ export interface DefaultApiInterface {
      * @param {number} [limit] 
      * @param {string} [orderBy] 
      * @param {string} [sort] 
+     * @param {boolean} [subItem] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApiInterface
@@ -383,6 +412,22 @@ export interface DefaultApiInterface {
      * predict Main Item names base on provided prefix
      */
     predictMainItemName(requestParameters: PredictMainItemNameRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<string>>;
+
+    /**
+     * update progress of a favorite, will create/delete SubItemFavorite
+     * @param {string} mainItemId 
+     * @param {number} progress 
+     * @param {number} epType 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    updateFavoriteProgressRaw(requestParameters: UpdateFavoriteProgressRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SucceedEmptyResponse>>;
+
+    /**
+     * update progress of a favorite, will create/delete SubItemFavorite
+     */
+    updateFavoriteProgress(requestParameters: UpdateFavoriteProgressRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SucceedEmptyResponse>;
 
 }
 
@@ -749,6 +794,59 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
     }
 
     /**
+     * get favorite progress (number of SubItemFavorite from the beginning) of a episode type for mainItem
+     */
+    async getFavoriteProgressByMainItemIdRaw(requestParameters: GetFavoriteProgressByMainItemIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FavoriteProgress>> {
+        if (requestParameters['mainItemId'] == null) {
+            throw new runtime.RequiredError(
+                'mainItemId',
+                'Required parameter "mainItemId" was null or undefined when calling getFavoriteProgressByMainItemId().'
+            );
+        }
+
+        if (requestParameters['epType'] == null) {
+            throw new runtime.RequiredError(
+                'epType',
+                'Required parameter "epType" was null or undefined when calling getFavoriteProgressByMainItemId().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['mainItemId'] != null) {
+            queryParameters['mainItemId'] = requestParameters['mainItemId'];
+        }
+
+        if (requestParameters['epType'] != null) {
+            queryParameters['epType'] = requestParameters['epType'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
+        }
+
+        const response = await this.request({
+            path: `/progress`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response);
+    }
+
+    /**
+     * get favorite progress (number of SubItemFavorite from the beginning) of a episode type for mainItem
+     */
+    async getFavoriteProgressByMainItemId(requestParameters: GetFavoriteProgressByMainItemIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FavoriteProgress> {
+        const response = await this.getFavoriteProgressByMainItemIdRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * get a MainItem by id
      */
     async getMainItemByIdRaw(requestParameters: GetMainItemByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MainItem>> {
@@ -983,6 +1081,10 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
             queryParameters['sort'] = requestParameters['sort'];
         }
 
+        if (requestParameters['subItem'] != null) {
+            queryParameters['subItem'] = requestParameters['subItem'];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
@@ -1137,6 +1239,70 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
      */
     async predictMainItemName(requestParameters: PredictMainItemNameRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<string>> {
         const response = await this.predictMainItemNameRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * update progress of a favorite, will create/delete SubItemFavorite
+     */
+    async updateFavoriteProgressRaw(requestParameters: UpdateFavoriteProgressRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SucceedEmptyResponse>> {
+        if (requestParameters['mainItemId'] == null) {
+            throw new runtime.RequiredError(
+                'mainItemId',
+                'Required parameter "mainItemId" was null or undefined when calling updateFavoriteProgress().'
+            );
+        }
+
+        if (requestParameters['progress'] == null) {
+            throw new runtime.RequiredError(
+                'progress',
+                'Required parameter "progress" was null or undefined when calling updateFavoriteProgress().'
+            );
+        }
+
+        if (requestParameters['epType'] == null) {
+            throw new runtime.RequiredError(
+                'epType',
+                'Required parameter "epType" was null or undefined when calling updateFavoriteProgress().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['mainItemId'] != null) {
+            queryParameters['mainItemId'] = requestParameters['mainItemId'];
+        }
+
+        if (requestParameters['progress'] != null) {
+            queryParameters['progress'] = requestParameters['progress'];
+        }
+
+        if (requestParameters['epType'] != null) {
+            queryParameters['epType'] = requestParameters['epType'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
+        }
+
+        const response = await this.request({
+            path: `/progress`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response);
+    }
+
+    /**
+     * update progress of a favorite, will create/delete SubItemFavorite
+     */
+    async updateFavoriteProgress(requestParameters: UpdateFavoriteProgressRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SucceedEmptyResponse> {
+        const response = await this.updateFavoriteProgressRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

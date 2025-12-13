@@ -18,6 +18,7 @@ import { ClientMapping } from '../model/models';
 import { CreateSubItemFavoriteRequestBody } from '../model/models';
 import { DeleteClientMappingByMainItemResponse } from '../model/models';
 import { Favorite } from '../model/models';
+import { FavoriteProgress } from '../model/models';
 import { GetOnAirItemListResponse } from '../model/models';
 import { IdListRequestBody } from '../model/models';
 import { ListFavoritesResponse } from '../model/models';
@@ -103,6 +104,14 @@ export interface DefaultMiraInterface {
 
     /**
      * 
+     * get favorite progress (number of SubItemFavorite from the beginning) of a episode type for mainItem
+     * @param mainItemId 
+     * @param epType 
+     */
+    getFavoriteProgressByMainItemId(mainItemId: string, epType: number, extraHttpRequestParams?: any): Observable<FavoriteProgress>;
+
+    /**
+     * 
      * get a MainItem by id
      * @param id MainItem id
      * @param coverImage populate coverImage if true
@@ -151,8 +160,9 @@ export interface DefaultMiraInterface {
      * @param limit 
      * @param orderBy 
      * @param sort 
+     * @param subItem 
      */
-    listSubItemFavorites(itemId?: string, offset?: number, limit?: number, orderBy?: string, sort?: string, extraHttpRequestParams?: any): Observable<ListSubItemFavoriteResponse>;
+    listSubItemFavorites(itemId?: string, offset?: number, limit?: number, orderBy?: string, sort?: string, subItem?: boolean, extraHttpRequestParams?: any): Observable<ListSubItemFavoriteResponse>;
 
     /**
      * 
@@ -175,5 +185,14 @@ export interface DefaultMiraInterface {
      * @param prefix start part of the name
      */
     predictMainItemName(prefix: string, extraHttpRequestParams?: any): Observable<Array<string>>;
+
+    /**
+     * 
+     * update progress of a favorite, will create/delete SubItemFavorite
+     * @param mainItemId 
+     * @param progress 
+     * @param epType 
+     */
+    updateFavoriteProgress(mainItemId: string, progress: number, epType: number, extraHttpRequestParams?: any): Observable<SucceedEmptyResponse>;
 
 }

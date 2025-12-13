@@ -131,6 +131,56 @@ paths:
                 $ref: '#/components/schemas/Favorite'
         '404':
           description: Not found
+  /progress:
+    get:
+      description: get favorite progress (number of SubItemFavorite from the beginning) of a episode type for mainItem
+      operationId: getFavoriteProgressByMainItemId
+      parameters:
+        - name: mainItemId
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: epType
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: the progress of current mainItem favorite.
+          content:
+            application/json:
+              schema:
+                title: FavoriteProgress
+                type: object
+                required:
+                  - progress
+                properties:
+                  progress:
+                    type: integer
+    post:
+      description: update progress of a favorite, will create/delete SubItemFavorite
+      operationId: UpdateFavoriteProgress
+      parameters:
+        - name: mainItemId
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: progress
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: epType
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
   /favorite/sub:
     get:
       description: list SubItemFavorite
@@ -162,6 +212,11 @@ paths:
           required: false
           schema:
             type: string
+        - name: subItem
+          in: query
+          required: false
+          schema:
+            type: boolean
       responses:
         '200':
           description: Successfully return a list of SubItemFavorite
@@ -256,7 +311,6 @@ components:
       type: object
       required:
         - id
-        - subItem
         - userId
       properties:
         id:

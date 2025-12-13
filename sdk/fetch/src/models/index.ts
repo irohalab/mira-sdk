@@ -141,6 +141,19 @@ export interface Favorite {
 }
 
 
+/**
+ * 
+ * @export
+ * @interface FavoriteProgress
+ */
+export interface FavoriteProgress {
+    /**
+     * 
+     * @type {number}
+     * @memberof FavoriteProgress
+     */
+    progress: number;
+}
 
 /**
  * 
@@ -751,7 +764,7 @@ export interface SubItemFavorite {
      * @type {SubItem}
      * @memberof SubItemFavorite
      */
-    subItem: SubItem;
+    subItem?: SubItem;
     /**
      * 
      * @type {string}

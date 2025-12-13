@@ -30,6 +30,8 @@ import { DeleteClientMappingByMainItemResponse } from '../model/deleteClientMapp
 // @ts-ignore
 import { Favorite } from '../model/favorite';
 // @ts-ignore
+import { FavoriteProgress } from '../model/favoriteProgress';
+// @ts-ignore
 import { GetOnAirItemListResponse } from '../model/getOnAirItemListResponse';
 // @ts-ignore
 import { IdListRequestBody } from '../model/idListRequestBody';
@@ -814,6 +816,92 @@ export class DefaultMira implements DefaultMiraInterface {
     }
 
     /**
+     * get favorite progress (number of SubItemFavorite from the beginning) of a episode type for mainItem
+     * @param mainItemId 
+     * @param epType 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getFavoriteProgressByMainItemId(mainItemId: string, epType: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FavoriteProgress>;
+    public getFavoriteProgressByMainItemId(mainItemId: string, epType: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FavoriteProgress>>;
+    public getFavoriteProgressByMainItemId(mainItemId: string, epType: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FavoriteProgress>>;
+    public getFavoriteProgressByMainItemId(mainItemId: string, epType: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (mainItemId === null || mainItemId === undefined) {
+            throw new Error('Required parameter mainItemId was null or undefined when calling getFavoriteProgressByMainItemId.');
+        }
+        if (epType === null || epType === undefined) {
+            throw new Error('Required parameter epType was null or undefined when calling getFavoriteProgressByMainItemId.');
+        }
+
+        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
+        if (mainItemId !== undefined && mainItemId !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>mainItemId, 'mainItemId');
+        }
+        if (epType !== undefined && epType !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>epType, 'epType');
+        }
+
+        let localVarHeaders = this.defaultHeaders;
+
+        let localVarCredential: string | undefined;
+        // authentication (oAuth2) required
+        localVarCredential = this.configuration.lookupCredential('oAuth2');
+        if (localVarCredential) {
+            localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+        }
+
+        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (localVarHttpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (localVarHttpHeaderAcceptSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        }
+
+        let localVarHttpContext: HttpContext | undefined = options && options.context;
+        if (localVarHttpContext === undefined) {
+            localVarHttpContext = new HttpContext();
+        }
+
+        let localVarTransferCache: boolean | undefined = options && options.transferCache;
+        if (localVarTransferCache === undefined) {
+            localVarTransferCache = true;
+        }
+
+
+        let responseType_: 'text' | 'json' | 'blob' = 'json';
+        if (localVarHttpHeaderAcceptSelected) {
+            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+                responseType_ = 'text';
+            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+                responseType_ = 'json';
+            } else {
+                responseType_ = 'blob';
+            }
+        }
+
+        let localVarPath = `/progress`;
+        return this.httpClient.request<FavoriteProgress>('get', `${this.configuration.basePath}${localVarPath}`,
+            {
+                context: localVarHttpContext,
+                params: localVarQueryParameters,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: localVarHeaders,
+                observe: observe,
+                transferCache: localVarTransferCache,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * get a MainItem by id
      * @param id MainItem id
      * @param coverImage populate coverImage if true
@@ -1188,13 +1276,14 @@ export class DefaultMira implements DefaultMiraInterface {
      * @param limit 
      * @param orderBy 
      * @param sort 
+     * @param subItem 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public listSubItemFavorites(itemId?: string, offset?: number, limit?: number, orderBy?: string, sort?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<ListSubItemFavoriteResponse>;
-    public listSubItemFavorites(itemId?: string, offset?: number, limit?: number, orderBy?: string, sort?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<ListSubItemFavoriteResponse>>;
-    public listSubItemFavorites(itemId?: string, offset?: number, limit?: number, orderBy?: string, sort?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<ListSubItemFavoriteResponse>>;
-    public listSubItemFavorites(itemId?: string, offset?: number, limit?: number, orderBy?: string, sort?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public listSubItemFavorites(itemId?: string, offset?: number, limit?: number, orderBy?: string, sort?: string, subItem?: boolean, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<ListSubItemFavoriteResponse>;
+    public listSubItemFavorites(itemId?: string, offset?: number, limit?: number, orderBy?: string, sort?: string, subItem?: boolean, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<ListSubItemFavoriteResponse>>;
+    public listSubItemFavorites(itemId?: string, offset?: number, limit?: number, orderBy?: string, sort?: string, subItem?: boolean, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<ListSubItemFavoriteResponse>>;
+    public listSubItemFavorites(itemId?: string, offset?: number, limit?: number, orderBy?: string, sort?: string, subItem?: boolean, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         if (itemId !== undefined && itemId !== null) {
@@ -1216,6 +1305,10 @@ export class DefaultMira implements DefaultMiraInterface {
         if (sort !== undefined && sort !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
             <any>sort, 'sort');
+        }
+        if (subItem !== undefined && subItem !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>subItem, 'subItem');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -1504,6 +1597,100 @@ export class DefaultMira implements DefaultMiraInterface {
 
         let localVarPath = `/public/item/predict`;
         return this.httpClient.request<Array<string>>('get', `${this.configuration.basePath}${localVarPath}`,
+            {
+                context: localVarHttpContext,
+                params: localVarQueryParameters,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: localVarHeaders,
+                observe: observe,
+                transferCache: localVarTransferCache,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * update progress of a favorite, will create/delete SubItemFavorite
+     * @param mainItemId 
+     * @param progress 
+     * @param epType 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public updateFavoriteProgress(mainItemId: string, progress: number, epType: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<SucceedEmptyResponse>;
+    public updateFavoriteProgress(mainItemId: string, progress: number, epType: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<SucceedEmptyResponse>>;
+    public updateFavoriteProgress(mainItemId: string, progress: number, epType: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<SucceedEmptyResponse>>;
+    public updateFavoriteProgress(mainItemId: string, progress: number, epType: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (mainItemId === null || mainItemId === undefined) {
+            throw new Error('Required parameter mainItemId was null or undefined when calling updateFavoriteProgress.');
+        }
+        if (progress === null || progress === undefined) {
+            throw new Error('Required parameter progress was null or undefined when calling updateFavoriteProgress.');
+        }
+        if (epType === null || epType === undefined) {
+            throw new Error('Required parameter epType was null or undefined when calling updateFavoriteProgress.');
+        }
+
+        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
+        if (mainItemId !== undefined && mainItemId !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>mainItemId, 'mainItemId');
+        }
+        if (progress !== undefined && progress !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>progress, 'progress');
+        }
+        if (epType !== undefined && epType !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>epType, 'epType');
+        }
+
+        let localVarHeaders = this.defaultHeaders;
+
+        let localVarCredential: string | undefined;
+        // authentication (oAuth2) required
+        localVarCredential = this.configuration.lookupCredential('oAuth2');
+        if (localVarCredential) {
+            localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+        }
+
+        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (localVarHttpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (localVarHttpHeaderAcceptSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        }
+
+        let localVarHttpContext: HttpContext | undefined = options && options.context;
+        if (localVarHttpContext === undefined) {
+            localVarHttpContext = new HttpContext();
+        }
+
+        let localVarTransferCache: boolean | undefined = options && options.transferCache;
+        if (localVarTransferCache === undefined) {
+            localVarTransferCache = true;
+        }
+
+
+        let responseType_: 'text' | 'json' | 'blob' = 'json';
+        if (localVarHttpHeaderAcceptSelected) {
+            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+                responseType_ = 'text';
+            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+                responseType_ = 'json';
+            } else {
+                responseType_ = 'blob';
+            }
+        }
+
+        let localVarPath = `/progress`;
+        return this.httpClient.request<SucceedEmptyResponse>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 params: localVarQueryParameters,

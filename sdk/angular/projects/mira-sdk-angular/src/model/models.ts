@@ -5,6 +5,7 @@ export * from './createSubItemFavoriteRequestBody';
 export * from './deleteClientMappingByMainItemResponse';
 export * from './errorResponse';
 export * from './favorite';
+export * from './favoriteProgress';
 export * from './favoriteStatus';
 export * from './getOnAirItemListResponse';
 export * from './idListRequestBody';

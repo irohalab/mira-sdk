@@ -8,12 +8,9 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { SubItem } from './subItem';
 
 
-export interface SubItemFavorite { 
-    id: string;
-    subItem?: SubItem;
-    userId: string;
+export interface FavoriteProgress { 
+    progress: number;
 }
 
