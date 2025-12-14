@@ -591,6 +591,20 @@ export interface PatchFavoriteBody {
 }
 
 
+
+/**
+ * 
+ * @export
+ */
+export const PropertyType = {
+    Staff: 'Staff',
+    Item: 'Item',
+    Character: 'Character',
+    Info: 'Info',
+    Cast: 'Cast'
+} as const;
+export type PropertyType = typeof PropertyType[keyof typeof PropertyType];
+
 /**
  * 
  * @export
@@ -599,10 +613,10 @@ export interface PatchFavoriteBody {
 export interface PropertyValue {
     /**
      * 
-     * @type {string}
+     * @type {PropertyType}
      * @memberof PropertyValue
      */
-    propertyType?: PropertyValuePropertyTypeEnum | null;
+    propertyType?: PropertyType;
     /**
      * 
      * @type {boolean}
@@ -617,18 +631,6 @@ export interface PropertyValue {
     value: PropertyValueValue;
 }
 
-
-/**
- * @export
- */
-export const PropertyValuePropertyTypeEnum = {
-    Staff: 'Staff',
-    Item: 'Item',
-    Character: 'Character',
-    Info: 'Info',
-    Cast: 'Cast'
-} as const;
-export type PropertyValuePropertyTypeEnum = typeof PropertyValuePropertyTypeEnum[keyof typeof PropertyValuePropertyTypeEnum];
 
 /**
  * @type PropertyValueValue

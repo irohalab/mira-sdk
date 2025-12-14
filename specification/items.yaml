@@ -170,6 +170,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MainItem'
+  /public/item/property-mapping:
+    get:
+      description: get ALL property mappings
+      operationId: getAllPropertyMappings
+      responses:
+        '200':
+          description: all of the property mappings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PropertyType'
 components:
   schemas:
     ItemType:
@@ -290,6 +303,15 @@ components:
         - VirtualBoy
         - WonderSwanColor
         - WonderSwan
+    PropertyType:
+      title: PropertyType
+      type: string
+      enum:
+        - Staff
+        - Item
+        - Character
+        - Info
+        - Cast
     PropertyValue:
       title: PropertyValue
       type: object
@@ -298,14 +320,7 @@ components:
         - 'locked'
       properties:
         propertyType:
-          type: string
-          nullable: true
-          enum:
-            - Staff
-            - Item
-            - Character
-            - Info
-            - Cast
+          $ref: '#/components/schemas/PropertyType'
         locked:
           type: boolean
         value:
@@ -468,3 +483,19 @@ components:
               type: string
             mainItem:
               $ref: '#/components/schemas/MainItem'
+    PropertyMapping:
+      title: PropertyMapping
+      type: object
+      description: A property mapping that maps bgm key to internal key
+      required:
+        - key
+        - type
+      properties:
+        key:
+          type: string
+        bgmKey:
+          type: string
+        anidbKey:
+          type: string
+        type:
+          $ref: '#/components/schemas/PropertyType'

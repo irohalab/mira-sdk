@@ -30,6 +30,7 @@ model/mainItem.ts
 model/models.ts
 model/onAirItem.ts
 model/patchFavoriteBody.ts
+model/propertyType.ts
 model/propertyValue.ts
 model/propertyValueValue.ts
 model/subItem.ts

@@ -9,22 +9,15 @@
  * Do not edit the class manually.
  */
 import { PropertyValueValue } from './propertyValueValue';
+import { PropertyType } from './propertyType';
 
 
 export interface PropertyValue { 
-    propertyType?: PropertyValue.PropertyTypeEnum | null;
+    propertyType?: PropertyType;
     locked: boolean;
     value: PropertyValueValue;
 }
 export namespace PropertyValue {
-    export type PropertyTypeEnum = 'Staff' | 'Item' | 'Character' | 'Info' | 'Cast';
-    export const PropertyTypeEnum = {
-        Staff: 'Staff' as PropertyTypeEnum,
-        Item: 'Item' as PropertyTypeEnum,
-        Character: 'Character' as PropertyTypeEnum,
-        Info: 'Info' as PropertyTypeEnum,
-        Cast: 'Cast' as PropertyTypeEnum
-    };
 }
 
 

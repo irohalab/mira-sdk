@@ -26,6 +26,7 @@ import { ListMainItemResponse } from '../model/models';
 import { ListSubItemFavoriteResponse } from '../model/models';
 import { MainItem } from '../model/models';
 import { PatchFavoriteBody } from '../model/models';
+import { PropertyType } from '../model/models';
 import { SubItem } from '../model/models';
 import { SubItemFavorite } from '../model/models';
 import { SucceedEmptyResponse } from '../model/models';
@@ -94,6 +95,12 @@ export interface DefaultMiraInterface {
      * @param id 
      */
     deleteSubItemFavorite(id: string, extraHttpRequestParams?: any): Observable<SucceedEmptyResponse>;
+
+    /**
+     * 
+     * get ALL property mappings
+     */
+    getAllPropertyMappings(extraHttpRequestParams?: any): Observable<Array<PropertyType>>;
 
     /**
      * 

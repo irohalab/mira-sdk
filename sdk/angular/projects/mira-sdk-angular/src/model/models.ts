@@ -19,6 +19,7 @@ export * from './listSubItemFavoriteResponse';
 export * from './mainItem';
 export * from './onAirItem';
 export * from './patchFavoriteBody';
+export * from './propertyType';
 export * from './propertyValue';
 export * from './propertyValueValue';
 export * from './subItem';
