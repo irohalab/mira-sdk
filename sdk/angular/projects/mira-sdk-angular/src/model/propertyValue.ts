@@ -13,6 +13,8 @@ import { PropertyType } from './propertyType';
 
 
 export interface PropertyValue { 
+    anidbKey?: string;
+    bgmKey?: string;
     propertyType?: PropertyType;
     locked: boolean;
     value: PropertyValueValue;

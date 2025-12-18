@@ -613,6 +613,18 @@ export type PropertyType = typeof PropertyType[keyof typeof PropertyType];
 export interface PropertyValue {
     /**
      * 
+     * @type {string}
+     * @memberof PropertyValue
+     */
+    anidbKey?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PropertyValue
+     */
+    bgmKey?: string;
+    /**
+     * 
      * @type {PropertyType}
      * @memberof PropertyValue
      */

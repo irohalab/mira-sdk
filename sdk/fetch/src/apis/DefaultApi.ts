@@ -29,7 +29,6 @@ import type {
   ListSubItemFavoriteResponse,
   MainItem,
   PatchFavoriteBody,
-  PropertyType,
   SubItem,
   SubItemFavorite,
   SucceedEmptyResponse,
@@ -252,19 +251,6 @@ export interface DefaultApiInterface {
      * Delete a SubItemFavorite
      */
     deleteSubItemFavorite(requestParameters: DeleteSubItemFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SucceedEmptyResponse>;
-
-    /**
-     * get ALL property mappings
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApiInterface
-     */
-    getAllPropertyMappingsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<PropertyType>>>;
-
-    /**
-     * get ALL property mappings
-     */
-    getAllPropertyMappings(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<PropertyType>>;
 
     /**
      * get favorite by MainItem id
@@ -766,37 +752,6 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
      */
     async deleteSubItemFavorite(requestParameters: DeleteSubItemFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SucceedEmptyResponse> {
         const response = await this.deleteSubItemFavoriteRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * get ALL property mappings
-     */
-    async getAllPropertyMappingsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<PropertyType>>> {
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
-        }
-
-        const response = await this.request({
-            path: `/public/item/property-mapping`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response);
-    }
-
-    /**
-     * get ALL property mappings
-     */
-    async getAllPropertyMappings(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<PropertyType>> {
-        const response = await this.getAllPropertyMappingsRaw(initOverrides);
         return await response.value();
     }
 

@@ -177,19 +177,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MainItem'
-  /public/item/property-mapping:
-    get:
-      description: get ALL property mappings
-      operationId: getAllPropertyMappings
-      responses:
-        '200':
-          description: all of the property mappings
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/PropertyType'
   /favorite:
     get:
       description: list favorites for user
@@ -703,6 +690,10 @@ components:
         - value
         - locked
       properties:
+        anidbKey:
+          type: string
+        bgmKey:
+          type: string
         propertyType:
           $ref: '#/components/schemas/PropertyType'
         locked:
