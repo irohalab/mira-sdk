@@ -29,6 +29,25 @@ export interface BatchGetSubItemByIdListResult {
 /**
  * 
  * @export
+ * @interface CharacterRelationsWithMainItems
+ */
+export interface CharacterRelationsWithMainItems {
+    /**
+     * 
+     * @type {Array<MainItem>}
+     * @memberof CharacterRelationsWithMainItems
+     */
+    mainItems: Array<MainItem>;
+    /**
+     * 
+     * @type {Array<ItemCastCharacterRelation>}
+     * @memberof CharacterRelationsWithMainItems
+     */
+    relatedItems: Array<ItemCastCharacterRelation>;
+}
+/**
+ * 
+ * @export
  * @interface ClientMapping
  */
 export interface ClientMapping {
@@ -232,6 +251,73 @@ export interface ImageInfo {
     dormantColor: string;
 }
 /**
+ * represent the relation among the Item type, Person type and Character type MainItems, it can also only be Item and Character type relation.
+ * @export
+ * @interface ItemCastCharacterRelation
+ */
+export interface ItemCastCharacterRelation {
+    /**
+     * 
+     * @type {string}
+     * @memberof ItemCastCharacterRelation
+     */
+    id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ItemCastCharacterRelation
+     */
+    mainItemId: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ItemCastCharacterRelation
+     */
+    mainItemBgmId: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ItemCastCharacterRelation
+     */
+    relatedCastId?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof ItemCastCharacterRelation
+     */
+    relatedCastBgmId: number | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ItemCastCharacterRelation
+     */
+    relatedCharacterId?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof ItemCastCharacterRelation
+     */
+    relatedCharacterBgmId: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ItemCastCharacterRelation
+     */
+    characterType: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ItemCastCharacterRelation
+     */
+    isLocked: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof ItemCastCharacterRelation
+     */
+    relationType?: string;
+}
+/**
  * 
  * @export
  * @interface ItemEntity
@@ -273,6 +359,135 @@ export interface ItemEntity {
      * @memberof ItemEntity
      */
     properties: { [key: string]: PropertyValue; };
+}
+/**
+ * represent the relation between the Item type MainItem and Person type MainItem
+ * @export
+ * @interface ItemPersonRelation
+ */
+export interface ItemPersonRelation {
+    /**
+     * 
+     * @type {string}
+     * @memberof ItemPersonRelation
+     */
+    id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ItemPersonRelation
+     */
+    mainItemId: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ItemPersonRelation
+     */
+    mainItemBgmId: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ItemPersonRelation
+     */
+    personItemId?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof ItemPersonRelation
+     */
+    personItemBgmId: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ItemPersonRelation
+     */
+    relationType: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ItemPersonRelation
+     */
+    isLocked: boolean;
+}
+/**
+ * represent the relation of the Item type MainItems
+ * @export
+ * @interface ItemRelation
+ */
+export interface ItemRelation {
+    /**
+     * 
+     * @type {string}
+     * @memberof ItemRelation
+     */
+    id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ItemRelation
+     */
+    mainItemId: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ItemRelation
+     */
+    mainItemBgmId: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ItemRelation
+     */
+    relatedItemId?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof ItemRelation
+     */
+    relatedBgmId: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ItemRelation
+     */
+    relationType: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ItemRelation
+     */
+    isLocked: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface ItemRelationsWithMainItems
+ */
+export interface ItemRelationsWithMainItems {
+    /**
+     * 
+     * @type {Array<MainItem>}
+     * @memberof ItemRelationsWithMainItems
+     */
+    mainItems: Array<MainItem>;
+    /**
+     * 
+     * @type {Array<ItemRelation>}
+     * @memberof ItemRelationsWithMainItems
+     */
+    relatedItems: Array<ItemRelation>;
+    /**
+     * 
+     * @type {Array<ItemPersonRelation>}
+     * @memberof ItemRelationsWithMainItems
+     */
+    relatedPersons: Array<ItemPersonRelation>;
+    /**
+     * 
+     * @type {Array<ItemCastCharacterRelation>}
+     * @memberof ItemRelationsWithMainItems
+     */
+    relatedCharacters: Array<ItemCastCharacterRelation>;
 }
 
 /**
@@ -591,6 +806,31 @@ export interface PatchFavoriteBody {
 }
 
 
+/**
+ * 
+ * @export
+ * @interface PersonRelationsWithMainItems
+ */
+export interface PersonRelationsWithMainItems {
+    /**
+     * 
+     * @type {Array<MainItem>}
+     * @memberof PersonRelationsWithMainItems
+     */
+    mainItems: Array<MainItem>;
+    /**
+     * 
+     * @type {Array<ItemPersonRelation>}
+     * @memberof PersonRelationsWithMainItems
+     */
+    relatedItems: Array<ItemPersonRelation>;
+    /**
+     * 
+     * @type {Array<ItemCastCharacterRelation>}
+     * @memberof PersonRelationsWithMainItems
+     */
+    relatedCharacters: Array<ItemCastCharacterRelation>;
+}
 
 /**
  * 

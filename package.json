@@ -1,11 +1,11 @@
 {
   "name": "mira-sdk",
-  "version": "2.3.5",
+  "version": "3.0.0",
   "description": "SDK for project-mira",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "merge": "openapi-merge-cli",
+    "merge": "openapi-merge-cli && ts-node scripts/fix-refs.ts && rimraf _api.yml",
     "sdk": "npm run sdk:angular && npm run sdk:fetch",
     "sdk:angular": "npm run clean:sdk:angular && npx openapi-generator-cli generate --generator-key angular",
     "sdk:fetch": "npm run clean:sdk:fetch && npx openapi-generator-cli generate --generator-key fetch",
@@ -25,6 +25,11 @@
   "devDependencies": {
     "@iouring-engineering/openapi-merge-cli": "^1.5.1",
     "@openapitools/openapi-generator-cli": "^2.13.5",
-    "rimraf": "^6.0.1"
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^25.0.8",
+    "js-yaml": "^4.1.1",
+    "rimraf": "^6.0.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
   }
 }

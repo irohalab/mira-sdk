@@ -14,6 +14,7 @@ import { Observable }                                        from 'rxjs';
 
 import { BatchGetMainItemByIdListResult } from '../model/models';
 import { BatchGetSubItemByIdListResult } from '../model/models';
+import { CharacterRelationsWithMainItems } from '../model/models';
 import { ClientMapping } from '../model/models';
 import { CreateSubItemFavoriteRequestBody } from '../model/models';
 import { DeleteClientMappingByMainItemResponse } from '../model/models';
@@ -21,11 +22,13 @@ import { Favorite } from '../model/models';
 import { FavoriteProgress } from '../model/models';
 import { GetOnAirItemListResponse } from '../model/models';
 import { IdListRequestBody } from '../model/models';
+import { ItemRelationsWithMainItems } from '../model/models';
 import { ListFavoritesResponse } from '../model/models';
 import { ListMainItemResponse } from '../model/models';
 import { ListSubItemFavoriteResponse } from '../model/models';
 import { MainItem } from '../model/models';
 import { PatchFavoriteBody } from '../model/models';
+import { PersonRelationsWithMainItems } from '../model/models';
 import { SubItem } from '../model/models';
 import { SubItemFavorite } from '../model/models';
 import { SucceedEmptyResponse } from '../model/models';
@@ -118,6 +121,27 @@ export interface DefaultMiraInterface {
      * @param subItems populate subItems if true
      */
     getMainItemById(id: string, coverImage?: string, subItems?: string, extraHttpRequestParams?: any): Observable<MainItem>;
+
+    /**
+     * 
+     * get all related (Item, Staff, Cast, Character) MainItem of an Item Type MainItem.
+     * @param id MainItem id
+     */
+    getRelationsOfItem(id: string, extraHttpRequestParams?: any): Observable<ItemRelationsWithMainItems>;
+
+    /**
+     * 
+     * get all related (Item , Character) MainItem of an Person Type MainItem.
+     * @param id MainItem id
+     */
+    getRelationsOfItem1(id: string, extraHttpRequestParams?: any): Observable<PersonRelationsWithMainItems>;
+
+    /**
+     * 
+     * get all related (Item , Cast) MainItem of an Character Type MainItem.
+     * @param id MainItem id
+     */
+    getRelationsOfItem2(id: string, extraHttpRequestParams?: any): Observable<CharacterRelationsWithMainItems>;
 
     /**
      * 

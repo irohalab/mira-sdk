@@ -72,7 +72,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/MainItem'
+                      $ref: './items.yaml#/components/schemas/MainItem'
   /client-mapping/batch/subItem:
     post:
       operationId: batchGetSubItemsByIdList
@@ -97,7 +97,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/SubItem'
+                      $ref: './items.yaml#/components/schemas/SubItem'
 
 components:
   schemas:
@@ -113,7 +113,7 @@ components:
         clientId:
           type: string
         item:
-          $ref: '#/components/schemas/MainItem'
+          $ref: './items.yaml#/components/schemas/MainItem'
     IdListRequestBody:
       title: IdListRequestBody
       type: object

@@ -304,7 +304,7 @@ components:
         rating:
           type: integer
         item:
-          $ref: '#/components/schemas/MainItem' # not an error, the merger doesn't support local file $ref
+          $ref: './items.yaml#/components/schemas/MainItem' # not an error, the merger doesn't support local file $ref
         userId:
           type: string
     SubItemFavorite:
@@ -316,7 +316,7 @@ components:
         id:
           type: string
         subItem:
-          $ref: '#/components/schemas/SubItem'  # not an error, the merger doesn't support local file $ref
+          $ref: './items.yaml#/components/schemas/SubItem'  # not an error, the merger doesn't support local file $ref
         userId:
           type: string
     ErrorResponse:

@@ -10,6 +10,7 @@ git_push.sh
 index.ts
 model/batchGetMainItemByIdListResult.ts
 model/batchGetSubItemByIdListResult.ts
+model/characterRelationsWithMainItems.ts
 model/clientMapping.ts
 model/createSubItemFavoriteRequestBody.ts
 model/deleteClientMappingByMainItemResponse.ts
@@ -20,7 +21,11 @@ model/favoriteStatus.ts
 model/getOnAirItemListResponse.ts
 model/idListRequestBody.ts
 model/imageInfo.ts
+model/itemCastCharacterRelation.ts
 model/itemEntity.ts
+model/itemPersonRelation.ts
+model/itemRelation.ts
+model/itemRelationsWithMainItems.ts
 model/itemSubType.ts
 model/itemType.ts
 model/listFavoritesResponse.ts
@@ -30,6 +35,7 @@ model/mainItem.ts
 model/models.ts
 model/onAirItem.ts
 model/patchFavoriteBody.ts
+model/personRelationsWithMainItems.ts
 model/propertyType.ts
 model/propertyValue.ts
 model/propertyValueValue.ts

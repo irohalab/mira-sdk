@@ -11,6 +11,9 @@
     },
     {
       "inputFile": "./specification/client-mapping.yaml"
+    },
+    {
+      "inputFile": "./specification/relations.yaml"
     }
   ],
   "info": {
@@ -18,5 +21,5 @@
     "title": "mira API",
     "description": "API for Project-Mira"
   },
-  "output": "./api.yml"
+  "output": "./_api.yml"
 }

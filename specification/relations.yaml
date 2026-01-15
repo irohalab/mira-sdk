@@ -1,0 +1,209 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: mira Item API
+  description: Item API for Project-Mira
+paths:
+  /public/relation/item/{id}:
+    get:
+      description: get all related (Item, Staff, Cast, Character) MainItem of an Item Type MainItem.
+      operationId: getRelationsOfItem
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: MainItem id
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully returns all the relations of the MainItem
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemRelationsWithMainItems'
+  /public/relation/person/{id}:
+    get:
+      description: get all related (Item , Character) MainItem of an Person Type MainItem.
+      operationId: getRelationsOfItem
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: MainItem id
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully returns all the relations of the MainItem
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonRelationsWithMainItems'
+  /public/relation/character/{id}:
+    get:
+      description: get all related (Item , Cast) MainItem of an Character Type MainItem.
+      operationId: getRelationsOfItem
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: MainItem id
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully returns all the relations of the MainItem
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CharacterRelationsWithMainItems'
+components:
+  schemas:
+    ItemRelation:
+      title: ItemRelation
+      type: object
+      description: represent the relation of the Item type MainItems
+      required:
+        - 'id'
+        - 'mainItemId'
+        - 'mainItemBgmId'
+        - 'relatedBgmId'
+        - 'relationType'
+        - 'isLocked'
+      properties:
+        id:
+          type: string
+        mainItemId:
+          type: string
+        mainItemBgmId:
+          type: integer
+        relatedItemId:
+          type: string
+          nullable: true
+        relatedBgmId:
+          type: integer
+        relationType:
+          type: string
+        isLocked:
+          type: boolean
+    ItemPersonRelation:
+      title: ItemPersonRelation
+      type: object
+      description: represent the relation between the Item type MainItem and Person type MainItem
+      required:
+        - 'id'
+        - 'mainItemId'
+        - 'mainItemBgmId'
+        - 'personItemBgmId'
+        - 'relationType'
+        - 'isLocked'
+      properties:
+        id:
+          type: string
+        mainItemId:
+          type: string
+        mainItemBgmId:
+          type: integer
+        personItemId:
+          type: string
+          nullable: true
+        personItemBgmId:
+          type: integer
+        relationType:
+          type: string
+        isLocked:
+          type: boolean
+    ItemCastCharacterRelation:
+      title: ItemCastCharacterRelation
+      type: object
+      description: represent the relation among the Item type, Person type and Character type MainItems, it can also only be Item and Character type relation.
+      required:
+        - 'id'
+        - 'mainItemId'
+        - 'mainItemBgmId'
+        - 'relatedCastBgmId'
+        - 'relatedCharacterBgmId'
+        - 'characterType'
+        - 'isLocked'
+      properties:
+        id:
+          type: string
+        mainItemId:
+          type: string
+        mainItemBgmId:
+          type: integer
+        relatedCastId:
+          type: string
+          nullable: true
+        relatedCastBgmId:
+          type: integer
+          nullable: true
+        relatedCharacterId:
+          type: string
+          nullable: true
+        relatedCharacterBgmId:
+          type: integer
+        characterType:
+          type: string
+        isLocked:
+          type: boolean
+        relationType:
+          type: string
+    ItemRelationsWithMainItems:
+      type: object
+      required:
+        - mainItems
+        - relatedItems
+        - relatedPersons
+        - relatedCharacters
+      properties:
+        mainItems:
+          type: array
+          items:
+            $ref: './items.yaml#/components/schemas/MainItem'
+        relatedItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemRelation'
+        relatedPersons:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemPersonRelation'
+        relatedCharacters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemCastCharacterRelation'
+    PersonRelationsWithMainItems:
+      type: object
+      required:
+        - mainItems
+        - relatedItems
+        - relatedCharacters
+      properties:
+        mainItems:
+          type: array
+          items:
+            $ref: './items.yaml#/components/schemas/MainItem'
+        relatedItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemPersonRelation'
+        relatedCharacters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemCastCharacterRelation'
+    CharacterRelationsWithMainItems:
+      type: object
+      required:
+        - mainItems
+        - relatedItems
+      properties:
+        mainItems:
+          type: array
+          items:
+            $ref: './items.yaml#/components/schemas/MainItem'
+        relatedItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemCastCharacterRelation'
