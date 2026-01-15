@@ -124,6 +124,13 @@ export interface DefaultMiraInterface {
 
     /**
      * 
+     * get all related (Item , Cast) MainItem of an Character Type MainItem.
+     * @param id MainItem id
+     */
+    getRelationsOfCharacter(id: string, extraHttpRequestParams?: any): Observable<CharacterRelationsWithMainItems>;
+
+    /**
+     * 
      * get all related (Item, Staff, Cast, Character) MainItem of an Item Type MainItem.
      * @param id MainItem id
      */
@@ -134,14 +141,7 @@ export interface DefaultMiraInterface {
      * get all related (Item , Character) MainItem of an Person Type MainItem.
      * @param id MainItem id
      */
-    getRelationsOfItem1(id: string, extraHttpRequestParams?: any): Observable<PersonRelationsWithMainItems>;
-
-    /**
-     * 
-     * get all related (Item , Cast) MainItem of an Character Type MainItem.
-     * @param id MainItem id
-     */
-    getRelationsOfItem2(id: string, extraHttpRequestParams?: any): Observable<CharacterRelationsWithMainItems>;
+    getRelationsOfPerson(id: string, extraHttpRequestParams?: any): Observable<PersonRelationsWithMainItems>;
 
     /**
      * 

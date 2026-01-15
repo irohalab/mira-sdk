@@ -555,7 +555,7 @@ paths:
   /public/relation/person/{id}:
     get:
       description: get all related (Item , Character) MainItem of an Person Type MainItem.
-      operationId: getRelationsOfItem1
+      operationId: getRelationsOfPerson
       parameters:
         - name: id
           in: path
@@ -573,7 +573,7 @@ paths:
   /public/relation/character/{id}:
     get:
       description: get all related (Item , Cast) MainItem of an Character Type MainItem.
-      operationId: getRelationsOfItem2
+      operationId: getRelationsOfCharacter
       parameters:
         - name: id
           in: path

@@ -84,15 +84,15 @@ export interface GetMainItemByIdRequest {
     subItems?: string;
 }
 
+export interface GetRelationsOfCharacterRequest {
+    id: string;
+}
+
 export interface GetRelationsOfItemRequest {
     id: string;
 }
 
-export interface GetRelationsOfItem1Request {
-    id: string;
-}
-
-export interface GetRelationsOfItem2Request {
+export interface GetRelationsOfPersonRequest {
     id: string;
 }
 
@@ -313,6 +313,20 @@ export interface DefaultApiInterface {
     getMainItemById(requestParameters: GetMainItemByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MainItem>;
 
     /**
+     * get all related (Item , Cast) MainItem of an Character Type MainItem.
+     * @param {string} id MainItem id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    getRelationsOfCharacterRaw(requestParameters: GetRelationsOfCharacterRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CharacterRelationsWithMainItems>>;
+
+    /**
+     * get all related (Item , Cast) MainItem of an Character Type MainItem.
+     */
+    getRelationsOfCharacter(requestParameters: GetRelationsOfCharacterRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CharacterRelationsWithMainItems>;
+
+    /**
      * get all related (Item, Staff, Cast, Character) MainItem of an Item Type MainItem.
      * @param {string} id MainItem id
      * @param {*} [options] Override http request option.
@@ -333,26 +347,12 @@ export interface DefaultApiInterface {
      * @throws {RequiredError}
      * @memberof DefaultApiInterface
      */
-    getRelationsOfItem1Raw(requestParameters: GetRelationsOfItem1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PersonRelationsWithMainItems>>;
+    getRelationsOfPersonRaw(requestParameters: GetRelationsOfPersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PersonRelationsWithMainItems>>;
 
     /**
      * get all related (Item , Character) MainItem of an Person Type MainItem.
      */
-    getRelationsOfItem1(requestParameters: GetRelationsOfItem1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PersonRelationsWithMainItems>;
-
-    /**
-     * get all related (Item , Cast) MainItem of an Character Type MainItem.
-     * @param {string} id MainItem id
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApiInterface
-     */
-    getRelationsOfItem2Raw(requestParameters: GetRelationsOfItem2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CharacterRelationsWithMainItems>>;
-
-    /**
-     * get all related (Item , Cast) MainItem of an Character Type MainItem.
-     */
-    getRelationsOfItem2(requestParameters: GetRelationsOfItem2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CharacterRelationsWithMainItems>;
+    getRelationsOfPerson(requestParameters: GetRelationsOfPersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PersonRelationsWithMainItems>;
 
     /**
      * get a SubItem by id
@@ -950,6 +950,44 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
     }
 
     /**
+     * get all related (Item , Cast) MainItem of an Character Type MainItem.
+     */
+    async getRelationsOfCharacterRaw(requestParameters: GetRelationsOfCharacterRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CharacterRelationsWithMainItems>> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling getRelationsOfCharacter().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
+        }
+
+        const response = await this.request({
+            path: `/public/relation/character/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response);
+    }
+
+    /**
+     * get all related (Item , Cast) MainItem of an Character Type MainItem.
+     */
+    async getRelationsOfCharacter(requestParameters: GetRelationsOfCharacterRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CharacterRelationsWithMainItems> {
+        const response = await this.getRelationsOfCharacterRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * get all related (Item, Staff, Cast, Character) MainItem of an Item Type MainItem.
      */
     async getRelationsOfItemRaw(requestParameters: GetRelationsOfItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ItemRelationsWithMainItems>> {
@@ -990,11 +1028,11 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
     /**
      * get all related (Item , Character) MainItem of an Person Type MainItem.
      */
-    async getRelationsOfItem1Raw(requestParameters: GetRelationsOfItem1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PersonRelationsWithMainItems>> {
+    async getRelationsOfPersonRaw(requestParameters: GetRelationsOfPersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PersonRelationsWithMainItems>> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
-                'Required parameter "id" was null or undefined when calling getRelationsOfItem1().'
+                'Required parameter "id" was null or undefined when calling getRelationsOfPerson().'
             );
         }
 
@@ -1020,46 +1058,8 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
     /**
      * get all related (Item , Character) MainItem of an Person Type MainItem.
      */
-    async getRelationsOfItem1(requestParameters: GetRelationsOfItem1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PersonRelationsWithMainItems> {
-        const response = await this.getRelationsOfItem1Raw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * get all related (Item , Cast) MainItem of an Character Type MainItem.
-     */
-    async getRelationsOfItem2Raw(requestParameters: GetRelationsOfItem2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CharacterRelationsWithMainItems>> {
-        if (requestParameters['id'] == null) {
-            throw new runtime.RequiredError(
-                'id',
-                'Required parameter "id" was null or undefined when calling getRelationsOfItem2().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
-        }
-
-        const response = await this.request({
-            path: `/public/relation/character/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response);
-    }
-
-    /**
-     * get all related (Item , Cast) MainItem of an Character Type MainItem.
-     */
-    async getRelationsOfItem2(requestParameters: GetRelationsOfItem2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CharacterRelationsWithMainItems> {
-        const response = await this.getRelationsOfItem2Raw(requestParameters, initOverrides);
+    async getRelationsOfPerson(requestParameters: GetRelationsOfPersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PersonRelationsWithMainItems> {
+        const response = await this.getRelationsOfPersonRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
