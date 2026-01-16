@@ -10,35 +10,26 @@
  */
 import { ItemSubType } from './itemSubType';
 import { ItemType } from './itemType';
-import { SubItem } from './subItem';
-import { PropertyValue } from './propertyValue';
 import { MainType } from './mainType';
 import { ImageInfo } from './imageInfo';
 
 
-export interface MainItem { 
+export interface MainItemBasic { 
     id: string;
-    bgmId: number;
-    /**
-     * Not used for ItemType.Individual and ItemType.Character
-     */
-    publicTime?: string;
-    name?: string;
-    nameCn?: string;
-    properties: { [key: string]: PropertyValue; };
+    bgmId: string;
     mainType: MainType;
     type: ItemType;
-    subType?: ItemSubType;
+    subType: ItemSubType;
     /**
      * determine if the MainItem is collection item
      */
     isCollection: boolean;
     coverImage?: ImageInfo;
     squareImage?: ImageInfo;
-    subItems?: Array<SubItem>;
-    summary?: string;
+    name?: string;
+    nameCn?: string;
 }
-export namespace MainItem {
+export namespace MainItemBasic {
 }
 
 

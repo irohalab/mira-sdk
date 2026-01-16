@@ -172,6 +172,16 @@ paths:
                 $ref: '#/components/schemas/MainItem'
 components:
   schemas:
+    MainType:
+      type: integer
+      enum:
+        - 0
+        - 1
+        - 2
+      x-enum-varnames:
+        - Item
+        - Person
+        - Character
     ItemType:
       type: string
       enum:
@@ -385,15 +395,7 @@ components:
             - isCollection
           properties:
             mainType:
-              type: integer
-              enum:
-                - 0
-                - 1
-                - 2
-              x-enum-varnames:
-                - Item
-                - Person
-                - Character
+              $ref: '#/components/schemas/MainType'
             type:
               $ref: '#/components/schemas/ItemType'
             subType:

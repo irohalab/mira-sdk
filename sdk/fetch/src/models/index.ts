@@ -34,10 +34,10 @@ export interface BatchGetSubItemByIdListResult {
 export interface CharacterRelationsWithMainItems {
     /**
      * 
-     * @type {Array<MainItem>}
+     * @type {Array<MainItemBasic>}
      * @memberof CharacterRelationsWithMainItems
      */
-    mainItems: Array<MainItem>;
+    mainItems: Array<MainItemBasic>;
     /**
      * 
      * @type {Array<ItemCastCharacterRelation>}
@@ -466,10 +466,10 @@ export interface ItemRelation {
 export interface ItemRelationsWithMainItems {
     /**
      * 
-     * @type {Array<MainItem>}
+     * @type {Array<MainItemBasic>}
      * @memberof ItemRelationsWithMainItems
      */
-    mainItems: Array<MainItem>;
+    mainItems: Array<MainItemBasic>;
     /**
      * 
      * @type {Array<ItemRelation>}
@@ -663,10 +663,10 @@ export interface MainItem {
     properties: { [key: string]: PropertyValue; };
     /**
      * 
-     * @type {number}
+     * @type {MainType}
      * @memberof MainItem
      */
-    mainType: MainItemMainTypeEnum;
+    mainType: MainType;
     /**
      * 
      * @type {ItemType}
@@ -713,14 +713,85 @@ export interface MainItem {
 
 
 /**
+ * 
+ * @export
+ * @interface MainItemBasic
+ */
+export interface MainItemBasic {
+    /**
+     * 
+     * @type {string}
+     * @memberof MainItemBasic
+     */
+    id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MainItemBasic
+     */
+    bgmId: string;
+    /**
+     * 
+     * @type {MainType}
+     * @memberof MainItemBasic
+     */
+    mainType: MainType;
+    /**
+     * 
+     * @type {ItemType}
+     * @memberof MainItemBasic
+     */
+    type: ItemType;
+    /**
+     * 
+     * @type {ItemSubType}
+     * @memberof MainItemBasic
+     */
+    subType: ItemSubType;
+    /**
+     * determine if the MainItem is collection item
+     * @type {boolean}
+     * @memberof MainItemBasic
+     */
+    isCollection: boolean;
+    /**
+     * 
+     * @type {ImageInfo}
+     * @memberof MainItemBasic
+     */
+    coverImage?: ImageInfo;
+    /**
+     * 
+     * @type {ImageInfo}
+     * @memberof MainItemBasic
+     */
+    squareImage?: ImageInfo;
+    /**
+     * 
+     * @type {string}
+     * @memberof MainItemBasic
+     */
+    name?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MainItemBasic
+     */
+    nameCn?: string;
+}
+
+
+
+/**
+ * 
  * @export
  */
-export const MainItemMainTypeEnum = {
+export const MainType = {
     Item: 0,
     Person: 1,
     Character: 2
 } as const;
-export type MainItemMainTypeEnum = typeof MainItemMainTypeEnum[keyof typeof MainItemMainTypeEnum];
+export type MainType = typeof MainType[keyof typeof MainType];
 
 /**
  * 
@@ -814,10 +885,10 @@ export interface PatchFavoriteBody {
 export interface PersonRelationsWithMainItems {
     /**
      * 
-     * @type {Array<MainItem>}
+     * @type {Array<MainItemBasic>}
      * @memberof PersonRelationsWithMainItems
      */
-    mainItems: Array<MainItem>;
+    mainItems: Array<MainItemBasic>;
     /**
      * 
      * @type {Array<ItemPersonRelation>}

@@ -150,6 +150,37 @@ components:
           type: boolean
         relationType:
           type: string
+    MainItemBasic:
+      type: object
+      required:
+        - id
+        - bgmId
+        - mainType
+        - type
+        - subType
+        - isCollection
+      properties:
+        id:
+          type: string
+        bgmId:
+          type: string
+        mainType:
+          $ref: './items.yaml#/components/schemas/MainType'
+        type:
+          $ref: './items.yaml#/components/schemas/ItemType'
+        subType:
+          $ref: './items.yaml#/components/schemas/ItemSubType'
+        isCollection:
+          type: boolean
+          description: determine if the MainItem is collection item
+        coverImage:
+          $ref: './items.yaml#/components/schemas/ImageInfo'
+        squareImage:
+          $ref: './items.yaml#/components/schemas/ImageInfo'
+        name:
+          type: string
+        nameCn:
+          type: string
     ItemRelationsWithMainItems:
       type: object
       required:
@@ -161,7 +192,7 @@ components:
         mainItems:
           type: array
           items:
-            $ref: './items.yaml#/components/schemas/MainItem'
+            $ref: '#/components/schemas/MainItemBasic'
         relatedItems:
           type: array
           items:
@@ -184,7 +215,7 @@ components:
         mainItems:
           type: array
           items:
-            $ref: './items.yaml#/components/schemas/MainItem'
+            $ref: '#/components/schemas/MainItemBasic'
         relatedItems:
           type: array
           items:
@@ -202,7 +233,7 @@ components:
         mainItems:
           type: array
           items:
-            $ref: './items.yaml#/components/schemas/MainItem'
+            $ref: '#/components/schemas/MainItemBasic'
         relatedItems:
           type: array
           items:

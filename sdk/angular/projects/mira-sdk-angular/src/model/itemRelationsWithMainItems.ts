@@ -8,14 +8,14 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { MainItemBasic } from './mainItemBasic';
 import { ItemPersonRelation } from './itemPersonRelation';
 import { ItemCastCharacterRelation } from './itemCastCharacterRelation';
-import { MainItem } from './mainItem';
 import { ItemRelation } from './itemRelation';
 
 
 export interface ItemRelationsWithMainItems { 
-    mainItems: Array<MainItem>;
+    mainItems: Array<MainItemBasic>;
     relatedItems: Array<ItemRelation>;
     relatedPersons: Array<ItemPersonRelation>;
     relatedCharacters: Array<ItemCastCharacterRelation>;

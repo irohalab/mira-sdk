@@ -32,6 +32,8 @@ model/listFavoritesResponse.ts
 model/listMainItemResponse.ts
 model/listSubItemFavoriteResponse.ts
 model/mainItem.ts
+model/mainItemBasic.ts
+model/mainType.ts
 model/models.ts
 model/onAirItem.ts
 model/patchFavoriteBody.ts

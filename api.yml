@@ -600,6 +600,16 @@ components:
           scopes:
             bookmark: will grant application to access the user's bookmarks and reviews
   schemas:
+    MainType:
+      type: integer
+      enum:
+        - 0
+        - 1
+        - 2
+      x-enum-varnames:
+        - Item
+        - Person
+        - Character
     ItemType:
       type: string
       enum:
@@ -813,15 +823,7 @@ components:
             - isCollection
           properties:
             mainType:
-              type: integer
-              enum:
-                - 0
-                - 1
-                - 2
-              x-enum-varnames:
-                - Item
-                - Person
-                - Character
+              $ref: '#/components/schemas/MainType'
             type:
               $ref: '#/components/schemas/ItemType'
             subType:
@@ -1069,6 +1071,37 @@ components:
           type: boolean
         relationType:
           type: string
+    MainItemBasic:
+      type: object
+      required:
+        - id
+        - bgmId
+        - mainType
+        - type
+        - subType
+        - isCollection
+      properties:
+        id:
+          type: string
+        bgmId:
+          type: string
+        mainType:
+          $ref: '#/components/schemas/MainType'
+        type:
+          $ref: '#/components/schemas/ItemType'
+        subType:
+          $ref: '#/components/schemas/ItemSubType'
+        isCollection:
+          type: boolean
+          description: determine if the MainItem is collection item
+        coverImage:
+          $ref: '#/components/schemas/ImageInfo'
+        squareImage:
+          $ref: '#/components/schemas/ImageInfo'
+        name:
+          type: string
+        nameCn:
+          type: string
     ItemRelationsWithMainItems:
       type: object
       required:
@@ -1080,7 +1113,7 @@ components:
         mainItems:
           type: array
           items:
-            $ref: '#/components/schemas/MainItem'
+            $ref: '#/components/schemas/MainItemBasic'
         relatedItems:
           type: array
           items:
@@ -1103,7 +1136,7 @@ components:
         mainItems:
           type: array
           items:
-            $ref: '#/components/schemas/MainItem'
+            $ref: '#/components/schemas/MainItemBasic'
         relatedItems:
           type: array
           items:
@@ -1121,7 +1154,7 @@ components:
         mainItems:
           type: array
           items:
-            $ref: '#/components/schemas/MainItem'
+            $ref: '#/components/schemas/MainItemBasic'
         relatedItems:
           type: array
           items:

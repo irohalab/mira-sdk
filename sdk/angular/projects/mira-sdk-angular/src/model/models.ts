@@ -22,6 +22,8 @@ export * from './listFavoritesResponse';
 export * from './listMainItemResponse';
 export * from './listSubItemFavoriteResponse';
 export * from './mainItem';
+export * from './mainItemBasic';
+export * from './mainType';
 export * from './onAirItem';
 export * from './patchFavoriteBody';
 export * from './personRelationsWithMainItems';
