@@ -170,6 +170,9 @@ components:
           $ref: './items.yaml#/components/schemas/ItemType'
         subType:
           $ref: './items.yaml#/components/schemas/ItemSubType'
+        publicTime:
+          type: string
+          format: date
         isCollection:
           type: boolean
           description: determine if the MainItem is collection item

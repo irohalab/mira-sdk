@@ -20,6 +20,7 @@ export interface MainItemBasic {
     mainType: MainType;
     type: ItemType;
     subType: ItemSubType;
+    publicTime?: string;
     /**
      * determine if the MainItem is collection item
      */

@@ -749,6 +749,12 @@ export interface MainItemBasic {
      */
     subType: ItemSubType;
     /**
+     * 
+     * @type {string}
+     * @memberof MainItemBasic
+     */
+    publicTime?: string;
+    /**
      * determine if the MainItem is collection item
      * @type {boolean}
      * @memberof MainItemBasic
