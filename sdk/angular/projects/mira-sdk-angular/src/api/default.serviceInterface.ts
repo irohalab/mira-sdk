@@ -32,6 +32,8 @@ import { PersonRelationsWithMainItems } from '../model/models';
 import { SubItem } from '../model/models';
 import { SubItemFavorite } from '../model/models';
 import { SucceedEmptyResponse } from '../model/models';
+import { SyncFavoritesRequestBody } from '../model/models';
+import { SyncFavoritesResponse } from '../model/models';
 
 
 import { MiraConfiguration }                                     from '../configuration';
@@ -209,6 +211,13 @@ export interface DefaultMiraInterface {
      * @param prefix start part of the name
      */
     predictMainItemName(prefix: string, extraHttpRequestParams?: any): Observable<Array<string>>;
+
+    /**
+     * 
+     * Sync favorites from external source, merge with existing favorites
+     * @param SyncFavoritesRequestBody 
+     */
+    syncFavorites(SyncFavoritesRequestBody: SyncFavoritesRequestBody, extraHttpRequestParams?: any): Observable<SyncFavoritesResponse>;
 
     /**
      * 

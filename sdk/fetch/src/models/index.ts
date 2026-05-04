@@ -1116,3 +1116,89 @@ export interface SucceedEmptyResponse {
      */
     message: string;
 }
+/**
+ * 
+ * @export
+ * @interface SyncFavoritesRequestBody
+ */
+export interface SyncFavoritesRequestBody {
+    /**
+     * 
+     * @type {Array<SyncFavoritesRequestBodyFavoritesInner>}
+     * @memberof SyncFavoritesRequestBody
+     */
+    favorites: Array<SyncFavoritesRequestBodyFavoritesInner>;
+    /**
+     * 
+     * @type {string}
+     * @memberof SyncFavoritesRequestBody
+     */
+    acceptSideOnMerge: SyncFavoritesRequestBodyAcceptSideOnMergeEnum;
+}
+
+
+/**
+ * @export
+ */
+export const SyncFavoritesRequestBodyAcceptSideOnMergeEnum = {
+    Incoming: 'incoming',
+    Local: 'local'
+} as const;
+export type SyncFavoritesRequestBodyAcceptSideOnMergeEnum = typeof SyncFavoritesRequestBodyAcceptSideOnMergeEnum[keyof typeof SyncFavoritesRequestBodyAcceptSideOnMergeEnum];
+
+/**
+ * 
+ * @export
+ * @interface SyncFavoritesRequestBodyFavoritesInner
+ */
+export interface SyncFavoritesRequestBodyFavoritesInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof SyncFavoritesRequestBodyFavoritesInner
+     */
+    itemId: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SyncFavoritesRequestBodyFavoritesInner
+     */
+    status: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof SyncFavoritesRequestBodyFavoritesInner
+     */
+    subFavorites: Array<string>;
+}
+/**
+ * 
+ * @export
+ * @interface SyncFavoritesResponse
+ */
+export interface SyncFavoritesResponse {
+    /**
+     * 
+     * @type {Array<Favorite>}
+     * @memberof SyncFavoritesResponse
+     */
+    favorites?: Array<Favorite>;
+    /**
+     * 
+     * @type {Array<SubItemFavorite>}
+     * @memberof SyncFavoritesResponse
+     */
+    subItemFavorites?: Array<SubItemFavorite>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof SyncFavoritesResponse
+     */
+    deletedItemIds?: Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof SyncFavoritesResponse
+     */
+    deletedSubItemIds?: Array<string>;
+}

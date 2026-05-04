@@ -33,3 +33,6 @@ export * from './propertyValueValue';
 export * from './subItem';
 export * from './subItemFavorite';
 export * from './succeedEmptyResponse';
+export * from './syncFavoritesRequestBody';
+export * from './syncFavoritesRequestBodyFavoritesInner';
+export * from './syncFavoritesResponse';

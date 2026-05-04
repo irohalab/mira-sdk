@@ -44,5 +44,8 @@ model/propertyValueValue.ts
 model/subItem.ts
 model/subItemFavorite.ts
 model/succeedEmptyResponse.ts
+model/syncFavoritesRequestBody.ts
+model/syncFavoritesRequestBodyFavoritesInner.ts
+model/syncFavoritesResponse.ts
 param.ts
 variables.ts

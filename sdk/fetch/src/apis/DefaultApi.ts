@@ -35,6 +35,8 @@ import type {
   SubItem,
   SubItemFavorite,
   SucceedEmptyResponse,
+  SyncFavoritesRequestBody,
+  SyncFavoritesResponse,
 } from '../models/index';
 
 export interface AddClientMappingRequest {
@@ -140,6 +142,10 @@ export interface PatchFavoriteRequest {
 
 export interface PredictMainItemNameRequest {
     prefix: string;
+}
+
+export interface SyncFavoritesRequest {
+    SyncFavoritesRequestBody: SyncFavoritesRequestBody;
 }
 
 export interface UpdateFavoriteProgressRequest {
@@ -471,6 +477,20 @@ export interface DefaultApiInterface {
     predictMainItemName(requestParameters: PredictMainItemNameRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<string>>;
 
     /**
+     * Sync favorites from external source, merge with existing favorites
+     * @param {SyncFavoritesRequestBody} SyncFavoritesRequestBody 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    syncFavoritesRaw(requestParameters: SyncFavoritesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SyncFavoritesResponse>>;
+
+    /**
+     * Sync favorites from external source, merge with existing favorites
+     */
+    syncFavorites(requestParameters: SyncFavoritesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SyncFavoritesResponse>;
+
+    /**
      * update progress of a favorite, will create/delete SubItemFavorite
      * @param {string} mainItemId 
      * @param {number} progress 
@@ -796,7 +816,7 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
 
         const response = await this.request({
             path: `/favorite/sub/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
-            method: 'POST',
+            method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
         }, initOverrides);
@@ -1410,6 +1430,47 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
      */
     async predictMainItemName(requestParameters: PredictMainItemNameRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<string>> {
         const response = await this.predictMainItemNameRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Sync favorites from external source, merge with existing favorites
+     */
+    async syncFavoritesRaw(requestParameters: SyncFavoritesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SyncFavoritesResponse>> {
+        if (requestParameters['SyncFavoritesRequestBody'] == null) {
+            throw new runtime.RequiredError(
+                'SyncFavoritesRequestBody',
+                'Required parameter "SyncFavoritesRequestBody" was null or undefined when calling syncFavorites().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
+        }
+
+        const response = await this.request({
+            path: `/favorite/sync`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters['SyncFavoritesRequestBody'],
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response);
+    }
+
+    /**
+     * Sync favorites from external source, merge with existing favorites
+     */
+    async syncFavorites(requestParameters: SyncFavoritesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SyncFavoritesResponse> {
+        const response = await this.syncFavoritesRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

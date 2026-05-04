@@ -45,7 +45,6 @@ paths:
                 required:
                   - data
                   - total
-                  - status
                 properties:
                   data:
                     type: array
@@ -112,6 +111,68 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/200'
+  /favorite/sync:
+    post:
+      description: Sync favorites from external source, merge with existing favorites
+      operationId: syncFavorites
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              title: syncFavoritesRequestBody
+              type: object
+              required:
+                - favorites
+                - acceptSideOnMerge
+              properties:
+                favorites:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - itemId
+                      - status
+                      - subFavorites
+                    properties:
+                      itemId:
+                        type: string
+                      status:
+                        type: string
+                      subFavorites:
+                        type: array
+                        items:
+                          type: string
+                acceptSideOnMerge:
+                  type: string
+                  enum:
+                    - incoming
+                    - local
+      responses:
+        '200':
+          description: Successfully synced favorites
+          content:
+            application/json:
+              schema:
+                title: syncFavoritesResponse
+                type: object
+                properties:
+                  favorites:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Favorite'
+                  subItemFavorites:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SubItemFavorite'
+                  deletedItemIds:
+                    type: array
+                    items:
+                      type: string
+                  deletedSubItemIds:
+                    type: array
+                    items:
+                      type: string
   /favorite/main/{id}:
     get:
       description: get favorite by MainItem id
@@ -259,7 +320,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/SubItemFavorite'
   /favorite/sub/{id}:
-    post:
+    delete:
       description: Delete a SubItemFavorite
       operationId: deleteSubItemFavorite
       parameters:
