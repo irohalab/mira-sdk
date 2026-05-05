@@ -373,12 +373,15 @@ components:
       required:
         - id
         - userId
+        - itemId
       properties:
         id:
           type: string
         subItem:
           $ref: './items.yaml#/components/schemas/SubItem'  # not an error, the merger doesn't support local file $ref
         userId:
+          type: string
+        itemId:
           type: string
     ErrorResponse:
       title: ErrorResponse

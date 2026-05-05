@@ -15,5 +15,6 @@ export interface SubItemFavorite {
     id: string;
     subItem?: SubItem;
     userId: string;
+    itemId: string;
 }
 

@@ -1004,12 +1004,15 @@ components:
       required:
         - id
         - userId
+        - itemId
       properties:
         id:
           type: string
         subItem:
           $ref: '#/components/schemas/SubItem'
         userId:
+          type: string
+        itemId:
           type: string
     ErrorResponse:
       title: ErrorResponse

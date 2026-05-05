@@ -1102,6 +1102,12 @@ export interface SubItemFavorite {
      * @memberof SubItemFavorite
      */
     userId: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SubItemFavorite
+     */
+    itemId: string;
 }
 /**
  * 
