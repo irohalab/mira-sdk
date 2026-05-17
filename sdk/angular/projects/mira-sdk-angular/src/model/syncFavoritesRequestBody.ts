@@ -13,14 +13,6 @@ import { SyncFavoritesRequestBodyFavoritesInner } from './syncFavoritesRequestBo
 
 export interface SyncFavoritesRequestBody { 
     favorites: Array<SyncFavoritesRequestBodyFavoritesInner>;
-    acceptSideOnMerge: SyncFavoritesRequestBody.AcceptSideOnMergeEnum;
+    overrideOnConflict?: boolean;
 }
-export namespace SyncFavoritesRequestBody {
-    export type AcceptSideOnMergeEnum = 'incoming' | 'local';
-    export const AcceptSideOnMergeEnum = {
-        Incoming: 'incoming' as AcceptSideOnMergeEnum,
-        Local: 'local' as AcceptSideOnMergeEnum
-    };
-}
-
 

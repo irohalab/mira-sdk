@@ -1136,22 +1136,11 @@ export interface SyncFavoritesRequestBody {
     favorites: Array<SyncFavoritesRequestBodyFavoritesInner>;
     /**
      * 
-     * @type {string}
+     * @type {boolean}
      * @memberof SyncFavoritesRequestBody
      */
-    acceptSideOnMerge: SyncFavoritesRequestBodyAcceptSideOnMergeEnum;
+    overrideOnConflict?: boolean;
 }
-
-
-/**
- * @export
- */
-export const SyncFavoritesRequestBodyAcceptSideOnMergeEnum = {
-    Incoming: 'incoming',
-    Local: 'local'
-} as const;
-export type SyncFavoritesRequestBodyAcceptSideOnMergeEnum = typeof SyncFavoritesRequestBodyAcceptSideOnMergeEnum[keyof typeof SyncFavoritesRequestBodyAcceptSideOnMergeEnum];
-
 /**
  * 
  * @export

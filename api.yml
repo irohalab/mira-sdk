@@ -312,11 +312,8 @@ paths:
                         type: array
                         items:
                           type: string
-                acceptSideOnMerge:
-                  type: string
-                  enum:
-                    - incoming
-                    - local
+                overrideOnConflict:
+                  type: boolean
       responses:
         '200':
           description: Successfully synced favorites
