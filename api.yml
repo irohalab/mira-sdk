@@ -240,6 +240,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/Favorite'
   /favorite/{id}:
+    get:
+      description: Get a favorite by id
+      operationId: getFavoriteById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully get a favorite by id
+          content:
+            application/json:
+              schema:
+                title: getFavoriteResponse
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Favorite'
     delete:
       description: Delete a favorite
       operationId: deleteFavorite

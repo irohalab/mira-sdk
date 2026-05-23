@@ -1,6 +1,5 @@
 /**
  * mira API
- * API for Project-Mira
  *
  * 
  *
@@ -10,11 +9,10 @@
  */
 
 
-export type MainType = 0 | 1 | 2;
-
 export const MainType = {
-    Item: 0 as MainType,
-    Person: 1 as MainType,
-    Character: 2 as MainType
-};
+    Item: 0,
+    Person: 1,
+    Character: 2
+} as const;
+export type MainType = typeof MainType[keyof typeof MainType];
 

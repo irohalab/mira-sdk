@@ -1,6 +1,5 @@
 /**
  * mira API
- * API for Project-Mira
  *
  * 
  *
@@ -10,20 +9,19 @@
  */
 
 
-export type ItemType = 'anime' | 'game' | 'music' | 'book' | 'individual' | 'character' | 'real' | 'association' | 'corporation' | 'organization' | 'ship' | 'mechanic';
-
 export const ItemType = {
-    Anime: 'anime' as ItemType,
-    Game: 'game' as ItemType,
-    Music: 'music' as ItemType,
-    Book: 'book' as ItemType,
-    Individual: 'individual' as ItemType,
-    Character: 'character' as ItemType,
-    RealWorld: 'real' as ItemType,
-    Association: 'association' as ItemType,
-    Corporation: 'corporation' as ItemType,
-    Organization: 'organization' as ItemType,
-    Ship: 'ship' as ItemType,
-    Mechanic: 'mechanic' as ItemType
-};
+    Anime: 'anime',
+    Game: 'game',
+    Music: 'music',
+    Book: 'book',
+    Individual: 'individual',
+    Character: 'character',
+    RealWorld: 'real',
+    Association: 'association',
+    Corporation: 'corporation',
+    Organization: 'organization',
+    Ship: 'ship',
+    Mechanic: 'mechanic'
+} as const;
+export type ItemType = typeof ItemType[keyof typeof ItemType];
 

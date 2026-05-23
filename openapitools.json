@@ -2,7 +2,7 @@
   "$schema": "./node_modules/@openapitools/openapi-generator-cli/config.schema.json",
   "spaces": 2,
   "generator-cli": {
-    "version": "7.8.0",
+    "version": "7.22.0",
     "storageDir": "openapi-generator-files",
     "generators": {
       "angular": {
@@ -16,7 +16,9 @@
           "withInterfaces": "true",
           "supportES6": "true",
           "serviceSuffix": "Mira",
-          "useSquareBracketsInArrayNames": "true"
+          "useSquareBracketsInArrayNames": "true",
+          "ngPackagrVersion": "19.2.2",
+          "ngVersion": "19.2.22"
         }
       },
       "fetch": {

@@ -24,7 +24,7 @@
   "homepage": "https://github.com/irohalab/mira-sdk#readme",
   "devDependencies": {
     "@iouring-engineering/openapi-merge-cli": "^1.5.1",
-    "@openapitools/openapi-generator-cli": "^2.13.5",
+    "@openapitools/openapi-generator-cli": "^2.34.0",
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^25.0.8",
     "js-yaml": "^4.1.1",

@@ -1,6 +1,5 @@
 /**
  * mira API
- * API for Project-Mira
  *
  * 
  *
@@ -20,6 +19,7 @@ import { CreateSubItemFavoriteRequestBody } from '../model/models';
 import { DeleteClientMappingByMainItemResponse } from '../model/models';
 import { Favorite } from '../model/models';
 import { FavoriteProgress } from '../model/models';
+import { GetFavoriteResponse } from '../model/models';
 import { GetOnAirItemListResponse } from '../model/models';
 import { IdListRequestBody } from '../model/models';
 import { ItemRelationsWithMainItems } from '../model/models';
@@ -47,6 +47,7 @@ export interface DefaultMiraInterface {
     /**
      * 
      * Add ClientMapping
+     * @endpoint post /client-mapping
      * @param request_body 
      */
     addClientMapping(request_body: Array<string>, extraHttpRequestParams?: any): Observable<ClientMapping>;
@@ -54,6 +55,7 @@ export interface DefaultMiraInterface {
     /**
      * 
      * get mainItems by id list
+     * @endpoint post /client-mapping/batch/main
      * @param IdListRequestBody 
      */
     batchGetMainItemByIdList(IdListRequestBody: IdListRequestBody, extraHttpRequestParams?: any): Observable<BatchGetMainItemByIdListResult>;
@@ -61,6 +63,7 @@ export interface DefaultMiraInterface {
     /**
      * 
      * get SubItems by id list
+     * @endpoint post /client-mapping/batch/subItem
      * @param IdListRequestBody 
      */
     batchGetSubItemsByIdList(IdListRequestBody: IdListRequestBody, extraHttpRequestParams?: any): Observable<BatchGetSubItemByIdListResult>;
@@ -68,6 +71,7 @@ export interface DefaultMiraInterface {
     /**
      * 
      * create a favorite for user and item
+     * @endpoint post /favorite
      * @param Favorite 
      */
     createFavorite(Favorite: Favorite, extraHttpRequestParams?: any): Observable<Favorite>;
@@ -75,6 +79,7 @@ export interface DefaultMiraInterface {
     /**
      * 
      * create a SubItemFavorite
+     * @endpoint post /favorite/sub
      * @param CreateSubItemFavoriteRequestBody 
      */
     createSubItemFavorite(CreateSubItemFavoriteRequestBody: CreateSubItemFavoriteRequestBody, extraHttpRequestParams?: any): Observable<SubItemFavorite>;
@@ -82,6 +87,7 @@ export interface DefaultMiraInterface {
     /**
      * 
      * Delete ClientMapping by MainItem id
+     * @endpoint delete /client-mapping/main/{id}
      * @param id 
      */
     deleteClientMappingByMainItemId(id: string, extraHttpRequestParams?: any): Observable<DeleteClientMappingByMainItemResponse>;
@@ -89,6 +95,7 @@ export interface DefaultMiraInterface {
     /**
      * 
      * Delete a favorite
+     * @endpoint delete /favorite/{id}
      * @param id 
      */
     deleteFavorite(id: string, extraHttpRequestParams?: any): Observable<SucceedEmptyResponse>;
@@ -96,13 +103,23 @@ export interface DefaultMiraInterface {
     /**
      * 
      * Delete a SubItemFavorite
+     * @endpoint delete /favorite/sub/{id}
      * @param id 
      */
     deleteSubItemFavorite(id: string, extraHttpRequestParams?: any): Observable<SucceedEmptyResponse>;
 
     /**
      * 
+     * Get a favorite by id
+     * @endpoint get /favorite/{id}
+     * @param id 
+     */
+    getFavoriteById(id: string, extraHttpRequestParams?: any): Observable<GetFavoriteResponse>;
+
+    /**
+     * 
      * get favorite by MainItem id
+     * @endpoint get /favorite/main/{id}
      * @param id 
      */
     getFavoriteByMainItemId(id: string, extraHttpRequestParams?: any): Observable<Favorite>;
@@ -110,6 +127,7 @@ export interface DefaultMiraInterface {
     /**
      * 
      * get favorite progress (number of SubItemFavorite from the beginning) of a episode type for mainItem
+     * @endpoint get /favorite/progress
      * @param mainItemId 
      * @param epType 
      */
@@ -118,6 +136,7 @@ export interface DefaultMiraInterface {
     /**
      * 
      * get a MainItem by id
+     * @endpoint get /public/item/main/{id}
      * @param id MainItem id
      * @param coverImage populate coverImage if true
      * @param subItems populate subItems if true
@@ -127,6 +146,7 @@ export interface DefaultMiraInterface {
     /**
      * 
      * get all related (Item , Cast) MainItem of an Character Type MainItem.
+     * @endpoint get /public/relation/character/{id}
      * @param id MainItem id
      */
     getRelationsOfCharacter(id: string, extraHttpRequestParams?: any): Observable<CharacterRelationsWithMainItems>;
@@ -134,6 +154,7 @@ export interface DefaultMiraInterface {
     /**
      * 
      * get all related (Item, Staff, Cast, Character) MainItem of an Item Type MainItem.
+     * @endpoint get /public/relation/item/{id}
      * @param id MainItem id
      */
     getRelationsOfItem(id: string, extraHttpRequestParams?: any): Observable<ItemRelationsWithMainItems>;
@@ -141,6 +162,7 @@ export interface DefaultMiraInterface {
     /**
      * 
      * get all related (Item , Character) MainItem of an Person Type MainItem.
+     * @endpoint get /public/relation/person/{id}
      * @param id MainItem id
      */
     getRelationsOfPerson(id: string, extraHttpRequestParams?: any): Observable<PersonRelationsWithMainItems>;
@@ -148,6 +170,7 @@ export interface DefaultMiraInterface {
     /**
      * 
      * get a SubItem by id
+     * @endpoint get /public/item/main/subItem/{id}
      * @param id SubItem Id
      */
     getSubItemById(id: string, extraHttpRequestParams?: any): Observable<SubItem>;
@@ -155,6 +178,7 @@ export interface DefaultMiraInterface {
     /**
      * 
      * list favorites for user
+     * @endpoint get /favorite
      * @param status 
      * @param offset 
      * @param limit 
@@ -166,6 +190,7 @@ export interface DefaultMiraInterface {
     /**
      * 
      * list MainItems
+     * @endpoint get /public/item/main
      * @param serviceClientId 
      * @param mainType 
      * @param type 
@@ -181,6 +206,7 @@ export interface DefaultMiraInterface {
     /**
      * 
      * list SubItemFavorite
+     * @endpoint get /favorite/sub
      * @param itemId itemId of the SubItem, if provided then other parameters are ignored
      * @param offset 
      * @param limit 
@@ -193,6 +219,7 @@ export interface DefaultMiraInterface {
     /**
      * 
      * get a list of on air MainItems with cover image
+     * @endpoint get /public/item/on-air
      * @param type type of MainItem, must be either anime or real
      */
     onAirItem(type: string, extraHttpRequestParams?: any): Observable<GetOnAirItemListResponse>;
@@ -200,6 +227,7 @@ export interface DefaultMiraInterface {
     /**
      * 
      * change status of a favorite
+     * @endpoint patch /favorite/{id}
      * @param id 
      * @param PatchFavoriteBody 
      */
@@ -208,6 +236,7 @@ export interface DefaultMiraInterface {
     /**
      * 
      * predict Main Item names base on provided prefix
+     * @endpoint get /public/item/predict
      * @param prefix start part of the name
      */
     predictMainItemName(prefix: string, extraHttpRequestParams?: any): Observable<Array<string>>;
@@ -215,6 +244,7 @@ export interface DefaultMiraInterface {
     /**
      * 
      * Sync favorites from external source, merge with existing favorites
+     * @endpoint post /favorite/sync
      * @param SyncFavoritesRequestBody 
      */
     syncFavorites(SyncFavoritesRequestBody: SyncFavoritesRequestBody, extraHttpRequestParams?: any): Observable<SyncFavoritesResponse>;
@@ -222,6 +252,7 @@ export interface DefaultMiraInterface {
     /**
      * 
      * update progress of a favorite, will create/delete SubItemFavorite
+     * @endpoint post /favorite/progress
      * @param mainItemId 
      * @param progress 
      * @param epType 

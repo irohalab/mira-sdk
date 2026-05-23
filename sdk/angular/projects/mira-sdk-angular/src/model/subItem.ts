@@ -1,6 +1,5 @@
 /**
  * mira API
- * API for Project-Mira
  *
  * 
  *
@@ -32,16 +31,16 @@ export interface SubItem {
     mainItem?: MainItem;
 }
 export namespace SubItem {
-    export type TypeEnum = 0 | 1;
     export const TypeEnum = {
-        Episode: 0 as TypeEnum,
-        Song: 1 as TypeEnum
-    };
-    export type EpisodeTypeEnum = 0 | 1;
+        Episode: 0,
+        Song: 1
+    } as const;
+    export type TypeEnum = typeof TypeEnum[keyof typeof TypeEnum];
     export const EpisodeTypeEnum = {
-        Episode: 0 as EpisodeTypeEnum,
-        Special: 1 as EpisodeTypeEnum
-    };
+        Episode: 0,
+        Special: 1
+    } as const;
+    export type EpisodeTypeEnum = typeof EpisodeTypeEnum[keyof typeof EpisodeTypeEnum];
 }
 
 

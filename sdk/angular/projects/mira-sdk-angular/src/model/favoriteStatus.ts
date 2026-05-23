@@ -1,6 +1,5 @@
 /**
  * mira API
- * API for Project-Mira
  *
  * 
  *
@@ -10,13 +9,12 @@
  */
 
 
-export type FavoriteStatus = 'Planned' | 'Watched' | 'Watching' | 'OnHold' | 'Dropped';
-
 export const FavoriteStatus = {
-    Planned: 'Planned' as FavoriteStatus,
-    Watched: 'Watched' as FavoriteStatus,
-    Watching: 'Watching' as FavoriteStatus,
-    OnHold: 'OnHold' as FavoriteStatus,
-    Dropped: 'Dropped' as FavoriteStatus
-};
+    Planned: 'Planned',
+    Watched: 'Watched',
+    Watching: 'Watching',
+    OnHold: 'OnHold',
+    Dropped: 'Dropped'
+} as const;
+export type FavoriteStatus = typeof FavoriteStatus[keyof typeof FavoriteStatus];
 

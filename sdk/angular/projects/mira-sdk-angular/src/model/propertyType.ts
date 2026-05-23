@@ -1,6 +1,5 @@
 /**
  * mira API
- * API for Project-Mira
  *
  * 
  *
@@ -10,13 +9,12 @@
  */
 
 
-export type PropertyType = 'Staff' | 'Item' | 'Character' | 'Info' | 'Cast';
-
 export const PropertyType = {
-    Staff: 'Staff' as PropertyType,
-    Item: 'Item' as PropertyType,
-    Character: 'Character' as PropertyType,
-    Info: 'Info' as PropertyType,
-    Cast: 'Cast' as PropertyType
-};
+    Staff: 'Staff',
+    Item: 'Item',
+    Character: 'Character',
+    Info: 'Info',
+    Cast: 'Cast'
+} as const;
+export type PropertyType = typeof PropertyType[keyof typeof PropertyType];
 

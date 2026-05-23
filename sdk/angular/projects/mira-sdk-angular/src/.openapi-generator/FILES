@@ -1,5 +1,6 @@
 .gitignore
 README.md
+api.base.service.ts
 api.module.ts
 api/api.ts
 api/default.service.ts
@@ -18,6 +19,7 @@ model/errorResponse.ts
 model/favorite.ts
 model/favoriteProgress.ts
 model/favoriteStatus.ts
+model/getFavoriteResponse.ts
 model/getOnAirItemListResponse.ts
 model/idListRequestBody.ts
 model/imageInfo.ts
@@ -48,4 +50,6 @@ model/syncFavoritesRequestBody.ts
 model/syncFavoritesRequestBodyFavoritesInner.ts
 model/syncFavoritesResponse.ts
 param.ts
+provide-api.ts
+query.params.ts
 variables.ts

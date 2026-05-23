@@ -8,6 +8,7 @@ export * from './errorResponse';
 export * from './favorite';
 export * from './favoriteProgress';
 export * from './favoriteStatus';
+export * from './getFavoriteResponse';
 export * from './getOnAirItemListResponse';
 export * from './idListRequestBody';
 export * from './imageInfo';

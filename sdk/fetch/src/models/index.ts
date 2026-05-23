@@ -190,6 +190,19 @@ export type FavoriteStatus = typeof FavoriteStatus[keyof typeof FavoriteStatus];
 /**
  * 
  * @export
+ * @interface GetFavoriteResponse
+ */
+export interface GetFavoriteResponse {
+    /**
+     * 
+     * @type {Favorite}
+     * @memberof GetFavoriteResponse
+     */
+    data?: Favorite;
+}
+/**
+ * 
+ * @export
  * @interface GetOnAirItemListResponse
  */
 export interface GetOnAirItemListResponse {
@@ -1011,13 +1024,13 @@ export interface SubItem {
     properties: { [key: string]: PropertyValue; };
     /**
      * 
-     * @type {number}
+     * @type {SubItemTypeEnum}
      * @memberof SubItem
      */
     type: SubItemTypeEnum;
     /**
      * 
-     * @type {number}
+     * @type {SubItemEpisodeTypeEnum}
      * @memberof SubItem
      */
     episodeType: SubItemEpisodeTypeEnum | null;

@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-
 export const BASE_PATH = "http://localhost".replace(/\/+$/, "");
 
 export interface ConfigurationParameters {
@@ -91,7 +90,7 @@ export const DefaultConfig = new Configuration();
  */
 export class BaseAPI {
 
-    private static readonly jsonRegex = new RegExp('^(:?application\/json|[^;/ \t]+\/[^;/ \t]+[+]json)[ \t]*(:?;.*)?$', 'i');
+    private static readonly jsonRegex = /^(:?application\/json|[^;/ \t]+\/[^;/ \t]+[+]json)[ \t]*(:?;.*)?$/i;
     private middleware: Middleware[];
 
     constructor(protected configuration = DefaultConfig) {
@@ -261,6 +260,12 @@ export class ResponseError extends Error {
     override name: "ResponseError" = "ResponseError";
     constructor(public response: Response, msg?: string) {
         super(msg);
+
+        // restore prototype chain
+        const actualProto = new.target.prototype;
+        if (Object.setPrototypeOf) {
+            Object.setPrototypeOf(this, actualProto);
+        }
     }
 }
 
@@ -268,6 +273,12 @@ export class FetchError extends Error {
     override name: "FetchError" = "FetchError";
     constructor(public cause: Error, msg?: string) {
         super(msg);
+
+        // restore prototype chain
+        const actualProto = new.target.prototype;
+        if (Object.setPrototypeOf) {
+            Object.setPrototypeOf(this, actualProto);
+        }
     }
 }
 
@@ -275,6 +286,12 @@ export class RequiredError extends Error {
     override name: "RequiredError" = "RequiredError";
     constructor(public field: string, msg?: string) {
         super(msg);
+
+        // restore prototype chain
+        const actualProto = new.target.prototype;
+        if (Object.setPrototypeOf) {
+            Object.setPrototypeOf(this, actualProto);
+        }
     }
 }
 
@@ -335,6 +352,11 @@ function querystringSingleKey(key: string, value: string | number | null | undef
         return querystring(value as HTTPQuery, fullKey);
     }
     return `${encodeURIComponent(fullKey)}=${encodeURIComponent(String(value))}`;
+}
+
+export function exists(json: any, key: string) {
+    const value = json[key];
+    return value !== null && value !== undefined;
 }
 
 

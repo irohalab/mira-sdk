@@ -12,31 +12,31 @@
  * Do not edit the class manually.
  */
 
-
 import * as runtime from '../runtime';
 import type {
-  BatchGetMainItemByIdListResult,
-  BatchGetSubItemByIdListResult,
-  CharacterRelationsWithMainItems,
-  ClientMapping,
-  CreateSubItemFavoriteRequestBody,
-  DeleteClientMappingByMainItemResponse,
-  Favorite,
-  FavoriteProgress,
-  GetOnAirItemListResponse,
-  IdListRequestBody,
-  ItemRelationsWithMainItems,
-  ListFavoritesResponse,
-  ListMainItemResponse,
-  ListSubItemFavoriteResponse,
-  MainItem,
-  PatchFavoriteBody,
-  PersonRelationsWithMainItems,
-  SubItem,
-  SubItemFavorite,
-  SucceedEmptyResponse,
-  SyncFavoritesRequestBody,
-  SyncFavoritesResponse,
+    BatchGetMainItemByIdListResult,
+    BatchGetSubItemByIdListResult,
+    CharacterRelationsWithMainItems,
+    ClientMapping,
+    CreateSubItemFavoriteRequestBody,
+    DeleteClientMappingByMainItemResponse,
+    Favorite,
+    FavoriteProgress,
+    GetFavoriteResponse,
+    GetOnAirItemListResponse,
+    IdListRequestBody,
+    ItemRelationsWithMainItems,
+    ListFavoritesResponse,
+    ListMainItemResponse,
+    ListSubItemFavoriteResponse,
+    MainItem,
+    PatchFavoriteBody,
+    PersonRelationsWithMainItems,
+    SubItem,
+    SubItemFavorite,
+    SucceedEmptyResponse,
+    SyncFavoritesRequestBody,
+    SyncFavoritesResponse,
 } from '../models/index';
 
 export interface AddClientMappingRequest {
@@ -68,6 +68,10 @@ export interface DeleteFavoriteRequest {
 }
 
 export interface DeleteSubItemFavoriteRequest {
+    id: string;
+}
+
+export interface GetFavoriteByIdRequest {
     id: string;
 }
 
@@ -162,6 +166,14 @@ export interface UpdateFavoriteProgressRequest {
  */
 export interface DefaultApiInterface {
     /**
+     * Creates request options for addClientMapping without sending the request
+     * @param {Array<string>} request_body 
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    addClientMappingRequestOpts(requestParameters: AddClientMappingRequest): Promise<runtime.RequestOpts>;
+
+    /**
      * Add ClientMapping
      * @param {Array<string>} request_body 
      * @param {*} [options] Override http request option.
@@ -174,6 +186,14 @@ export interface DefaultApiInterface {
      * Add ClientMapping
      */
     addClientMapping(requestParameters: AddClientMappingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ClientMapping>;
+
+    /**
+     * Creates request options for batchGetMainItemByIdList without sending the request
+     * @param {IdListRequestBody} IdListRequestBody 
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    batchGetMainItemByIdListRequestOpts(requestParameters: BatchGetMainItemByIdListRequest): Promise<runtime.RequestOpts>;
 
     /**
      * get mainItems by id list
@@ -190,6 +210,14 @@ export interface DefaultApiInterface {
     batchGetMainItemByIdList(requestParameters: BatchGetMainItemByIdListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BatchGetMainItemByIdListResult>;
 
     /**
+     * Creates request options for batchGetSubItemsByIdList without sending the request
+     * @param {IdListRequestBody} IdListRequestBody 
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    batchGetSubItemsByIdListRequestOpts(requestParameters: BatchGetSubItemsByIdListRequest): Promise<runtime.RequestOpts>;
+
+    /**
      * get SubItems by id list
      * @param {IdListRequestBody} IdListRequestBody 
      * @param {*} [options] Override http request option.
@@ -202,6 +230,14 @@ export interface DefaultApiInterface {
      * get SubItems by id list
      */
     batchGetSubItemsByIdList(requestParameters: BatchGetSubItemsByIdListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BatchGetSubItemByIdListResult>;
+
+    /**
+     * Creates request options for createFavorite without sending the request
+     * @param {Favorite} Favorite 
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    createFavoriteRequestOpts(requestParameters: CreateFavoriteRequest): Promise<runtime.RequestOpts>;
 
     /**
      * create a favorite for user and item
@@ -218,6 +254,14 @@ export interface DefaultApiInterface {
     createFavorite(requestParameters: CreateFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Favorite>;
 
     /**
+     * Creates request options for createSubItemFavorite without sending the request
+     * @param {CreateSubItemFavoriteRequestBody} CreateSubItemFavoriteRequestBody 
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    createSubItemFavoriteRequestOpts(requestParameters: CreateSubItemFavoriteRequest): Promise<runtime.RequestOpts>;
+
+    /**
      * create a SubItemFavorite
      * @param {CreateSubItemFavoriteRequestBody} CreateSubItemFavoriteRequestBody 
      * @param {*} [options] Override http request option.
@@ -230,6 +274,14 @@ export interface DefaultApiInterface {
      * create a SubItemFavorite
      */
     createSubItemFavorite(requestParameters: CreateSubItemFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SubItemFavorite>;
+
+    /**
+     * Creates request options for deleteClientMappingByMainItemId without sending the request
+     * @param {string} id 
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    deleteClientMappingByMainItemIdRequestOpts(requestParameters: DeleteClientMappingByMainItemIdRequest): Promise<runtime.RequestOpts>;
 
     /**
      * Delete ClientMapping by MainItem id
@@ -246,6 +298,14 @@ export interface DefaultApiInterface {
     deleteClientMappingByMainItemId(requestParameters: DeleteClientMappingByMainItemIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeleteClientMappingByMainItemResponse>;
 
     /**
+     * Creates request options for deleteFavorite without sending the request
+     * @param {string} id 
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    deleteFavoriteRequestOpts(requestParameters: DeleteFavoriteRequest): Promise<runtime.RequestOpts>;
+
+    /**
      * Delete a favorite
      * @param {string} id 
      * @param {*} [options] Override http request option.
@@ -258,6 +318,14 @@ export interface DefaultApiInterface {
      * Delete a favorite
      */
     deleteFavorite(requestParameters: DeleteFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SucceedEmptyResponse>;
+
+    /**
+     * Creates request options for deleteSubItemFavorite without sending the request
+     * @param {string} id 
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    deleteSubItemFavoriteRequestOpts(requestParameters: DeleteSubItemFavoriteRequest): Promise<runtime.RequestOpts>;
 
     /**
      * Delete a SubItemFavorite
@@ -274,6 +342,36 @@ export interface DefaultApiInterface {
     deleteSubItemFavorite(requestParameters: DeleteSubItemFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SucceedEmptyResponse>;
 
     /**
+     * Creates request options for getFavoriteById without sending the request
+     * @param {string} id 
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    getFavoriteByIdRequestOpts(requestParameters: GetFavoriteByIdRequest): Promise<runtime.RequestOpts>;
+
+    /**
+     * Get a favorite by id
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    getFavoriteByIdRaw(requestParameters: GetFavoriteByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetFavoriteResponse>>;
+
+    /**
+     * Get a favorite by id
+     */
+    getFavoriteById(requestParameters: GetFavoriteByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetFavoriteResponse>;
+
+    /**
+     * Creates request options for getFavoriteByMainItemId without sending the request
+     * @param {string} id 
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    getFavoriteByMainItemIdRequestOpts(requestParameters: GetFavoriteByMainItemIdRequest): Promise<runtime.RequestOpts>;
+
+    /**
      * get favorite by MainItem id
      * @param {string} id 
      * @param {*} [options] Override http request option.
@@ -286,6 +384,15 @@ export interface DefaultApiInterface {
      * get favorite by MainItem id
      */
     getFavoriteByMainItemId(requestParameters: GetFavoriteByMainItemIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Favorite>;
+
+    /**
+     * Creates request options for getFavoriteProgressByMainItemId without sending the request
+     * @param {string} mainItemId 
+     * @param {number} epType 
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    getFavoriteProgressByMainItemIdRequestOpts(requestParameters: GetFavoriteProgressByMainItemIdRequest): Promise<runtime.RequestOpts>;
 
     /**
      * get favorite progress (number of SubItemFavorite from the beginning) of a episode type for mainItem
@@ -301,6 +408,16 @@ export interface DefaultApiInterface {
      * get favorite progress (number of SubItemFavorite from the beginning) of a episode type for mainItem
      */
     getFavoriteProgressByMainItemId(requestParameters: GetFavoriteProgressByMainItemIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FavoriteProgress>;
+
+    /**
+     * Creates request options for getMainItemById without sending the request
+     * @param {string} id MainItem id
+     * @param {string} [coverImage] populate coverImage if true
+     * @param {string} [subItems] populate subItems if true
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    getMainItemByIdRequestOpts(requestParameters: GetMainItemByIdRequest): Promise<runtime.RequestOpts>;
 
     /**
      * get a MainItem by id
@@ -319,6 +436,14 @@ export interface DefaultApiInterface {
     getMainItemById(requestParameters: GetMainItemByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MainItem>;
 
     /**
+     * Creates request options for getRelationsOfCharacter without sending the request
+     * @param {string} id MainItem id
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    getRelationsOfCharacterRequestOpts(requestParameters: GetRelationsOfCharacterRequest): Promise<runtime.RequestOpts>;
+
+    /**
      * get all related (Item , Cast) MainItem of an Character Type MainItem.
      * @param {string} id MainItem id
      * @param {*} [options] Override http request option.
@@ -331,6 +456,14 @@ export interface DefaultApiInterface {
      * get all related (Item , Cast) MainItem of an Character Type MainItem.
      */
     getRelationsOfCharacter(requestParameters: GetRelationsOfCharacterRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CharacterRelationsWithMainItems>;
+
+    /**
+     * Creates request options for getRelationsOfItem without sending the request
+     * @param {string} id MainItem id
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    getRelationsOfItemRequestOpts(requestParameters: GetRelationsOfItemRequest): Promise<runtime.RequestOpts>;
 
     /**
      * get all related (Item, Staff, Cast, Character) MainItem of an Item Type MainItem.
@@ -347,6 +480,14 @@ export interface DefaultApiInterface {
     getRelationsOfItem(requestParameters: GetRelationsOfItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ItemRelationsWithMainItems>;
 
     /**
+     * Creates request options for getRelationsOfPerson without sending the request
+     * @param {string} id MainItem id
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    getRelationsOfPersonRequestOpts(requestParameters: GetRelationsOfPersonRequest): Promise<runtime.RequestOpts>;
+
+    /**
      * get all related (Item , Character) MainItem of an Person Type MainItem.
      * @param {string} id MainItem id
      * @param {*} [options] Override http request option.
@@ -361,6 +502,14 @@ export interface DefaultApiInterface {
     getRelationsOfPerson(requestParameters: GetRelationsOfPersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PersonRelationsWithMainItems>;
 
     /**
+     * Creates request options for getSubItemById without sending the request
+     * @param {string} id SubItem Id
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    getSubItemByIdRequestOpts(requestParameters: GetSubItemByIdRequest): Promise<runtime.RequestOpts>;
+
+    /**
      * get a SubItem by id
      * @param {string} id SubItem Id
      * @param {*} [options] Override http request option.
@@ -373,6 +522,18 @@ export interface DefaultApiInterface {
      * get a SubItem by id
      */
     getSubItemById(requestParameters: GetSubItemByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SubItem>;
+
+    /**
+     * Creates request options for listFavorites without sending the request
+     * @param {string} status 
+     * @param {number} [offset] 
+     * @param {number} [limit] 
+     * @param {string} [orderBy] 
+     * @param {string} [sort] 
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    listFavoritesRequestOpts(requestParameters: ListFavoritesRequest): Promise<runtime.RequestOpts>;
 
     /**
      * list favorites for user
@@ -391,6 +552,22 @@ export interface DefaultApiInterface {
      * list favorites for user
      */
     listFavorites(requestParameters: ListFavoritesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListFavoritesResponse>;
+
+    /**
+     * Creates request options for listMainItems without sending the request
+     * @param {string} [serviceClientId] 
+     * @param {string} [mainType] 
+     * @param {string} [type] 
+     * @param {string} [subType] 
+     * @param {number} [offset] 
+     * @param {number} [limit] 
+     * @param {string} [orderBy] 
+     * @param {string} [sort] 
+     * @param {string} [keyword] 
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    listMainItemsRequestOpts(requestParameters: ListMainItemsRequest): Promise<runtime.RequestOpts>;
 
     /**
      * list MainItems
@@ -415,6 +592,19 @@ export interface DefaultApiInterface {
     listMainItems(requestParameters: ListMainItemsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListMainItemResponse>;
 
     /**
+     * Creates request options for listSubItemFavorites without sending the request
+     * @param {string} [itemId] itemId of the SubItem, if provided then other parameters are ignored
+     * @param {number} [offset] 
+     * @param {number} [limit] 
+     * @param {string} [orderBy] 
+     * @param {string} [sort] 
+     * @param {boolean} [subItem] 
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    listSubItemFavoritesRequestOpts(requestParameters: ListSubItemFavoritesRequest): Promise<runtime.RequestOpts>;
+
+    /**
      * list SubItemFavorite
      * @param {string} [itemId] itemId of the SubItem, if provided then other parameters are ignored
      * @param {number} [offset] 
@@ -434,6 +624,14 @@ export interface DefaultApiInterface {
     listSubItemFavorites(requestParameters: ListSubItemFavoritesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListSubItemFavoriteResponse>;
 
     /**
+     * Creates request options for onAirItem without sending the request
+     * @param {string} type type of MainItem, must be either anime or real
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    onAirItemRequestOpts(requestParameters: OnAirItemRequest): Promise<runtime.RequestOpts>;
+
+    /**
      * get a list of on air MainItems with cover image
      * @param {string} type type of MainItem, must be either anime or real
      * @param {*} [options] Override http request option.
@@ -446,6 +644,15 @@ export interface DefaultApiInterface {
      * get a list of on air MainItems with cover image
      */
     onAirItem(requestParameters: OnAirItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetOnAirItemListResponse>;
+
+    /**
+     * Creates request options for patchFavorite without sending the request
+     * @param {string} id 
+     * @param {PatchFavoriteBody} PatchFavoriteBody 
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    patchFavoriteRequestOpts(requestParameters: PatchFavoriteRequest): Promise<runtime.RequestOpts>;
 
     /**
      * change status of a favorite
@@ -463,6 +670,14 @@ export interface DefaultApiInterface {
     patchFavorite(requestParameters: PatchFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SucceedEmptyResponse>;
 
     /**
+     * Creates request options for predictMainItemName without sending the request
+     * @param {string} prefix start part of the name
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    predictMainItemNameRequestOpts(requestParameters: PredictMainItemNameRequest): Promise<runtime.RequestOpts>;
+
+    /**
      * predict Main Item names base on provided prefix
      * @param {string} prefix start part of the name
      * @param {*} [options] Override http request option.
@@ -477,6 +692,14 @@ export interface DefaultApiInterface {
     predictMainItemName(requestParameters: PredictMainItemNameRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<string>>;
 
     /**
+     * Creates request options for syncFavorites without sending the request
+     * @param {SyncFavoritesRequestBody} SyncFavoritesRequestBody 
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    syncFavoritesRequestOpts(requestParameters: SyncFavoritesRequest): Promise<runtime.RequestOpts>;
+
+    /**
      * Sync favorites from external source, merge with existing favorites
      * @param {SyncFavoritesRequestBody} SyncFavoritesRequestBody 
      * @param {*} [options] Override http request option.
@@ -489,6 +712,16 @@ export interface DefaultApiInterface {
      * Sync favorites from external source, merge with existing favorites
      */
     syncFavorites(requestParameters: SyncFavoritesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SyncFavoritesResponse>;
+
+    /**
+     * Creates request options for updateFavoriteProgress without sending the request
+     * @param {string} mainItemId 
+     * @param {number} progress 
+     * @param {number} epType 
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    updateFavoriteProgressRequestOpts(requestParameters: UpdateFavoriteProgressRequest): Promise<runtime.RequestOpts>;
 
     /**
      * update progress of a favorite, will create/delete SubItemFavorite
@@ -514,9 +747,9 @@ export interface DefaultApiInterface {
 export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
 
     /**
-     * Add ClientMapping
+     * Creates request options for addClientMapping without sending the request
      */
-    async addClientMappingRaw(requestParameters: AddClientMappingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ClientMapping>> {
+    async addClientMappingRequestOpts(requestParameters: AddClientMappingRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['request_body'] == null) {
             throw new runtime.RequiredError(
                 'request_body',
@@ -535,13 +768,24 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
             headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
         }
 
-        const response = await this.request({
-            path: `/client-mapping`,
+
+        let urlPath = `/client-mapping`;
+
+        return {
+            path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
             body: requestParameters['request_body'],
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Add ClientMapping
+     */
+    async addClientMappingRaw(requestParameters: AddClientMappingRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ClientMapping>> {
+        const requestOptions = await this.addClientMappingRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response);
     }
@@ -555,9 +799,9 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
     }
 
     /**
-     * get mainItems by id list
+     * Creates request options for batchGetMainItemByIdList without sending the request
      */
-    async batchGetMainItemByIdListRaw(requestParameters: BatchGetMainItemByIdListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BatchGetMainItemByIdListResult>> {
+    async batchGetMainItemByIdListRequestOpts(requestParameters: BatchGetMainItemByIdListRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['IdListRequestBody'] == null) {
             throw new runtime.RequiredError(
                 'IdListRequestBody',
@@ -576,13 +820,24 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
             headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
         }
 
-        const response = await this.request({
-            path: `/client-mapping/batch/main`,
+
+        let urlPath = `/client-mapping/batch/main`;
+
+        return {
+            path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
             body: requestParameters['IdListRequestBody'],
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * get mainItems by id list
+     */
+    async batchGetMainItemByIdListRaw(requestParameters: BatchGetMainItemByIdListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BatchGetMainItemByIdListResult>> {
+        const requestOptions = await this.batchGetMainItemByIdListRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response);
     }
@@ -596,9 +851,9 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
     }
 
     /**
-     * get SubItems by id list
+     * Creates request options for batchGetSubItemsByIdList without sending the request
      */
-    async batchGetSubItemsByIdListRaw(requestParameters: BatchGetSubItemsByIdListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BatchGetSubItemByIdListResult>> {
+    async batchGetSubItemsByIdListRequestOpts(requestParameters: BatchGetSubItemsByIdListRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['IdListRequestBody'] == null) {
             throw new runtime.RequiredError(
                 'IdListRequestBody',
@@ -617,13 +872,24 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
             headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
         }
 
-        const response = await this.request({
-            path: `/client-mapping/batch/subItem`,
+
+        let urlPath = `/client-mapping/batch/subItem`;
+
+        return {
+            path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
             body: requestParameters['IdListRequestBody'],
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * get SubItems by id list
+     */
+    async batchGetSubItemsByIdListRaw(requestParameters: BatchGetSubItemsByIdListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BatchGetSubItemByIdListResult>> {
+        const requestOptions = await this.batchGetSubItemsByIdListRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response);
     }
@@ -637,9 +903,9 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
     }
 
     /**
-     * create a favorite for user and item
+     * Creates request options for createFavorite without sending the request
      */
-    async createFavoriteRaw(requestParameters: CreateFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Favorite>> {
+    async createFavoriteRequestOpts(requestParameters: CreateFavoriteRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['Favorite'] == null) {
             throw new runtime.RequiredError(
                 'Favorite',
@@ -658,13 +924,24 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
             headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
         }
 
-        const response = await this.request({
-            path: `/favorite`,
+
+        let urlPath = `/favorite`;
+
+        return {
+            path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
             body: requestParameters['Favorite'],
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * create a favorite for user and item
+     */
+    async createFavoriteRaw(requestParameters: CreateFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Favorite>> {
+        const requestOptions = await this.createFavoriteRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response);
     }
@@ -678,9 +955,9 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
     }
 
     /**
-     * create a SubItemFavorite
+     * Creates request options for createSubItemFavorite without sending the request
      */
-    async createSubItemFavoriteRaw(requestParameters: CreateSubItemFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SubItemFavorite>> {
+    async createSubItemFavoriteRequestOpts(requestParameters: CreateSubItemFavoriteRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['CreateSubItemFavoriteRequestBody'] == null) {
             throw new runtime.RequiredError(
                 'CreateSubItemFavoriteRequestBody',
@@ -699,13 +976,24 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
             headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
         }
 
-        const response = await this.request({
-            path: `/favorite/sub`,
+
+        let urlPath = `/favorite/sub`;
+
+        return {
+            path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
             body: requestParameters['CreateSubItemFavoriteRequestBody'],
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * create a SubItemFavorite
+     */
+    async createSubItemFavoriteRaw(requestParameters: CreateSubItemFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SubItemFavorite>> {
+        const requestOptions = await this.createSubItemFavoriteRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response);
     }
@@ -719,9 +1007,9 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
     }
 
     /**
-     * Delete ClientMapping by MainItem id
+     * Creates request options for deleteClientMappingByMainItemId without sending the request
      */
-    async deleteClientMappingByMainItemIdRaw(requestParameters: DeleteClientMappingByMainItemIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteClientMappingByMainItemResponse>> {
+    async deleteClientMappingByMainItemIdRequestOpts(requestParameters: DeleteClientMappingByMainItemIdRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
@@ -738,12 +1026,24 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
             headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
         }
 
-        const response = await this.request({
-            path: `/client-mapping/main/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+
+        let urlPath = `/client-mapping/main/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Delete ClientMapping by MainItem id
+     */
+    async deleteClientMappingByMainItemIdRaw(requestParameters: DeleteClientMappingByMainItemIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeleteClientMappingByMainItemResponse>> {
+        const requestOptions = await this.deleteClientMappingByMainItemIdRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response);
     }
@@ -757,9 +1057,9 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
     }
 
     /**
-     * Delete a favorite
+     * Creates request options for deleteFavorite without sending the request
      */
-    async deleteFavoriteRaw(requestParameters: DeleteFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SucceedEmptyResponse>> {
+    async deleteFavoriteRequestOpts(requestParameters: DeleteFavoriteRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
@@ -776,12 +1076,24 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
             headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
         }
 
-        const response = await this.request({
-            path: `/favorite/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+
+        let urlPath = `/favorite/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Delete a favorite
+     */
+    async deleteFavoriteRaw(requestParameters: DeleteFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SucceedEmptyResponse>> {
+        const requestOptions = await this.deleteFavoriteRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response);
     }
@@ -795,9 +1107,9 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
     }
 
     /**
-     * Delete a SubItemFavorite
+     * Creates request options for deleteSubItemFavorite without sending the request
      */
-    async deleteSubItemFavoriteRaw(requestParameters: DeleteSubItemFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SucceedEmptyResponse>> {
+    async deleteSubItemFavoriteRequestOpts(requestParameters: DeleteSubItemFavoriteRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
@@ -814,12 +1126,24 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
             headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
         }
 
-        const response = await this.request({
-            path: `/favorite/sub/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+
+        let urlPath = `/favorite/sub/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Delete a SubItemFavorite
+     */
+    async deleteSubItemFavoriteRaw(requestParameters: DeleteSubItemFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SucceedEmptyResponse>> {
+        const requestOptions = await this.deleteSubItemFavoriteRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response);
     }
@@ -833,9 +1157,59 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
     }
 
     /**
-     * get favorite by MainItem id
+     * Creates request options for getFavoriteById without sending the request
      */
-    async getFavoriteByMainItemIdRaw(requestParameters: GetFavoriteByMainItemIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Favorite>> {
+    async getFavoriteByIdRequestOpts(requestParameters: GetFavoriteByIdRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling getFavoriteById().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
+        }
+
+
+        let urlPath = `/favorite/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a favorite by id
+     */
+    async getFavoriteByIdRaw(requestParameters: GetFavoriteByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetFavoriteResponse>> {
+        const requestOptions = await this.getFavoriteByIdRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response);
+    }
+
+    /**
+     * Get a favorite by id
+     */
+    async getFavoriteById(requestParameters: GetFavoriteByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetFavoriteResponse> {
+        const response = await this.getFavoriteByIdRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for getFavoriteByMainItemId without sending the request
+     */
+    async getFavoriteByMainItemIdRequestOpts(requestParameters: GetFavoriteByMainItemIdRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
@@ -852,12 +1226,24 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
             headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
         }
 
-        const response = await this.request({
-            path: `/favorite/main/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+
+        let urlPath = `/favorite/main/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * get favorite by MainItem id
+     */
+    async getFavoriteByMainItemIdRaw(requestParameters: GetFavoriteByMainItemIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Favorite>> {
+        const requestOptions = await this.getFavoriteByMainItemIdRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response);
     }
@@ -871,9 +1257,9 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
     }
 
     /**
-     * get favorite progress (number of SubItemFavorite from the beginning) of a episode type for mainItem
+     * Creates request options for getFavoriteProgressByMainItemId without sending the request
      */
-    async getFavoriteProgressByMainItemIdRaw(requestParameters: GetFavoriteProgressByMainItemIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FavoriteProgress>> {
+    async getFavoriteProgressByMainItemIdRequestOpts(requestParameters: GetFavoriteProgressByMainItemIdRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['mainItemId'] == null) {
             throw new runtime.RequiredError(
                 'mainItemId',
@@ -905,12 +1291,23 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
             headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
         }
 
-        const response = await this.request({
-            path: `/favorite/progress`,
+
+        let urlPath = `/favorite/progress`;
+
+        return {
+            path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * get favorite progress (number of SubItemFavorite from the beginning) of a episode type for mainItem
+     */
+    async getFavoriteProgressByMainItemIdRaw(requestParameters: GetFavoriteProgressByMainItemIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FavoriteProgress>> {
+        const requestOptions = await this.getFavoriteProgressByMainItemIdRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response);
     }
@@ -924,9 +1321,9 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
     }
 
     /**
-     * get a MainItem by id
+     * Creates request options for getMainItemById without sending the request
      */
-    async getMainItemByIdRaw(requestParameters: GetMainItemByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MainItem>> {
+    async getMainItemByIdRequestOpts(requestParameters: GetMainItemByIdRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
@@ -951,12 +1348,24 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
             headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
         }
 
-        const response = await this.request({
-            path: `/public/item/main/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+
+        let urlPath = `/public/item/main/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * get a MainItem by id
+     */
+    async getMainItemByIdRaw(requestParameters: GetMainItemByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MainItem>> {
+        const requestOptions = await this.getMainItemByIdRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response);
     }
@@ -970,9 +1379,9 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
     }
 
     /**
-     * get all related (Item , Cast) MainItem of an Character Type MainItem.
+     * Creates request options for getRelationsOfCharacter without sending the request
      */
-    async getRelationsOfCharacterRaw(requestParameters: GetRelationsOfCharacterRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CharacterRelationsWithMainItems>> {
+    async getRelationsOfCharacterRequestOpts(requestParameters: GetRelationsOfCharacterRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
@@ -989,12 +1398,24 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
             headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
         }
 
-        const response = await this.request({
-            path: `/public/relation/character/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+
+        let urlPath = `/public/relation/character/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * get all related (Item , Cast) MainItem of an Character Type MainItem.
+     */
+    async getRelationsOfCharacterRaw(requestParameters: GetRelationsOfCharacterRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CharacterRelationsWithMainItems>> {
+        const requestOptions = await this.getRelationsOfCharacterRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response);
     }
@@ -1008,9 +1429,9 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
     }
 
     /**
-     * get all related (Item, Staff, Cast, Character) MainItem of an Item Type MainItem.
+     * Creates request options for getRelationsOfItem without sending the request
      */
-    async getRelationsOfItemRaw(requestParameters: GetRelationsOfItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ItemRelationsWithMainItems>> {
+    async getRelationsOfItemRequestOpts(requestParameters: GetRelationsOfItemRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
@@ -1027,12 +1448,24 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
             headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
         }
 
-        const response = await this.request({
-            path: `/public/relation/item/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+
+        let urlPath = `/public/relation/item/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * get all related (Item, Staff, Cast, Character) MainItem of an Item Type MainItem.
+     */
+    async getRelationsOfItemRaw(requestParameters: GetRelationsOfItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ItemRelationsWithMainItems>> {
+        const requestOptions = await this.getRelationsOfItemRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response);
     }
@@ -1046,9 +1479,9 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
     }
 
     /**
-     * get all related (Item , Character) MainItem of an Person Type MainItem.
+     * Creates request options for getRelationsOfPerson without sending the request
      */
-    async getRelationsOfPersonRaw(requestParameters: GetRelationsOfPersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PersonRelationsWithMainItems>> {
+    async getRelationsOfPersonRequestOpts(requestParameters: GetRelationsOfPersonRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
@@ -1065,12 +1498,24 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
             headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
         }
 
-        const response = await this.request({
-            path: `/public/relation/person/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+
+        let urlPath = `/public/relation/person/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * get all related (Item , Character) MainItem of an Person Type MainItem.
+     */
+    async getRelationsOfPersonRaw(requestParameters: GetRelationsOfPersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PersonRelationsWithMainItems>> {
+        const requestOptions = await this.getRelationsOfPersonRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response);
     }
@@ -1084,9 +1529,9 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
     }
 
     /**
-     * get a SubItem by id
+     * Creates request options for getSubItemById without sending the request
      */
-    async getSubItemByIdRaw(requestParameters: GetSubItemByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SubItem>> {
+    async getSubItemByIdRequestOpts(requestParameters: GetSubItemByIdRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
@@ -1103,12 +1548,24 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
             headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
         }
 
-        const response = await this.request({
-            path: `/public/item/main/subItem/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+
+        let urlPath = `/public/item/main/subItem/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * get a SubItem by id
+     */
+    async getSubItemByIdRaw(requestParameters: GetSubItemByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SubItem>> {
+        const requestOptions = await this.getSubItemByIdRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response);
     }
@@ -1122,9 +1579,9 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
     }
 
     /**
-     * list favorites for user
+     * Creates request options for listFavorites without sending the request
      */
-    async listFavoritesRaw(requestParameters: ListFavoritesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListFavoritesResponse>> {
+    async listFavoritesRequestOpts(requestParameters: ListFavoritesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['status'] == null) {
             throw new runtime.RequiredError(
                 'status',
@@ -1161,12 +1618,23 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
             headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
         }
 
-        const response = await this.request({
-            path: `/favorite`,
+
+        let urlPath = `/favorite`;
+
+        return {
+            path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * list favorites for user
+     */
+    async listFavoritesRaw(requestParameters: ListFavoritesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListFavoritesResponse>> {
+        const requestOptions = await this.listFavoritesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response);
     }
@@ -1180,9 +1648,9 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
     }
 
     /**
-     * list MainItems
+     * Creates request options for listMainItems without sending the request
      */
-    async listMainItemsRaw(requestParameters: ListMainItemsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListMainItemResponse>> {
+    async listMainItemsRequestOpts(requestParameters: ListMainItemsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters['serviceClientId'] != null) {
@@ -1228,12 +1696,23 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
             headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
         }
 
-        const response = await this.request({
-            path: `/public/item/main`,
+
+        let urlPath = `/public/item/main`;
+
+        return {
+            path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * list MainItems
+     */
+    async listMainItemsRaw(requestParameters: ListMainItemsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListMainItemResponse>> {
+        const requestOptions = await this.listMainItemsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response);
     }
@@ -1247,9 +1726,9 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
     }
 
     /**
-     * list SubItemFavorite
+     * Creates request options for listSubItemFavorites without sending the request
      */
-    async listSubItemFavoritesRaw(requestParameters: ListSubItemFavoritesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListSubItemFavoriteResponse>> {
+    async listSubItemFavoritesRequestOpts(requestParameters: ListSubItemFavoritesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters['itemId'] != null) {
@@ -1283,12 +1762,23 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
             headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
         }
 
-        const response = await this.request({
-            path: `/favorite/sub`,
+
+        let urlPath = `/favorite/sub`;
+
+        return {
+            path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * list SubItemFavorite
+     */
+    async listSubItemFavoritesRaw(requestParameters: ListSubItemFavoritesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListSubItemFavoriteResponse>> {
+        const requestOptions = await this.listSubItemFavoritesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response);
     }
@@ -1302,9 +1792,9 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
     }
 
     /**
-     * get a list of on air MainItems with cover image
+     * Creates request options for onAirItem without sending the request
      */
-    async onAirItemRaw(requestParameters: OnAirItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetOnAirItemListResponse>> {
+    async onAirItemRequestOpts(requestParameters: OnAirItemRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['type'] == null) {
             throw new runtime.RequiredError(
                 'type',
@@ -1325,12 +1815,23 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
             headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
         }
 
-        const response = await this.request({
-            path: `/public/item/on-air`,
+
+        let urlPath = `/public/item/on-air`;
+
+        return {
+            path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * get a list of on air MainItems with cover image
+     */
+    async onAirItemRaw(requestParameters: OnAirItemRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetOnAirItemListResponse>> {
+        const requestOptions = await this.onAirItemRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response);
     }
@@ -1344,9 +1845,9 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
     }
 
     /**
-     * change status of a favorite
+     * Creates request options for patchFavorite without sending the request
      */
-    async patchFavoriteRaw(requestParameters: PatchFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SucceedEmptyResponse>> {
+    async patchFavoriteRequestOpts(requestParameters: PatchFavoriteRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
@@ -1372,13 +1873,25 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
             headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
         }
 
-        const response = await this.request({
-            path: `/favorite/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+
+        let urlPath = `/favorite/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
             method: 'PATCH',
             headers: headerParameters,
             query: queryParameters,
             body: requestParameters['PatchFavoriteBody'],
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * change status of a favorite
+     */
+    async patchFavoriteRaw(requestParameters: PatchFavoriteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SucceedEmptyResponse>> {
+        const requestOptions = await this.patchFavoriteRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response);
     }
@@ -1392,9 +1905,9 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
     }
 
     /**
-     * predict Main Item names base on provided prefix
+     * Creates request options for predictMainItemName without sending the request
      */
-    async predictMainItemNameRaw(requestParameters: PredictMainItemNameRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<string>>> {
+    async predictMainItemNameRequestOpts(requestParameters: PredictMainItemNameRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['prefix'] == null) {
             throw new runtime.RequiredError(
                 'prefix',
@@ -1415,12 +1928,23 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
             headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
         }
 
-        const response = await this.request({
-            path: `/public/item/predict`,
+
+        let urlPath = `/public/item/predict`;
+
+        return {
+            path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * predict Main Item names base on provided prefix
+     */
+    async predictMainItemNameRaw(requestParameters: PredictMainItemNameRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<string>>> {
+        const requestOptions = await this.predictMainItemNameRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse<any>(response);
     }
@@ -1434,9 +1958,9 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
     }
 
     /**
-     * Sync favorites from external source, merge with existing favorites
+     * Creates request options for syncFavorites without sending the request
      */
-    async syncFavoritesRaw(requestParameters: SyncFavoritesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SyncFavoritesResponse>> {
+    async syncFavoritesRequestOpts(requestParameters: SyncFavoritesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['SyncFavoritesRequestBody'] == null) {
             throw new runtime.RequiredError(
                 'SyncFavoritesRequestBody',
@@ -1455,13 +1979,24 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
             headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
         }
 
-        const response = await this.request({
-            path: `/favorite/sync`,
+
+        let urlPath = `/favorite/sync`;
+
+        return {
+            path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
             body: requestParameters['SyncFavoritesRequestBody'],
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Sync favorites from external source, merge with existing favorites
+     */
+    async syncFavoritesRaw(requestParameters: SyncFavoritesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SyncFavoritesResponse>> {
+        const requestOptions = await this.syncFavoritesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response);
     }
@@ -1475,9 +2010,9 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
     }
 
     /**
-     * update progress of a favorite, will create/delete SubItemFavorite
+     * Creates request options for updateFavoriteProgress without sending the request
      */
-    async updateFavoriteProgressRaw(requestParameters: UpdateFavoriteProgressRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SucceedEmptyResponse>> {
+    async updateFavoriteProgressRequestOpts(requestParameters: UpdateFavoriteProgressRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['mainItemId'] == null) {
             throw new runtime.RequiredError(
                 'mainItemId',
@@ -1520,12 +2055,23 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
             headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
         }
 
-        const response = await this.request({
-            path: `/favorite/progress`,
+
+        let urlPath = `/favorite/progress`;
+
+        return {
+            path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * update progress of a favorite, will create/delete SubItemFavorite
+     */
+    async updateFavoriteProgressRaw(requestParameters: UpdateFavoriteProgressRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SucceedEmptyResponse>> {
+        const requestOptions = await this.updateFavoriteProgressRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response);
     }
