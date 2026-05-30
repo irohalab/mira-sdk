@@ -1,9 +1,9 @@
 {
   "name": "@irohalab/mira-sdk-angular",
-  "version": "1.15.0",
+  "version": "2.0.0",
   "peerDependencies": {
-    "@angular/common": "^19.2.22",
-    "@angular/core": "^19.2.22"
+    "@angular/common": "^20.3.23",
+    "@angular/core": "^20.3.23"
   },
   "dependencies": {
     "tslib": "^2.3.0"
