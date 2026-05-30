@@ -17,8 +17,8 @@
           "supportES6": "true",
           "serviceSuffix": "Mira",
           "useSquareBracketsInArrayNames": "true",
-          "ngPackagrVersion": "19.2.2",
-          "ngVersion": "19.2.22"
+          "ngPackagrVersion": "20.3.23",
+          "ngVersion": "20.3.23"
         }
       },
       "fetch": {
