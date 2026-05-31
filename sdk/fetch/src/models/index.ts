@@ -73,15 +73,15 @@ export interface ClientMapping {
 /**
  * 
  * @export
- * @interface CreateSubItemFavoriteRequestBody
+ * @interface CreateSubItemFavoritesRequestBody
  */
-export interface CreateSubItemFavoriteRequestBody {
+export interface CreateSubItemFavoritesRequestBody {
     /**
      * 
-     * @type {string}
-     * @memberof CreateSubItemFavoriteRequestBody
+     * @type {Array<string>}
+     * @memberof CreateSubItemFavoritesRequestBody
      */
-    subItemId: string;
+    subItemIdList: Array<string>;
 }
 /**
  * 

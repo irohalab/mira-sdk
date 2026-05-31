@@ -25,7 +25,7 @@ import { CharacterRelationsWithMainItems } from '../model/characterRelationsWith
 // @ts-ignore
 import { ClientMapping } from '../model/clientMapping';
 // @ts-ignore
-import { CreateSubItemFavoriteRequestBody } from '../model/createSubItemFavoriteRequestBody';
+import { CreateSubItemFavoritesRequestBody } from '../model/createSubItemFavoritesRequestBody';
 // @ts-ignore
 import { DeleteClientMappingByMainItemResponse } from '../model/deleteClientMappingByMainItemResponse';
 // @ts-ignore
@@ -359,19 +359,19 @@ export class DefaultMira extends BaseService implements DefaultMiraInterface {
     }
 
     /**
-     * create a SubItemFavorite
+     * create SubItemFavorites
      * @endpoint post /favorite/sub
-     * @param CreateSubItemFavoriteRequestBody 
+     * @param CreateSubItemFavoritesRequestBody 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public createSubItemFavorite(CreateSubItemFavoriteRequestBody: CreateSubItemFavoriteRequestBody, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<SubItemFavorite>;
-    public createSubItemFavorite(CreateSubItemFavoriteRequestBody: CreateSubItemFavoriteRequestBody, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<SubItemFavorite>>;
-    public createSubItemFavorite(CreateSubItemFavoriteRequestBody: CreateSubItemFavoriteRequestBody, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<SubItemFavorite>>;
-    public createSubItemFavorite(CreateSubItemFavoriteRequestBody: CreateSubItemFavoriteRequestBody, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        if (CreateSubItemFavoriteRequestBody === null || CreateSubItemFavoriteRequestBody === undefined) {
-            throw new Error('Required parameter CreateSubItemFavoriteRequestBody was null or undefined when calling createSubItemFavorite.');
+    public createSubItemFavorites(CreateSubItemFavoritesRequestBody: CreateSubItemFavoritesRequestBody, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<SubItemFavorite>;
+    public createSubItemFavorites(CreateSubItemFavoritesRequestBody: CreateSubItemFavoritesRequestBody, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<SubItemFavorite>>;
+    public createSubItemFavorites(CreateSubItemFavoritesRequestBody: CreateSubItemFavoritesRequestBody, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<SubItemFavorite>>;
+    public createSubItemFavorites(CreateSubItemFavoritesRequestBody: CreateSubItemFavoritesRequestBody, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (CreateSubItemFavoritesRequestBody === null || CreateSubItemFavoritesRequestBody === undefined) {
+            throw new Error('Required parameter CreateSubItemFavoritesRequestBody was null or undefined when calling createSubItemFavorites.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -416,7 +416,7 @@ export class DefaultMira extends BaseService implements DefaultMiraInterface {
         return this.httpClient.request<SubItemFavorite>('post', `${basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: CreateSubItemFavoriteRequestBody,
+                body: CreateSubItemFavoritesRequestBody,
                 responseType: <any>responseType_,
                 ...(withCredentials ? { withCredentials } : {}),
                 headers: localVarHeaders,

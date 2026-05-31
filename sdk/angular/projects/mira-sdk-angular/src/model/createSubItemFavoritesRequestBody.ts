@@ -9,7 +9,7 @@
  */
 
 
-export interface CreateSubItemFavoriteRequestBody { 
-    subItemId: string;
+export interface CreateSubItemFavoritesRequestBody { 
+    subItemIdList: Array<string>;
 }
 

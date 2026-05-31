@@ -484,20 +484,22 @@ paths:
                     type: integer
                     description: total number of the result, if itemId is provided, this field will not available
     post:
-      description: create a SubItemFavorite
-      operationId: createSubItemFavorite
+      description: create SubItemFavorites
+      operationId: createSubItemFavorites
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              title: createSubItemFavoriteRequestBody
+              title: createSubItemFavoritesRequestBody
               type: object
               required:
-                - subItemId
+                - subItemIdList
               properties:
-                subItemId:
-                  type: string
+                subItemIdList:
+                  type: array
+                  items:
+                    type: string
       responses:
         '200':
           description: Successfully created a SubItemFavorite

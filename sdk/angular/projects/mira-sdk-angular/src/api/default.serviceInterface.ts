@@ -15,7 +15,7 @@ import { BatchGetMainItemByIdListResult } from '../model/models';
 import { BatchGetSubItemByIdListResult } from '../model/models';
 import { CharacterRelationsWithMainItems } from '../model/models';
 import { ClientMapping } from '../model/models';
-import { CreateSubItemFavoriteRequestBody } from '../model/models';
+import { CreateSubItemFavoritesRequestBody } from '../model/models';
 import { DeleteClientMappingByMainItemResponse } from '../model/models';
 import { Favorite } from '../model/models';
 import { FavoriteProgress } from '../model/models';
@@ -78,11 +78,11 @@ export interface DefaultMiraInterface {
 
     /**
      * 
-     * create a SubItemFavorite
+     * create SubItemFavorites
      * @endpoint post /favorite/sub
-     * @param CreateSubItemFavoriteRequestBody 
+     * @param CreateSubItemFavoritesRequestBody 
      */
-    createSubItemFavorite(CreateSubItemFavoriteRequestBody: CreateSubItemFavoriteRequestBody, extraHttpRequestParams?: any): Observable<SubItemFavorite>;
+    createSubItemFavorites(CreateSubItemFavoritesRequestBody: CreateSubItemFavoritesRequestBody, extraHttpRequestParams?: any): Observable<SubItemFavorite>;
 
     /**
      * 

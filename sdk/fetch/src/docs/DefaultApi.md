@@ -8,7 +8,7 @@ All URIs are relative to *http://localhost*
 | [**batchGetMainItemByIdList**](DefaultApi.md#batchgetmainitembyidlist) | **POST** /client-mapping/batch/main |  |
 | [**batchGetSubItemsByIdList**](DefaultApi.md#batchgetsubitemsbyidlist) | **POST** /client-mapping/batch/subItem |  |
 | [**createFavorite**](DefaultApi.md#createfavorite) | **POST** /favorite |  |
-| [**createSubItemFavorite**](DefaultApi.md#createsubitemfavorite) | **POST** /favorite/sub |  |
+| [**createSubItemFavorites**](DefaultApi.md#createsubitemfavorites) | **POST** /favorite/sub |  |
 | [**deleteClientMappingByMainItemId**](DefaultApi.md#deleteclientmappingbymainitemid) | **DELETE** /client-mapping/main/{id} |  |
 | [**deleteFavorite**](DefaultApi.md#deletefavorite) | **DELETE** /favorite/{id} |  |
 | [**deleteSubItemFavorite**](DefaultApi.md#deletesubitemfavorite) | **DELETE** /favorite/sub/{id} |  |
@@ -315,13 +315,13 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
-## createSubItemFavorite
+## createSubItemFavorites
 
-> SubItemFavorite createSubItemFavorite(CreateSubItemFavoriteRequestBody)
+> SubItemFavorite createSubItemFavorites(CreateSubItemFavoritesRequestBody)
 
 
 
-create a SubItemFavorite
+create SubItemFavorites
 
 ### Example
 
@@ -330,7 +330,7 @@ import {
   Configuration,
   DefaultApi,
 } from '';
-import type { CreateSubItemFavoriteRequest } from '';
+import type { CreateSubItemFavoritesRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
@@ -341,12 +341,12 @@ async function example() {
   const api = new DefaultApi(config);
 
   const body = {
-    // CreateSubItemFavoriteRequestBody
-    CreateSubItemFavoriteRequestBody: ...,
-  } satisfies CreateSubItemFavoriteRequest;
+    // CreateSubItemFavoritesRequestBody
+    CreateSubItemFavoritesRequestBody: ...,
+  } satisfies CreateSubItemFavoritesRequest;
 
   try {
-    const data = await api.createSubItemFavorite(body);
+    const data = await api.createSubItemFavorites(body);
     console.log(data);
   } catch (error) {
     console.error(error);
@@ -362,7 +362,7 @@ example().catch(console.error);
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **CreateSubItemFavoriteRequestBody** | [CreateSubItemFavoriteRequestBody](CreateSubItemFavoriteRequestBody.md) |  | |
+| **CreateSubItemFavoritesRequestBody** | [CreateSubItemFavoritesRequestBody](CreateSubItemFavoritesRequestBody.md) |  | |
 
 ### Return type
 

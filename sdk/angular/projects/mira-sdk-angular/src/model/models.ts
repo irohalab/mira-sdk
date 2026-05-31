@@ -2,7 +2,7 @@ export * from './batchGetMainItemByIdListResult';
 export * from './batchGetSubItemByIdListResult';
 export * from './characterRelationsWithMainItems';
 export * from './clientMapping';
-export * from './createSubItemFavoriteRequestBody';
+export * from './createSubItemFavoritesRequestBody';
 export * from './deleteClientMappingByMainItemResponse';
 export * from './errorResponse';
 export * from './favorite';
