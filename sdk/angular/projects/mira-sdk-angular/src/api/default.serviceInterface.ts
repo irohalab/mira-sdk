@@ -34,6 +34,8 @@ import { SubItem } from '../model/models';
 import { SucceedEmptyResponse } from '../model/models';
 import { SyncFavoritesRequestBody } from '../model/models';
 import { SyncFavoritesResponse } from '../model/models';
+import { SyncSubItemFavoritesByFavoriteIdRequestBody } from '../model/models';
+import { SyncSubItemFavoritesByFavoriteIdResponse } from '../model/models';
 
 
 import { MiraConfiguration }                                     from '../configuration';
@@ -248,6 +250,15 @@ export interface DefaultMiraInterface {
      * @param SyncFavoritesRequestBody 
      */
     syncFavorites(SyncFavoritesRequestBody: SyncFavoritesRequestBody, extraHttpRequestParams?: any): Observable<SyncFavoritesResponse>;
+
+    /**
+     * 
+     * sync SubItemFavorites by favorite Id
+     * @endpoint put /favorite/sync/{favoriteId}
+     * @param favoriteId 
+     * @param SyncSubItemFavoritesByFavoriteIdRequestBody 
+     */
+    syncSubItemFavoritesByFavoriteId(favoriteId: string, SyncSubItemFavoritesByFavoriteIdRequestBody: SyncSubItemFavoritesByFavoriteIdRequestBody, extraHttpRequestParams?: any): Observable<SyncSubItemFavoritesByFavoriteIdResponse>;
 
     /**
      * 

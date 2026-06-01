@@ -62,6 +62,10 @@ import { SucceedEmptyResponse } from '../model/succeedEmptyResponse';
 import { SyncFavoritesRequestBody } from '../model/syncFavoritesRequestBody';
 // @ts-ignore
 import { SyncFavoritesResponse } from '../model/syncFavoritesResponse';
+// @ts-ignore
+import { SyncSubItemFavoritesByFavoriteIdRequestBody } from '../model/syncSubItemFavoritesByFavoriteIdRequestBody';
+// @ts-ignore
+import { SyncSubItemFavoritesByFavoriteIdResponse } from '../model/syncSubItemFavoritesByFavoriteIdResponse';
 
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -1775,6 +1779,79 @@ export class DefaultMira extends BaseService implements DefaultMiraInterface {
             {
                 context: localVarHttpContext,
                 body: SyncFavoritesRequestBody,
+                responseType: <any>responseType_,
+                ...(withCredentials ? { withCredentials } : {}),
+                headers: localVarHeaders,
+                observe: observe,
+                ...(localVarTransferCache !== undefined ? { transferCache: localVarTransferCache } : {}),
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * sync SubItemFavorites by favorite Id
+     * @endpoint put /favorite/sync/{favoriteId}
+     * @param favoriteId 
+     * @param SyncSubItemFavoritesByFavoriteIdRequestBody 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     * @param options additional options
+     */
+    public syncSubItemFavoritesByFavoriteId(favoriteId: string, SyncSubItemFavoritesByFavoriteIdRequestBody: SyncSubItemFavoritesByFavoriteIdRequestBody, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<SyncSubItemFavoritesByFavoriteIdResponse>;
+    public syncSubItemFavoritesByFavoriteId(favoriteId: string, SyncSubItemFavoritesByFavoriteIdRequestBody: SyncSubItemFavoritesByFavoriteIdRequestBody, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<SyncSubItemFavoritesByFavoriteIdResponse>>;
+    public syncSubItemFavoritesByFavoriteId(favoriteId: string, SyncSubItemFavoritesByFavoriteIdRequestBody: SyncSubItemFavoritesByFavoriteIdRequestBody, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<SyncSubItemFavoritesByFavoriteIdResponse>>;
+    public syncSubItemFavoritesByFavoriteId(favoriteId: string, SyncSubItemFavoritesByFavoriteIdRequestBody: SyncSubItemFavoritesByFavoriteIdRequestBody, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (favoriteId === null || favoriteId === undefined) {
+            throw new Error('Required parameter favoriteId was null or undefined when calling syncSubItemFavoritesByFavoriteId.');
+        }
+        if (SyncSubItemFavoritesByFavoriteIdRequestBody === null || SyncSubItemFavoritesByFavoriteIdRequestBody === undefined) {
+            throw new Error('Required parameter SyncSubItemFavoritesByFavoriteIdRequestBody was null or undefined when calling syncSubItemFavoritesByFavoriteId.');
+        }
+
+        let localVarHeaders = this.defaultHeaders;
+
+        // authentication (oAuth2) required
+        localVarHeaders = this.configuration.addCredentialToHeaders('oAuth2', 'Authorization', localVarHeaders, 'Bearer ');
+
+        const localVarHttpHeaderAcceptSelected: string | undefined = options?.httpHeaderAccept ?? this.configuration.selectHeaderAccept([
+            'application/json'
+        ]);
+        if (localVarHttpHeaderAcceptSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        }
+
+        const localVarHttpContext: HttpContext = options?.context ?? new HttpContext();
+
+        const localVarTransferCache: boolean = options?.transferCache ?? true;
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+        }
+
+        let responseType_: 'text' | 'json' | 'blob' = 'json';
+        if (localVarHttpHeaderAcceptSelected) {
+            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+                responseType_ = 'text';
+            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+                responseType_ = 'json';
+            } else {
+                responseType_ = 'blob';
+            }
+        }
+
+        let localVarPath = `/favorite/sync/${this.configuration.encodeParam({name: "favoriteId", value: favoriteId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        const { basePath, withCredentials } = this.configuration;
+        return this.httpClient.request<SyncSubItemFavoritesByFavoriteIdResponse>('put', `${basePath}${localVarPath}`,
+            {
+                context: localVarHttpContext,
+                body: SyncSubItemFavoritesByFavoriteIdRequestBody,
                 responseType: <any>responseType_,
                 ...(withCredentials ? { withCredentials } : {}),
                 headers: localVarHeaders,

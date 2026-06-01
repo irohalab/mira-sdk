@@ -1223,3 +1223,29 @@ export interface SyncFavoritesResponse {
      */
     deletedSubItemIds?: Array<string>;
 }
+/**
+ * 
+ * @export
+ * @interface SyncSubItemFavoritesByFavoriteIdRequestBody
+ */
+export interface SyncSubItemFavoritesByFavoriteIdRequestBody {
+    /**
+     * 
+     * @type {{ [key: string]: boolean; }}
+     * @memberof SyncSubItemFavoritesByFavoriteIdRequestBody
+     */
+    subItemStatusMapping: { [key: string]: boolean; };
+}
+/**
+ * 
+ * @export
+ * @interface SyncSubItemFavoritesByFavoriteIdResponse
+ */
+export interface SyncSubItemFavoritesByFavoriteIdResponse {
+    /**
+     * 
+     * @type {Array<SubItemFavorite>}
+     * @memberof SyncSubItemFavoritesByFavoriteIdResponse
+     */
+    data: Array<SubItemFavorite>;
+}

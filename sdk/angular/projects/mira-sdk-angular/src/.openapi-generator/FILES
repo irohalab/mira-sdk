@@ -50,6 +50,8 @@ model/succeedEmptyResponse.ts
 model/syncFavoritesRequestBody.ts
 model/syncFavoritesRequestBodyFavoritesInner.ts
 model/syncFavoritesResponse.ts
+model/syncSubItemFavoritesByFavoriteIdRequestBody.ts
+model/syncSubItemFavoritesByFavoriteIdResponse.ts
 param.ts
 provide-api.ts
 query.params.ts

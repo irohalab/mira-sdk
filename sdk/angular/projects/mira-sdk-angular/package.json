@@ -1,6 +1,6 @@
 {
   "name": "@irohalab/mira-sdk-angular",
-  "version": "4.0.2",
+  "version": "4.1.0",
   "peerDependencies": {
     "@angular/common": "19.x || 20.x || 21.x",
     "@angular/core": "19.x || 20.x || 21.x"

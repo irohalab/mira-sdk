@@ -38,3 +38,5 @@ export * from './succeedEmptyResponse';
 export * from './syncFavoritesRequestBody';
 export * from './syncFavoritesRequestBodyFavoritesInner';
 export * from './syncFavoritesResponse';
+export * from './syncSubItemFavoritesByFavoriteIdRequestBody';
+export * from './syncSubItemFavoritesByFavoriteIdResponse';

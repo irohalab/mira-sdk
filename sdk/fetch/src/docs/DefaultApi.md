@@ -27,6 +27,7 @@ All URIs are relative to *http://localhost*
 | [**patchFavorite**](DefaultApi.md#patchfavorite) | **PATCH** /favorite/{id} |  |
 | [**predictMainItemName**](DefaultApi.md#predictmainitemname) | **GET** /public/item/predict |  |
 | [**syncFavorites**](DefaultApi.md#syncfavorites) | **POST** /favorite/sync |  |
+| [**syncSubItemFavoritesByFavoriteId**](DefaultApi.md#syncsubitemfavoritesbyfavoriteid) | **PUT** /favorite/sync/{favoriteId} |  |
 | [**updateFavoriteProgress**](DefaultApi.md#updatefavoriteprogress) | **POST** /favorite/progress |  |
 
 
@@ -1724,6 +1725,80 @@ example().catch(console.error);
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successfully synced favorites |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## syncSubItemFavoritesByFavoriteId
+
+> SyncSubItemFavoritesByFavoriteIdResponse syncSubItemFavoritesByFavoriteId(favoriteId, SyncSubItemFavoritesByFavoriteIdRequestBody)
+
+
+
+sync SubItemFavorites by favorite Id
+
+### Example
+
+```ts
+import {
+  Configuration,
+  DefaultApi,
+} from '';
+import type { SyncSubItemFavoritesByFavoriteIdRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // To configure OAuth2 access token for authorization: oAuth2 accessCode
+    accessToken: "YOUR ACCESS TOKEN",
+  });
+  const api = new DefaultApi(config);
+
+  const body = {
+    // string
+    favoriteId: favoriteId_example,
+    // SyncSubItemFavoritesByFavoriteIdRequestBody
+    SyncSubItemFavoritesByFavoriteIdRequestBody: ...,
+  } satisfies SyncSubItemFavoritesByFavoriteIdRequest;
+
+  try {
+    const data = await api.syncSubItemFavoritesByFavoriteId(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **favoriteId** | `string` |  | [Defaults to `undefined`] |
+| **SyncSubItemFavoritesByFavoriteIdRequestBody** | [SyncSubItemFavoritesByFavoriteIdRequestBody](SyncSubItemFavoritesByFavoriteIdRequestBody.md) |  | |
+
+### Return type
+
+[**SyncSubItemFavoritesByFavoriteIdResponse**](SyncSubItemFavoritesByFavoriteIdResponse.md)
+
+### Authorization
+
+[oAuth2 accessCode](../README.md#oAuth2-accessCode)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successfully sync SubItemFavorites of favorite |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

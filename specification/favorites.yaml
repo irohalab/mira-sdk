@@ -190,6 +190,45 @@ paths:
                     type: array
                     items:
                       type: string
+  /favorite/sync/{favoriteId}:
+    put:
+      description: sync SubItemFavorites by favorite Id
+      operationId: syncSubItemFavoritesByFavoriteId
+      parameters:
+        - name: favoriteId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              title: syncSubItemFavoritesByFavoriteIdRequestBody
+              type: object
+              required:
+                - subItemStatusMapping
+              properties:
+                subItemStatusMapping:
+                  type: object
+                  additionalProperties:
+                    type: boolean
+      responses:
+        '200':
+          description: Successfully sync SubItemFavorites of favorite
+          content:
+            application/json:
+              schema:
+                title: SyncSubItemFavoritesByFavoriteId response
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SubItemFavorite'
   /favorite/main/{id}:
     get:
       description: get favorite by MainItem id

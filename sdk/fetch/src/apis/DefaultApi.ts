@@ -37,6 +37,8 @@ import type {
     SucceedEmptyResponse,
     SyncFavoritesRequestBody,
     SyncFavoritesResponse,
+    SyncSubItemFavoritesByFavoriteIdRequestBody,
+    SyncSubItemFavoritesByFavoriteIdResponse,
 } from '../models/index';
 
 export interface AddClientMappingRequest {
@@ -150,6 +152,11 @@ export interface PredictMainItemNameRequest {
 
 export interface SyncFavoritesRequest {
     SyncFavoritesRequestBody: SyncFavoritesRequestBody;
+}
+
+export interface SyncSubItemFavoritesByFavoriteIdRequest {
+    favoriteId: string;
+    SyncSubItemFavoritesByFavoriteIdRequestBody: SyncSubItemFavoritesByFavoriteIdRequestBody;
 }
 
 export interface UpdateFavoriteProgressRequest {
@@ -712,6 +719,30 @@ export interface DefaultApiInterface {
      * Sync favorites from external source, merge with existing favorites
      */
     syncFavorites(requestParameters: SyncFavoritesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SyncFavoritesResponse>;
+
+    /**
+     * Creates request options for syncSubItemFavoritesByFavoriteId without sending the request
+     * @param {string} favoriteId 
+     * @param {SyncSubItemFavoritesByFavoriteIdRequestBody} SyncSubItemFavoritesByFavoriteIdRequestBody 
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    syncSubItemFavoritesByFavoriteIdRequestOpts(requestParameters: SyncSubItemFavoritesByFavoriteIdRequest): Promise<runtime.RequestOpts>;
+
+    /**
+     * sync SubItemFavorites by favorite Id
+     * @param {string} favoriteId 
+     * @param {SyncSubItemFavoritesByFavoriteIdRequestBody} SyncSubItemFavoritesByFavoriteIdRequestBody 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApiInterface
+     */
+    syncSubItemFavoritesByFavoriteIdRaw(requestParameters: SyncSubItemFavoritesByFavoriteIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SyncSubItemFavoritesByFavoriteIdResponse>>;
+
+    /**
+     * sync SubItemFavorites by favorite Id
+     */
+    syncSubItemFavoritesByFavoriteId(requestParameters: SyncSubItemFavoritesByFavoriteIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SyncSubItemFavoritesByFavoriteIdResponse>;
 
     /**
      * Creates request options for updateFavoriteProgress without sending the request
@@ -2006,6 +2037,66 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
      */
     async syncFavorites(requestParameters: SyncFavoritesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SyncFavoritesResponse> {
         const response = await this.syncFavoritesRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for syncSubItemFavoritesByFavoriteId without sending the request
+     */
+    async syncSubItemFavoritesByFavoriteIdRequestOpts(requestParameters: SyncSubItemFavoritesByFavoriteIdRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['favoriteId'] == null) {
+            throw new runtime.RequiredError(
+                'favoriteId',
+                'Required parameter "favoriteId" was null or undefined when calling syncSubItemFavoritesByFavoriteId().'
+            );
+        }
+
+        if (requestParameters['SyncSubItemFavoritesByFavoriteIdRequestBody'] == null) {
+            throw new runtime.RequiredError(
+                'SyncSubItemFavoritesByFavoriteIdRequestBody',
+                'Required parameter "SyncSubItemFavoritesByFavoriteIdRequestBody" was null or undefined when calling syncSubItemFavoritesByFavoriteId().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2", ["bookmark"]);
+        }
+
+
+        let urlPath = `/favorite/sync/{favoriteId}`;
+        urlPath = urlPath.replace('{favoriteId}', encodeURIComponent(String(requestParameters['favoriteId'])));
+
+        return {
+            path: urlPath,
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters['SyncSubItemFavoritesByFavoriteIdRequestBody'],
+        };
+    }
+
+    /**
+     * sync SubItemFavorites by favorite Id
+     */
+    async syncSubItemFavoritesByFavoriteIdRaw(requestParameters: SyncSubItemFavoritesByFavoriteIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SyncSubItemFavoritesByFavoriteIdResponse>> {
+        const requestOptions = await this.syncSubItemFavoritesByFavoriteIdRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response);
+    }
+
+    /**
+     * sync SubItemFavorites by favorite Id
+     */
+    async syncSubItemFavoritesByFavoriteId(requestParameters: SyncSubItemFavoritesByFavoriteIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SyncSubItemFavoritesByFavoriteIdResponse> {
+        const response = await this.syncSubItemFavoritesByFavoriteIdRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

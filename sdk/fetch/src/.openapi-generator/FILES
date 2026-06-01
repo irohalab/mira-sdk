@@ -41,6 +41,8 @@ docs/SucceedEmptyResponse.md
 docs/SyncFavoritesRequestBody.md
 docs/SyncFavoritesRequestBodyFavoritesInner.md
 docs/SyncFavoritesResponse.md
+docs/SyncSubItemFavoritesByFavoriteIdRequestBody.md
+docs/SyncSubItemFavoritesByFavoriteIdResponse.md
 index.ts
 models/index.ts
 runtime.ts
