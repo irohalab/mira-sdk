@@ -2,6 +2,10 @@
 
 Release history for `@irohalab/mira-sdk-fetch`, based on npm publish history and shared `mira-sdk` GitHub releases.
 
+## v2.1.0 - 2026-06-02
+
+- Add sync SubItemFavorites API to allow Adds/deletes SubItemFavorites based on favorite id.
+
 ## v2.0.1 - 2026-06-01
 
 - Fixed the incorrect response of `createSubItemFavorite`, which should be an array.

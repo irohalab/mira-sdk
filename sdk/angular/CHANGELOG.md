@@ -2,6 +2,10 @@
 
 Release history for `@irohalab/mira-sdk-angular`, based on npm publish history and shared `mira-sdk` GitHub releases.
 
+## 4.1.0 - 2026-06-02
+
+- Add sync SubItemFavorites API to allow Adds/deletes SubItemFavorites based on favorite id.
+
 ## 4.0.2 - 2026-06-01
 
 - Bumped the Angular SDK package for the `createSubItemFavorite` response fix.
