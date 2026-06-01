@@ -73,6 +73,19 @@ export interface ClientMapping {
 /**
  * 
  * @export
+ * @interface CreateSubItemFavoriteResponse
+ */
+export interface CreateSubItemFavoriteResponse {
+    /**
+     * 
+     * @type {Array<SubItemFavorite>}
+     * @memberof CreateSubItemFavoriteResponse
+     */
+    data: Array<SubItemFavorite>;
+}
+/**
+ * 
+ * @export
  * @interface CreateSubItemFavoritesRequestBody
  */
 export interface CreateSubItemFavoritesRequestBody {

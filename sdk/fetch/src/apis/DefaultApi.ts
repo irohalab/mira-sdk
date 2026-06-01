@@ -18,6 +18,7 @@ import type {
     BatchGetSubItemByIdListResult,
     CharacterRelationsWithMainItems,
     ClientMapping,
+    CreateSubItemFavoriteResponse,
     CreateSubItemFavoritesRequestBody,
     DeleteClientMappingByMainItemResponse,
     Favorite,
@@ -33,7 +34,6 @@ import type {
     PatchFavoriteBody,
     PersonRelationsWithMainItems,
     SubItem,
-    SubItemFavorite,
     SucceedEmptyResponse,
     SyncFavoritesRequestBody,
     SyncFavoritesResponse,
@@ -268,12 +268,12 @@ export interface DefaultApiInterface {
      * @throws {RequiredError}
      * @memberof DefaultApiInterface
      */
-    createSubItemFavoritesRaw(requestParameters: CreateSubItemFavoritesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SubItemFavorite>>;
+    createSubItemFavoritesRaw(requestParameters: CreateSubItemFavoritesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreateSubItemFavoriteResponse>>;
 
     /**
      * create SubItemFavorites
      */
-    createSubItemFavorites(requestParameters: CreateSubItemFavoritesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SubItemFavorite>;
+    createSubItemFavorites(requestParameters: CreateSubItemFavoritesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateSubItemFavoriteResponse>;
 
     /**
      * Creates request options for deleteClientMappingByMainItemId without sending the request
@@ -991,7 +991,7 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
     /**
      * create SubItemFavorites
      */
-    async createSubItemFavoritesRaw(requestParameters: CreateSubItemFavoritesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SubItemFavorite>> {
+    async createSubItemFavoritesRaw(requestParameters: CreateSubItemFavoritesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreateSubItemFavoriteResponse>> {
         const requestOptions = await this.createSubItemFavoritesRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
@@ -1001,7 +1001,7 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
     /**
      * create SubItemFavorites
      */
-    async createSubItemFavorites(requestParameters: CreateSubItemFavoritesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SubItemFavorite> {
+    async createSubItemFavorites(requestParameters: CreateSubItemFavoritesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateSubItemFavoriteResponse> {
         const response = await this.createSubItemFavoritesRaw(requestParameters, initOverrides);
         return await response.value();
     }

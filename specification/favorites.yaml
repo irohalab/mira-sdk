@@ -337,7 +337,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SubItemFavorite'
+                title: CreateSubItemFavoriteResponse
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SubItemFavorite'
   /favorite/sub/{id}:
     delete:
       description: Delete a SubItemFavorite

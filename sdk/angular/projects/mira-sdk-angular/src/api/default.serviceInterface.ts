@@ -15,6 +15,7 @@ import { BatchGetMainItemByIdListResult } from '../model/models';
 import { BatchGetSubItemByIdListResult } from '../model/models';
 import { CharacterRelationsWithMainItems } from '../model/models';
 import { ClientMapping } from '../model/models';
+import { CreateSubItemFavoriteResponse } from '../model/models';
 import { CreateSubItemFavoritesRequestBody } from '../model/models';
 import { DeleteClientMappingByMainItemResponse } from '../model/models';
 import { Favorite } from '../model/models';
@@ -30,7 +31,6 @@ import { MainItem } from '../model/models';
 import { PatchFavoriteBody } from '../model/models';
 import { PersonRelationsWithMainItems } from '../model/models';
 import { SubItem } from '../model/models';
-import { SubItemFavorite } from '../model/models';
 import { SucceedEmptyResponse } from '../model/models';
 import { SyncFavoritesRequestBody } from '../model/models';
 import { SyncFavoritesResponse } from '../model/models';
@@ -82,7 +82,7 @@ export interface DefaultMiraInterface {
      * @endpoint post /favorite/sub
      * @param CreateSubItemFavoritesRequestBody 
      */
-    createSubItemFavorites(CreateSubItemFavoritesRequestBody: CreateSubItemFavoritesRequestBody, extraHttpRequestParams?: any): Observable<SubItemFavorite>;
+    createSubItemFavorites(CreateSubItemFavoritesRequestBody: CreateSubItemFavoritesRequestBody, extraHttpRequestParams?: any): Observable<CreateSubItemFavoriteResponse>;
 
     /**
      * 

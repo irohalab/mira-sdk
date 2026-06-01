@@ -25,6 +25,8 @@ import { CharacterRelationsWithMainItems } from '../model/characterRelationsWith
 // @ts-ignore
 import { ClientMapping } from '../model/clientMapping';
 // @ts-ignore
+import { CreateSubItemFavoriteResponse } from '../model/createSubItemFavoriteResponse';
+// @ts-ignore
 import { CreateSubItemFavoritesRequestBody } from '../model/createSubItemFavoritesRequestBody';
 // @ts-ignore
 import { DeleteClientMappingByMainItemResponse } from '../model/deleteClientMappingByMainItemResponse';
@@ -54,8 +56,6 @@ import { PatchFavoriteBody } from '../model/patchFavoriteBody';
 import { PersonRelationsWithMainItems } from '../model/personRelationsWithMainItems';
 // @ts-ignore
 import { SubItem } from '../model/subItem';
-// @ts-ignore
-import { SubItemFavorite } from '../model/subItemFavorite';
 // @ts-ignore
 import { SucceedEmptyResponse } from '../model/succeedEmptyResponse';
 // @ts-ignore
@@ -366,9 +366,9 @@ export class DefaultMira extends BaseService implements DefaultMiraInterface {
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public createSubItemFavorites(CreateSubItemFavoritesRequestBody: CreateSubItemFavoritesRequestBody, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<SubItemFavorite>;
-    public createSubItemFavorites(CreateSubItemFavoritesRequestBody: CreateSubItemFavoritesRequestBody, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<SubItemFavorite>>;
-    public createSubItemFavorites(CreateSubItemFavoritesRequestBody: CreateSubItemFavoritesRequestBody, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<SubItemFavorite>>;
+    public createSubItemFavorites(CreateSubItemFavoritesRequestBody: CreateSubItemFavoritesRequestBody, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<CreateSubItemFavoriteResponse>;
+    public createSubItemFavorites(CreateSubItemFavoritesRequestBody: CreateSubItemFavoritesRequestBody, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<CreateSubItemFavoriteResponse>>;
+    public createSubItemFavorites(CreateSubItemFavoritesRequestBody: CreateSubItemFavoritesRequestBody, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<CreateSubItemFavoriteResponse>>;
     public createSubItemFavorites(CreateSubItemFavoritesRequestBody: CreateSubItemFavoritesRequestBody, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (CreateSubItemFavoritesRequestBody === null || CreateSubItemFavoritesRequestBody === undefined) {
             throw new Error('Required parameter CreateSubItemFavoritesRequestBody was null or undefined when calling createSubItemFavorites.');
@@ -413,7 +413,7 @@ export class DefaultMira extends BaseService implements DefaultMiraInterface {
 
         let localVarPath = `/favorite/sub`;
         const { basePath, withCredentials } = this.configuration;
-        return this.httpClient.request<SubItemFavorite>('post', `${basePath}${localVarPath}`,
+        return this.httpClient.request<CreateSubItemFavoriteResponse>('post', `${basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 body: CreateSubItemFavoritesRequestBody,

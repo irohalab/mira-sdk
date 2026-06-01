@@ -13,6 +13,7 @@ model/batchGetMainItemByIdListResult.ts
 model/batchGetSubItemByIdListResult.ts
 model/characterRelationsWithMainItems.ts
 model/clientMapping.ts
+model/createSubItemFavoriteResponse.ts
 model/createSubItemFavoritesRequestBody.ts
 model/deleteClientMappingByMainItemResponse.ts
 model/errorResponse.ts

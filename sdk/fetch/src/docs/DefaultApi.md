@@ -317,7 +317,7 @@ example().catch(console.error);
 
 ## createSubItemFavorites
 
-> SubItemFavorite createSubItemFavorites(CreateSubItemFavoritesRequestBody)
+> CreateSubItemFavoriteResponse createSubItemFavorites(CreateSubItemFavoritesRequestBody)
 
 
 
@@ -366,7 +366,7 @@ example().catch(console.error);
 
 ### Return type
 
-[**SubItemFavorite**](SubItemFavorite.md)
+[**CreateSubItemFavoriteResponse**](CreateSubItemFavoriteResponse.md)
 
 ### Authorization
 

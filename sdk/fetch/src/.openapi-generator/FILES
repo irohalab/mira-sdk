@@ -4,6 +4,7 @@ docs/BatchGetMainItemByIdListResult.md
 docs/BatchGetSubItemByIdListResult.md
 docs/CharacterRelationsWithMainItems.md
 docs/ClientMapping.md
+docs/CreateSubItemFavoriteResponse.md
 docs/CreateSubItemFavoritesRequestBody.md
 docs/DefaultApi.md
 docs/DeleteClientMappingByMainItemResponse.md
