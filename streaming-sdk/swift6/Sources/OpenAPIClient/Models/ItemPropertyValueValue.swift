@@ -10,7 +10,7 @@ import Foundation
 public enum ItemPropertyValueValue: Sendable, Codable, Hashable {
     case typeString(String)
     case typeArrayOfString([String])
-    case typeArrayOfArrayOfString: String([[String: String]])
+    case typeArrayOfStringDictionary([[String: String]])
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
@@ -19,7 +19,7 @@ public enum ItemPropertyValueValue: Sendable, Codable, Hashable {
             try container.encode(value)
         case .typeArrayOfString(let value):
             try container.encode(value)
-        case .typeArrayOfArrayOfString: String(let value):
+        case .typeArrayOfStringDictionary(let value):
             try container.encode(value)
         }
     }
@@ -31,7 +31,7 @@ public enum ItemPropertyValueValue: Sendable, Codable, Hashable {
         } else if let value = try? container.decode([String].self) {
             self = .typeArrayOfString(value)
         } else if let value = try? container.decode([[String: String]].self) {
-            self = .typeArrayOfArrayOfString: String(value)
+            self = .typeArrayOfStringDictionary(value)
         } else {
             throw DecodingError.typeMismatch(Self.Type.self, .init(codingPath: decoder.codingPath, debugDescription: "Unable to decode instance of ItemPropertyValueValue"))
         }
