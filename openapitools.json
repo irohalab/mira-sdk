@@ -40,6 +40,7 @@
         "output": "#{cwd}/streaming-sdk/swift6",
         "glob": "streaming-spec/openapi.yaml",
         "additionalProperties": {
+          "projectName": "MiraStreamingSDK",
           "library": "urlsession",
           "responseAs": "AsyncAwait",
           "useSPMFileStructure": true,

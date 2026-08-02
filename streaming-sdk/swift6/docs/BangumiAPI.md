@@ -20,7 +20,7 @@ Get a Bangumi and its episodes
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MiraStreamingSDK
 
 let id = 987 // UUID | 
 
@@ -68,7 +68,7 @@ List Bangumi air dates
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MiraStreamingSDK
 
 let type = "type_example" // String | Omit to include all types. (optional)
 let eps = 987 // Int | Exact episode-count filter. (optional)
@@ -120,7 +120,7 @@ Search and list Bangumi
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MiraStreamingSDK
 
 let type = ItemTypeQuery() // ItemTypeQuery | TypeScript enum key used by the controller. (optional)
 let subType = ItemSubTypeQuery() // ItemSubTypeQuery | TypeScript enum key used by the controller. (optional)
@@ -182,7 +182,7 @@ List Bangumi airing during the current month
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MiraStreamingSDK
 
 let type = "type_example" // String | 
 

@@ -21,7 +21,7 @@ Get an episode and its playable video files
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MiraStreamingSDK
 
 let id = 987 // UUID | 
 let loadBangumiEpisodes = true // Bool | Include the other episodes belonging to the same Bangumi. (optional) (default to false)
@@ -73,7 +73,7 @@ List watch history
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MiraStreamingSDK
 
 let offset = 987 // Int |  (optional) (default to 0)
 let limit = 987 // Int | Values outside 0 through 300 fall back to 20. (optional) (default to 20)
@@ -123,7 +123,7 @@ Submit feedback for an episode
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MiraStreamingSDK
 
 let episodeId = 987 // UUID | 
 let feedbackRequest = FeedbackRequest(deviceType: "deviceType_example", os: "os_example", browser: BrowserInfo(name: "name_example", version: "version_example", majorVersion: "majorVersion_example", webview: false, chromium: false, webkit: false), userAgent: "userAgent_example", issue: "issue_example", videoId: 123) // FeedbackRequest | 
@@ -175,7 +175,7 @@ Invalid records are ignored. When no valid records remain, the current implement
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MiraStreamingSDK
 
 let batchWatchProgressRequest = BatchWatchProgressRequest(records: [WatchHistoryRecord(bangumiId: 123, episodeId: 123, lastWatchPosition: 123, lastWatchTime: Date(), percentage: 123, isFinished: false)]) // BatchWatchProgressRequest | 
 let syncToUpstream = true // Bool | Set to false to skip synchronization with the upstream Mira service. (optional) (default to true)
@@ -225,7 +225,7 @@ Create or update watch progress
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MiraStreamingSDK
 
 let watchProgressUpdateRequest = WatchProgressUpdateRequest(episode: IdReference(id: 123), bangumi: nil, watchStatus: WatchProgressStatus(), lastWatchPosition: 123, lastWatchTime: Date(), percentage: 123) // WatchProgressUpdateRequest | 
 let syncToUpstream = true // Bool | Set to false to skip synchronization with the upstream Mira service. (optional) (default to true)

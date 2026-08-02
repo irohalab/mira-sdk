@@ -1,6 +1,6 @@
-name: OpenAPIClient
+name: MiraStreamingSDK
 targets:
-  OpenAPIClient:
+  MiraStreamingSDK:
     type: framework
     platform: iOS
     deploymentTarget: "11.0"

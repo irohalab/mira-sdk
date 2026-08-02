@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-  s.name = 'OpenAPIClient'
+  s.name = 'MiraStreamingSDK'
   s.ios.deployment_target = '13.0'
   s.osx.deployment_target = '10.15'
   s.tvos.deployment_target = '13.0'
@@ -9,6 +9,6 @@ Pod::Spec.new do |s|
   s.authors = 'OpenAPI Generator'
   s.license = 'Proprietary'
   s.homepage = 'https://github.com/OpenAPITools/openapi-generator'
-  s.summary = 'OpenAPIClient Swift SDK'
-  s.source_files = 'Sources/OpenAPIClient/**/*.swift'
+  s.summary = 'MiraStreamingSDK Swift SDK'
+  s.source_files = 'Sources/MiraStreamingSDK/**/*.swift'
 end

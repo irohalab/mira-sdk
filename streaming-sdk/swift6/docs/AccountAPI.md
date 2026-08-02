@@ -20,7 +20,7 @@ Returns an empty object when the token has no corresponding account or no token 
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MiraStreamingSDK
 
 
 // Get the current account
@@ -64,7 +64,7 @@ Get the legacy account name
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MiraStreamingSDK
 
 
 // Get the legacy account name

@@ -20,7 +20,7 @@ Delete inbox messages
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MiraStreamingSDK
 
 let ids = [123] // Set<UUID> | Comma-separated message IDs.
 
@@ -68,7 +68,7 @@ List received messages
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MiraStreamingSDK
 
 let offset = 987 // Int |  (optional) (default to 0)
 let limit = 987 // Int | Values outside 0 through 300 fall back to 20. (optional) (default to 20)
@@ -118,7 +118,7 @@ List sent messages
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MiraStreamingSDK
 
 let offset = 987 // Int |  (optional) (default to 0)
 let limit = 987 // Int | Values outside 0 through 300 fall back to 20. (optional) (default to 20)
@@ -168,7 +168,7 @@ Mark inbox messages as read
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MiraStreamingSDK
 
 let requestBody = [123] // Set<UUID> | 
 

@@ -8,8 +8,8 @@
 import Foundation
 
 open class EpisodeAPI {
-    public let apiConfiguration: OpenAPIClientAPIConfiguration
-    public init(apiConfiguration: OpenAPIClientAPIConfiguration = OpenAPIClientAPIConfiguration.shared) {
+    public let apiConfiguration: MiraStreamingSDKAPIConfiguration
+    public init(apiConfiguration: MiraStreamingSDKAPIConfiguration = MiraStreamingSDKAPIConfiguration.shared) {
         self.apiConfiguration = apiConfiguration
     }
 

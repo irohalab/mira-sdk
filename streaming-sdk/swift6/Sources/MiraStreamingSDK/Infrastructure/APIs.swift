@@ -9,7 +9,7 @@ import Foundation
 import FoundationNetworking
 #endif
 
-open class OpenAPIClientAPIConfiguration: @unchecked Sendable {
+open class MiraStreamingSDKAPIConfiguration: @unchecked Sendable {
 
     // MARK: - Private state
 
@@ -95,7 +95,7 @@ open class OpenAPIClientAPIConfiguration: @unchecked Sendable {
         ))
     }
 
-    public static let shared = OpenAPIClientAPIConfiguration()
+    public static let shared = MiraStreamingSDKAPIConfiguration()
 }
 
 open class RequestBuilder<T: Sendable>: @unchecked Sendable, Identifiable {
@@ -107,7 +107,7 @@ open class RequestBuilder<T: Sendable>: @unchecked Sendable, Identifiable {
     public let URLString: String
     public let requestTask: RequestTask = RequestTask()
     public let requiresAuthentication: Bool
-    public let apiConfiguration: OpenAPIClientAPIConfiguration
+    public let apiConfiguration: MiraStreamingSDKAPIConfiguration
 
     // MARK: - Private mutable state
 
@@ -145,7 +145,7 @@ open class RequestBuilder<T: Sendable>: @unchecked Sendable, Identifiable {
         parameters: [String: any Sendable]?,
         headers: [String: String] = [:],
         requiresAuthentication: Bool,
-        apiConfiguration: OpenAPIClientAPIConfiguration = OpenAPIClientAPIConfiguration.shared
+        apiConfiguration: MiraStreamingSDKAPIConfiguration = MiraStreamingSDKAPIConfiguration.shared
     ) {
         self.method = method
         self.URLString = URLString

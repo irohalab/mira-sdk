@@ -25,7 +25,7 @@ Refreshes the favorite's check time when it exists.
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MiraStreamingSDK
 
 let bangumiId = 987 // UUID | 
 
@@ -73,7 +73,7 @@ Create or update a favorite for a Bangumi
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MiraStreamingSDK
 
 let favoriteCreateRequest = FavoriteCreateRequest(status: FavoriteStatus(), bangumiId: 123, review: "review_example", rating: 123, syncToUpstream: false) // FavoriteCreateRequest | 
 
@@ -123,7 +123,7 @@ The current implementation attempts upstream deletion only when `syncToUpstream=
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MiraStreamingSDK
 
 let id = 987 // UUID | 
 let syncToUpstream = true // Bool | Explicitly set to false to trigger the implementation's upstream deletion path. (optional)
@@ -173,7 +173,7 @@ List favorites by status
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MiraStreamingSDK
 
 let status = FavoriteStatus() // FavoriteStatus | 
 let enableEpsUpdateTime = true // Bool | Include the latest episode update time when available. (optional) (default to false)
@@ -235,7 +235,7 @@ Replace watched episode progress from upstream favorites
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MiraStreamingSDK
 
 let favoriteProgressRequest = FavoriteProgressRequest(subItemFavorites: [SubItemFavorite(id: 123, subItem: IdReference(id: 123))], bangumiId: 123) // FavoriteProgressRequest | 
 
@@ -283,7 +283,7 @@ Synchronize all local favorites with the upstream service
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MiraStreamingSDK
 
 let overrideOnConflict = true // Bool | Keep local values when local and upstream favorites conflict. (optional) (default to false)
 
@@ -331,7 +331,7 @@ Update a favorite's status
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import OpenAPIClient
+import MiraStreamingSDK
 
 let id = 987 // UUID | 
 let status = FavoriteStatus() // FavoriteStatus | 
