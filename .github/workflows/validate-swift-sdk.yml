@@ -1,0 +1,32 @@
+name: Validate Swift SDK
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install generator dependencies
+        run: npm ci
+      - name: Validate OpenAPI document
+        run: npx openapi-generator-cli validate -i streaming-spec/openapi.yaml
+      - name: Regenerate Swift SDK
+        run: npm run streaming-sdk:swift6
+      - name: Verify generated sources are committed
+        run: |
+          if [[ -n "$(git status --porcelain -- streaming-sdk/swift6)" ]]; then
+            git status --short -- streaming-sdk/swift6
+            git diff -- streaming-sdk/swift6
+            exit 1
+          fi
+      - name: Build Swift package
+        run: swift build --package-path streaming-sdk/swift6
