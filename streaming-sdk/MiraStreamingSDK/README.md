@@ -1,4 +1,4 @@
-# Swift6 API client for OpenAPIClient
+# Swift6 API client for MiraStreamingSDK
 
 Public HTTP API exposed by the Mira streaming platform.
 
