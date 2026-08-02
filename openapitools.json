@@ -37,7 +37,7 @@
       },
       "streaming-swift6": {
         "generatorName": "swift6",
-        "output": "#{cwd}/streaming-sdk/swift6",
+        "output": "#{cwd}/streaming-sdk/MiraStreamingSDK",
         "glob": "streaming-spec/openapi.yaml",
         "additionalProperties": {
           "projectName": "MiraStreamingSDK",

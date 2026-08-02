@@ -1,7 +1,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 
 const file = new URL(
-  "../streaming-sdk/swift6/Sources/MiraStreamingSDK/Models/ItemPropertyValueValue.swift",
+  "../streaming-sdk/MiraStreamingSDK/Sources/MiraStreamingSDK/Models/ItemPropertyValueValue.swift",
   import.meta.url,
 );
 

@@ -23,10 +23,10 @@ jobs:
         run: npm run streaming-sdk:swift6
       - name: Verify generated sources are committed
         run: |
-          if [[ -n "$(git status --porcelain -- streaming-sdk/swift6)" ]]; then
-            git status --short -- streaming-sdk/swift6
-            git diff -- streaming-sdk/swift6
+          if [[ -n "$(git status --porcelain -- streaming-sdk/MiraStreamingSDK)" ]]; then
+            git status --short -- streaming-sdk/MiraStreamingSDK
+            git diff -- streaming-sdk/MiraStreamingSDK
             exit 1
           fi
       - name: Build Swift package
-        run: swift build --package-path streaming-sdk/swift6
+        run: swift build --package-path streaming-sdk/MiraStreamingSDK
