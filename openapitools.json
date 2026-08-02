@@ -34,6 +34,24 @@
           "withoutRuntimeChecks": "true",
           "modelPropertyNaming": "original"
         }
+      },
+      "swift6": {
+        "generatorName": "swift6",
+        "output": "#{cwd}/streaming-sdk/swift6",
+        "glob": "streaming-spec/openapi.yaml",
+        "additionalProperties": {
+          "library": "urlsession",
+          "responseAs": "AsyncAwait",
+          "useSPMFileStructure": true,
+          "apiStaticMethod": false,
+          "enumUnknownDefaultCase": true,
+          "disallowAdditionalPropertiesIfNotPresent": false,
+          "useCustomDateWithoutTime": true,
+          "hideGenerationTimestamp": true,
+          "hashableModels": true,
+          "identifiableModels": true,
+          "validatable": true
+        }
       }
     }
   }
