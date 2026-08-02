@@ -1,0 +1,1775 @@
+openapi: 3.0.3
+info:
+  title: Mira Streaming Platform API
+  version: 2.1.0
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  description: |
+    Public HTTP API exposed by the Mira streaming platform.
+
+    Account creation, Albireo account migration, administration, and webhook
+    operations are intentionally outside this document.
+servers:
+  - url: /
+    description: Server hosting this API
+tags:
+  - name: Account
+    description: Current-account and legacy-account information.
+  - name: Announce
+    description: Time-limited announcements.
+  - name: Bangumi
+    description: Bangumi discovery, schedules, and details.
+  - name: Episode
+    description: Episode details, watch progress, and feedback.
+  - name: Favorite
+    description: Favorite collections and upstream synchronization.
+  - name: Message
+    description: Account inbox and sent messages.
+paths:
+  /account/info:
+    get:
+      tags:
+        - Account
+      operationId: getAccountInfo
+      summary: Get the current account
+      description: Returns an empty object when the token has no corresponding account or no token is supplied.
+      security:
+        - {}
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Current account summary, or an empty object for an anonymous request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountInfo'
+
+  /account/legacy/name:
+    get:
+      tags:
+        - Account
+      operationId: getLegacyAccountName
+      summary: Get the legacy account name
+      security:
+        - {}
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Legacy account name. `data` is null when no migrated account is available.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LegacyNameResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /announce:
+    get:
+      tags:
+        - Announce
+      operationId: listAnnouncements
+      summary: List currently available announcements
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Available announcements.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Announce'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /bangumi:
+    get:
+      tags:
+        - Bangumi
+      operationId: listBangumi
+      summary: Search and list Bangumi
+      security:
+        - {}
+        - bearerAuth: []
+      parameters:
+        - name: type
+          in: query
+          description: TypeScript enum key used by the controller.
+          schema:
+            $ref: '#/components/schemas/ItemTypeQuery'
+        - name: subType
+          in: query
+          description: TypeScript enum key used by the controller.
+          schema:
+            $ref: '#/components/schemas/ItemSubTypeQuery'
+        - name: eps
+          in: query
+          description: Exact episode-count filter.
+          schema:
+            type: integer
+            minimum: 1
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit100'
+        - name: orderBy
+          in: query
+          schema:
+            type: string
+            enum:
+              - airDate
+            default: airDate
+        - name: sort
+          in: query
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+            default: desc
+        - name: keyword
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Matching Bangumi.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedBangumi'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /bangumi/on-air:
+    get:
+      tags:
+        - Bangumi
+      operationId: listOnAirBangumi
+      summary: List Bangumi airing during the current month
+      security: []
+      parameters:
+        - name: type
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - anime
+              - real
+      responses:
+        '200':
+          description: Currently airing Bangumi for the requested type.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OnAirBangumiResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /bangumi/timeline:
+    get:
+      tags:
+        - Bangumi
+      operationId: getBangumiTimeline
+      summary: List Bangumi air dates
+      security: []
+      parameters:
+        - name: type
+          in: query
+          description: Omit to include all types.
+          schema:
+            type: string
+            enum:
+              - anime
+              - real
+        - name: eps
+          in: query
+          description: Exact episode-count filter.
+          schema:
+            type: integer
+            minimum: 1
+        - name: sort
+          in: query
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+            default: desc
+      responses:
+        '200':
+          description: Air dates sorted in descending order unless `sort=asc`.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimelineResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /bangumi/{id}:
+    get:
+      tags:
+        - Bangumi
+      operationId: getBangumi
+      summary: Get a Bangumi and its episodes
+      security:
+        - {}
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Bangumi details. Authenticated responses may include favorite and watch-progress data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BangumiDetail'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /episode/watch/history:
+    get:
+      tags:
+        - Episode
+      operationId: listWatchHistory
+      summary: List watch history
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit20'
+      responses:
+        '200':
+          description: Watch progress ordered by most recent watch time.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedWatchProgress'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /episode/watch:
+    post:
+      tags:
+        - Episode
+      operationId: updateWatchProgress
+      summary: Create or update watch progress
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/SyncToUpstream'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WatchProgressUpdateRequest'
+      responses:
+        '200':
+          description: Updated watch progress.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WatchProgressSummary'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /episode/watch/sync:
+    post:
+      tags:
+        - Episode
+      operationId: syncWatchProgress
+      summary: Synchronize a batch of watch-history records
+      description: >-
+        Invalid records are ignored. When no valid records remain, the current
+        implementation returns 200 without a response body; normal success
+        returns `changedFavorites`.
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/SyncToUpstream'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchWatchProgressRequest'
+      responses:
+        '200':
+          description: Favorites changed to WATCHED as a result of the synchronization.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchWatchProgressResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /episode/feedback/{episodeId}:
+    post:
+      tags:
+        - Episode
+      operationId: submitEpisodeFeedback
+      summary: Submit feedback for an episode
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: episodeId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeedbackRequest'
+      responses:
+        '200':
+          description: Feedback was submitted.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /episode/{id}:
+    get:
+      tags:
+        - Episode
+      operationId: getEpisode
+      summary: Get an episode and its playable video files
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: loadBangumiEpisodes
+          in: query
+          description: Include the other episodes belonging to the same Bangumi.
+          schema:
+            type: boolean
+            default: false
+        - name: loadFavorite
+          in: query
+          description: Include the current account's favorite on the nested Bangumi when one exists.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: Episode details with downloaded video files.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EpisodeDetail'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /favorite:
+    get:
+      tags:
+        - Favorite
+      operationId: listFavorites
+      summary: List favorites by status
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: status
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/FavoriteStatus'
+        - name: enableEpsUpdateTime
+          in: query
+          description: Include the latest episode update time when available.
+          schema:
+            type: boolean
+            default: false
+        - name: countUnwatched
+          in: query
+          description: Include each favorite's unwatched episode count.
+          schema:
+            type: boolean
+            default: false
+        - name: coverImage
+          in: query
+          description: Populate nested Bangumi cover images.
+          schema:
+            type: boolean
+            default: false
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/LimitAll'
+        - name: orderBy
+          in: query
+          schema:
+            type: string
+            enum:
+              - updateTime
+              - bangumi.createTime
+        - name: sort
+          in: query
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+      responses:
+        '200':
+          description: Favorites in the requested status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedFavorite'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      tags:
+        - Favorite
+      operationId: createOrUpdateFavorite
+      summary: Create or update a favorite for a Bangumi
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FavoriteCreateRequest'
+      responses:
+        '200':
+          description: Created or updated favorite. Review fields are present only after a successful upstream sync.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FavoriteWithReview'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /favorite/progress:
+    post:
+      tags:
+        - Favorite
+      operationId: replaceFavoriteEpisodeProgress
+      summary: Replace watched episode progress from upstream favorites
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FavoriteProgressRequest'
+      responses:
+        '200':
+          description: Episode progress was updated.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /favorite/sync:
+    post:
+      tags:
+        - Favorite
+      operationId: syncFavorites
+      summary: Synchronize all local favorites with the upstream service
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: overrideOnConflict
+          in: query
+          description: Keep local values when local and upstream favorites conflict.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: Favorites and watched episode progress were synchronized.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /favorite/check/{bangumiId}:
+    post:
+      tags:
+        - Favorite
+      operationId: checkFavorite
+      summary: Check whether a Bangumi is favorited
+      description: Refreshes the favorite's check time when it exists.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: bangumiId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Favorite existence and refreshed check time, when found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FavoriteCheckResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /favorite/{id}:
+    put:
+      tags:
+        - Favorite
+      operationId: updateFavoriteStatus
+      summary: Update a favorite's status
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: status
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/FavoriteStatus'
+        - $ref: '#/components/parameters/SyncToUpstream'
+      responses:
+        '200':
+          description: Updated favorite.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FavoriteSummary'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      tags:
+        - Favorite
+      operationId: deleteFavorite
+      summary: Delete a favorite
+      description: >-
+        The current implementation attempts upstream deletion only when
+        `syncToUpstream=false`; omitting the parameter deletes locally only.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: syncToUpstream
+          in: query
+          description: Explicitly set to false to trigger the implementation's upstream deletion path.
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Favorite was deleted.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /message/inbox:
+    get:
+      tags:
+        - Message
+      operationId: listInboxMessages
+      summary: List received messages
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit20'
+      responses:
+        '200':
+          description: Received messages ordered by creation time descending.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedMessage'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /message/sent:
+    get:
+      tags:
+        - Message
+      operationId: listSentMessages
+      summary: List sent messages
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit20'
+      responses:
+        '200':
+          description: Sent messages ordered by creation time descending.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedMessage'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /message/read:
+    put:
+      tags:
+        - Message
+      operationId: markMessagesRead
+      summary: Mark inbox messages as read
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              minItems: 1
+              uniqueItems: true
+              items:
+                type: string
+                format: uuid
+      responses:
+        '200':
+          description: Matching inbox messages were marked as read.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /message:
+    delete:
+      tags:
+        - Message
+      operationId: deleteInboxMessages
+      summary: Delete inbox messages
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: ids
+          in: query
+          required: true
+          description: Comma-separated message IDs.
+          style: form
+          explode: false
+          schema:
+            type: array
+            minItems: 1
+            uniqueItems: true
+            items:
+              type: string
+              format: uuid
+      responses:
+        '200':
+          description: Matching inbox messages were deleted.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >-
+        OAuth2 access token supplied as `Authorization: Bearer <token>`.
+  parameters:
+    Offset:
+      name: offset
+      in: query
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    Limit100:
+      name: limit
+      in: query
+      description: Values outside 0 through 300 fall back to 100.
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 300
+        default: 100
+    Limit20:
+      name: limit
+      in: query
+      description: Values outside 0 through 300 fall back to 20.
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 300
+        default: 20
+    LimitAll:
+      name: limit
+      in: query
+      description: >-
+        `-1` means no limit; other values outside 0 through 300 also fall back to no limit.
+      schema:
+        type: integer
+        minimum: -1
+        maximum: 300
+        default: -1
+    SyncToUpstream:
+      name: syncToUpstream
+      in: query
+      description: Set to false to skip synchronization with the upstream Mira service.
+      schema:
+        type: boolean
+        default: true
+  schemas:
+    IdReference:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
+
+    AccountInfo:
+      type: object
+      description: The authenticated account summary. Anonymous requests receive an empty object.
+      properties:
+        id:
+          type: string
+          format: uuid
+        subjectId:
+          type: string
+          format: uuid
+          nullable: true
+        uid:
+          type: string
+          format: uuid
+          nullable: true
+        role:
+          type: string
+          nullable: true
+
+    LegacyNameResponse:
+      type: object
+      properties:
+        data:
+          type: string
+          nullable: true
+
+    Image:
+      type: object
+      required:
+        - id
+        - url
+      properties:
+        id:
+          type: string
+          format: uuid
+        width:
+          type: integer
+          nullable: true
+        height:
+          type: integer
+          nullable: true
+        dominantColor:
+          type: string
+          nullable: true
+        url:
+          type: string
+          description: Public image URL, or an empty string when no source is available.
+
+    ItemPropertyValue:
+      type: object
+      required:
+        - value
+        - locked
+      properties:
+        value:
+          oneOf:
+            - type: string
+            - type: array
+              items:
+                type: string
+            - type: array
+              items:
+                type: object
+                additionalProperties:
+                  type: string
+        propertyType:
+          type: string
+          enum:
+            - Staff
+            - Item
+            - Character
+            - Info
+            - Cast
+        locked:
+          type: boolean
+
+    ItemProperties:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/ItemPropertyValue'
+
+    FavoriteStatus:
+      type: string
+      enum:
+        - WISH
+        - WATCHED
+        - WATCHING
+        - PAUSE
+        - ABANDONED
+
+    WatchProgressStatus:
+      type: integer
+      enum:
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+      description: 1=WISH, 2=WATCHED, 3=WATCHING, 4=PAUSE, 5=ABANDONED.
+
+    EpisodeType:
+      type: integer
+      enum:
+        - 0
+        - 1
+      description: 0=Episode, 1=Special.
+
+    EpisodeStatus:
+      type: integer
+      enum:
+        - 0
+        - 1
+        - 2
+      description: 0=not downloaded, 1=downloading, 2=downloaded.
+
+    ItemTypeQuery:
+      type: string
+      description: Enum key accepted by `GET /bangumi`.
+      enum:
+        - Anime
+        - Game
+        - Music
+        - Book
+        - Individual
+        - Character
+        - RealWorld
+        - Association
+        - Corporation
+        - Organization
+        - Ship
+        - Mechanic
+
+    ItemSubTypeQuery:
+      type: string
+      description: Enum key accepted by `GET /bangumi`.
+      enum:
+        - Other
+        - TV
+        - Web
+        - OVA
+        - Movie
+        - Novel
+        - Manga
+        - Illustration
+        - DramaJp
+        - DramaEn
+        - DramaCn
+        - PC
+        - NDS
+        - PSP
+        - PS2
+        - PS3
+        - Xbox360
+        - Mac
+        - PS5
+        - XboxSeriesXS
+        - PS4
+        - XboxOne
+        - NintendoSwitch
+        - WiiU
+        - Wii
+        - PSVita
+        - N3DS
+        - IOS
+        - Android
+        - ARC
+        - XBOX
+        - GameCube
+        - Dreamcast
+        - Nintendo64
+        - PlayStation
+        - SFC
+        - FC
+        - NEOGEOPocketColor
+        - GBA
+        - GB
+        - VirtualBoy
+        - WonderSwanColor
+        - WonderSwan
+
+    BangumiSummary:
+      type: object
+      required:
+        - id
+        - bgmId
+        - name
+        - nameCn
+        - summary
+        - coverImage
+        - airDate
+        - airWeekday
+        - type
+        - subType
+        - itemId
+      properties:
+        id:
+          type: string
+          format: uuid
+        bgmId:
+          type: integer
+        name:
+          type: string
+        nameCn:
+          type: string
+        summary:
+          type: string
+        coverImage:
+          $ref: '#/components/schemas/Image'
+        airDate:
+          type: string
+          format: date
+        airWeekday:
+          type: integer
+          minimum: 0
+          maximum: 6
+          nullable: true
+        type:
+          type: string
+          nullable: true
+          enum:
+            - anime
+            - game
+            - music
+            - book
+            - real
+        subType:
+          type: string
+          nullable: true
+        itemId:
+          type: string
+          format: uuid
+          nullable: true
+
+    FavoriteSummary:
+      type: object
+      required:
+        - id
+        - userId
+        - status
+        - updateTime
+        - checkTime
+        - itemId
+        - externalFavoriteId
+      properties:
+        id:
+          type: string
+          format: uuid
+        userId:
+          type: string
+          format: uuid
+        status:
+          $ref: '#/components/schemas/FavoriteStatus'
+        updateTime:
+          type: string
+          format: date-time
+        checkTime:
+          type: string
+          format: date-time
+        itemId:
+          type: string
+          format: uuid
+          nullable: true
+        externalFavoriteId:
+          type: string
+          format: uuid
+          nullable: true
+
+    FavoriteWithBangumi:
+      allOf:
+        - $ref: '#/components/schemas/FavoriteSummary'
+        - type: object
+          required:
+            - bangumi
+          properties:
+            bangumi:
+              $ref: '#/components/schemas/BangumiSummary'
+            unwatchedCount:
+              type: integer
+              minimum: 0
+            epsUpdateTime:
+              type: string
+              format: date-time
+
+    WatchProgressFields:
+      type: object
+      required:
+        - id
+        - userId
+        - watchStatus
+      properties:
+        id:
+          type: string
+          format: uuid
+        userId:
+          type: string
+          format: uuid
+        watchStatus:
+          $ref: '#/components/schemas/WatchProgressStatus'
+        lastWatchPosition:
+          type: number
+          format: double
+          nullable: true
+        lastWatchTime:
+          type: string
+          format: date-time
+          nullable: true
+        percentage:
+          type: number
+          format: double
+          nullable: true
+        subItemId:
+          type: string
+          format: uuid
+          nullable: true
+        externalSubItemFavoriteId:
+          type: string
+          format: uuid
+          nullable: true
+
+    WatchProgressSummary:
+      allOf:
+        - $ref: '#/components/schemas/WatchProgressFields'
+        - type: object
+          required:
+            - episode
+            - bangumi
+          properties:
+            episode:
+              $ref: '#/components/schemas/IdReference'
+            bangumi:
+              $ref: '#/components/schemas/IdReference'
+
+    VideoFile:
+      type: object
+      required:
+        - id
+        - bangumi
+        - episode
+        - url
+      properties:
+        id:
+          type: string
+          format: uuid
+        bangumi:
+          $ref: '#/components/schemas/IdReference'
+        episode:
+          $ref: '#/components/schemas/IdReference'
+        url:
+          type: string
+        fileName:
+          type: string
+          nullable: true
+        resolutionW:
+          type: integer
+          nullable: true
+        resolutionH:
+          type: integer
+          nullable: true
+        duration:
+          type: number
+          nullable: true
+        label:
+          type: string
+          nullable: true
+        kfTileSize:
+          type: integer
+          nullable: true
+        kfFrameWidth:
+          type: integer
+          nullable: true
+        kfFrameHeight:
+          type: integer
+          nullable: true
+        kfImagePathList:
+          type: array
+          nullable: true
+          items:
+            type: string
+
+    EpisodeSummary:
+      type: object
+      required:
+        - id
+        - bgmEpsId
+        - episodeNo
+        - sort
+        - status
+        - watchProgress
+        - thumbnailImage
+      properties:
+        id:
+          type: string
+          format: uuid
+        bgmEpsId:
+          type: integer
+        name:
+          type: string
+          nullable: true
+        nameCn:
+          type: string
+          nullable: true
+        airDate:
+          type: string
+          format: date
+          nullable: true
+        duration:
+          type: string
+          nullable: true
+        type:
+          type: integer
+          nullable: true
+          allOf:
+            - $ref: '#/components/schemas/EpisodeType'
+        episodeNo:
+          type: integer
+        sort:
+          type: number
+          format: float
+        subItemId:
+          type: string
+          format: uuid
+          nullable: true
+        status:
+          $ref: '#/components/schemas/EpisodeStatus'
+        watchProgress:
+          type: object
+          nullable: true
+          allOf:
+            - $ref: '#/components/schemas/WatchProgressFields'
+        thumbnailImage:
+          type: object
+          nullable: true
+          allOf:
+            - $ref: '#/components/schemas/Image'
+
+    BangumiDetail:
+      allOf:
+        - $ref: '#/components/schemas/BangumiSummary'
+        - type: object
+          properties:
+            properties:
+              $ref: '#/components/schemas/ItemProperties'
+            favorite:
+              $ref: '#/components/schemas/FavoriteSummary'
+            episodes:
+              type: array
+              items:
+                $ref: '#/components/schemas/EpisodeSummary'
+
+    EpisodeDetail:
+      allOf:
+        - $ref: '#/components/schemas/EpisodeSummary'
+        - type: object
+          required:
+            - properties
+            - bangumi
+            - videoFiles
+          properties:
+            properties:
+              $ref: '#/components/schemas/ItemProperties'
+            bangumi:
+              $ref: '#/components/schemas/BangumiDetail'
+            videoFiles:
+              type: array
+              nullable: true
+              items:
+                $ref: '#/components/schemas/VideoFile'
+
+    WatchProgressHistory:
+      allOf:
+        - $ref: '#/components/schemas/WatchProgressFields'
+        - type: object
+          required:
+            - episode
+            - bangumi
+          properties:
+            episode:
+              $ref: '#/components/schemas/EpisodeSummary'
+            bangumi:
+              $ref: '#/components/schemas/BangumiSummary'
+
+    Announce:
+      type: object
+      required:
+        - id
+        - position
+        - startTime
+        - endTime
+      properties:
+        id:
+          type: string
+          format: uuid
+        content:
+          type: string
+          nullable: true
+        imageUrl:
+          type: string
+          nullable: true
+        position:
+          type: integer
+          enum:
+            - 1
+            - 2
+          description: 1=banner, 2=bangumi-specific.
+        sortOrder:
+          type: integer
+          nullable: true
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        bangumi:
+          $ref: '#/components/schemas/BangumiSummary'
+
+    OnAirBangumi:
+      type: object
+      required:
+        - id
+        - bgmId
+        - name
+        - nameCn
+        - airDate
+        - type
+        - subType
+        - coverImage
+      properties:
+        id:
+          type: string
+          format: uuid
+        bgmId:
+          type: integer
+        name:
+          type: string
+        nameCn:
+          type: string
+        airDate:
+          type: string
+          format: date
+        type:
+          type: integer
+          enum:
+            - 2
+            - 6
+          description: Numeric database type; 2=anime and 6=real-world.
+        subType:
+          type: string
+          nullable: true
+        coverImage:
+          type: object
+          nullable: true
+          allOf:
+            - $ref: '#/components/schemas/Image'
+
+    PaginatedBangumi:
+      type: object
+      required:
+        - data
+        - total
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/BangumiSummary'
+        total:
+          type: integer
+          minimum: 0
+
+    OnAirBangumiResponse:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/OnAirBangumi'
+
+    TimelineResponse:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: array
+          items:
+            type: string
+            format: date
+
+    PaginatedWatchProgress:
+      type: object
+      required:
+        - data
+        - total
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/WatchProgressHistory'
+        total:
+          type: integer
+          minimum: 0
+
+    WatchProgressUpdateRequest:
+      type: object
+      required:
+        - episode
+        - bangumi
+        - watchStatus
+      properties:
+        episode:
+          $ref: '#/components/schemas/IdReference'
+        bangumi:
+          $ref: '#/components/schemas/IdReference'
+        watchStatus:
+          $ref: '#/components/schemas/WatchProgressStatus'
+        lastWatchPosition:
+          type: number
+          format: double
+        lastWatchTime:
+          type: string
+          format: date-time
+        percentage:
+          type: number
+          format: double
+
+    WatchHistoryRecord:
+      type: object
+      required:
+        - bangumiId
+        - episodeId
+        - lastWatchPosition
+        - lastWatchTime
+        - percentage
+        - isFinished
+      properties:
+        bangumiId:
+          type: string
+          format: uuid
+        episodeId:
+          type: string
+          format: uuid
+        lastWatchPosition:
+          type: number
+          format: double
+        lastWatchTime:
+          type: string
+          format: date-time
+        percentage:
+          type: number
+          format: double
+        isFinished:
+          type: boolean
+      additionalProperties: false
+
+    BatchWatchProgressRequest:
+      type: object
+      required:
+        - records
+      properties:
+        records:
+          type: array
+          items:
+            $ref: '#/components/schemas/WatchHistoryRecord'
+      additionalProperties: false
+
+    BatchWatchProgressResponse:
+      type: object
+      required:
+        - changedFavorites
+      properties:
+        changedFavorites:
+          type: array
+          items:
+            $ref: '#/components/schemas/FavoriteWithBangumi'
+
+    BrowserInfo:
+      type: object
+      required:
+        - name
+        - version
+        - majorVersion
+        - webview
+        - chromium
+        - webkit
+      properties:
+        name:
+          type: string
+        version:
+          type: string
+        majorVersion:
+          type: string
+        webview:
+          type: boolean
+        chromium:
+          type: boolean
+        webkit:
+          type: boolean
+      additionalProperties: false
+
+    FeedbackRequest:
+      type: object
+      required:
+        - deviceType
+        - os
+        - browser
+        - userAgent
+        - issue
+        - videoId
+      properties:
+        deviceType:
+          type: string
+        os:
+          type: string
+        browser:
+          $ref: '#/components/schemas/BrowserInfo'
+        userAgent:
+          type: string
+        issue:
+          type: string
+        videoId:
+          type: string
+          format: uuid
+      additionalProperties: false
+
+    PaginatedFavorite:
+      type: object
+      required:
+        - data
+        - total
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FavoriteWithBangumi'
+        total:
+          type: integer
+          minimum: 0
+
+    SubItemFavorite:
+      type: object
+      required:
+        - id
+        - subItem
+      properties:
+        id:
+          type: string
+          format: uuid
+        subItem:
+          $ref: '#/components/schemas/IdReference'
+
+    FavoriteProgressRequest:
+      type: object
+      required:
+        - subItemFavorites
+        - bangumiId
+      properties:
+        subItemFavorites:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubItemFavorite'
+        bangumiId:
+          type: string
+          format: uuid
+      additionalProperties: false
+
+    FavoriteCheckFound:
+      type: object
+      required:
+        - found
+        - checkTime
+      properties:
+        found:
+          type: boolean
+          enum:
+            - true
+        checkTime:
+          type: string
+          format: date-time
+
+    FavoriteCheckNotFound:
+      type: object
+      required:
+        - found
+      properties:
+        found:
+          type: boolean
+          enum:
+            - false
+
+    FavoriteCheckResponse:
+      oneOf:
+        - $ref: '#/components/schemas/FavoriteCheckFound'
+        - $ref: '#/components/schemas/FavoriteCheckNotFound'
+
+    FavoriteCreateRequest:
+      type: object
+      required:
+        - status
+        - bangumiId
+      properties:
+        status:
+          $ref: '#/components/schemas/FavoriteStatus'
+        bangumiId:
+          type: string
+          format: uuid
+        review:
+          type: string
+        rating:
+          type: number
+        syncToUpstream:
+          type: boolean
+          default: false
+      additionalProperties: false
+
+    FavoriteWithReview:
+      allOf:
+        - $ref: '#/components/schemas/FavoriteSummary'
+        - type: object
+          properties:
+            reviewComment:
+              type: string
+            rating:
+              type: number
+
+    MessageContentType:
+      type: string
+      enum:
+        - text
+        - html
+        - markdown
+
+    ThreadType:
+      type: string
+      enum:
+        - Ticket
+        - Message
+
+    Message:
+      type: object
+      required:
+        - id
+        - threadType
+        - content
+        - contentType
+        - read
+        - createdTime
+      properties:
+        id:
+          type: string
+          format: uuid
+        threadId:
+          type: string
+          nullable: true
+        threadTitle:
+          type: string
+          nullable: true
+        threadType:
+          $ref: '#/components/schemas/ThreadType'
+        content:
+          type: string
+        contentType:
+          $ref: '#/components/schemas/MessageContentType'
+        renderedContent:
+          type: string
+          nullable: true
+        read:
+          type: boolean
+        createdTime:
+          type: string
+          format: date-time
+        updatedTime:
+          type: string
+          format: date-time
+          nullable: true
+        recipient:
+          type: object
+          nullable: true
+          allOf:
+            - $ref: '#/components/schemas/IdReference'
+        sender:
+          type: object
+          nullable: true
+          allOf:
+            - $ref: '#/components/schemas/IdReference'
+
+    PaginatedMessage:
+      type: object
+      required:
+        - data
+        - total
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        total:
+          type: integer
+          minimum: 0
+
+    Error:
+      type: object
+      description: Error details, when the server includes a response body.
+      properties:
+        message:
+          type: string
+        details:
+          type: string
+      additionalProperties: false
+  responses:
+    BadRequest:
+      description: The request is invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: A valid authenticated account is required.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated account does not have permission for this operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalServerError:
+      description: An unexpected server error occurred.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

@@ -1,6 +1,6 @@
 {
   "name": "mira-sdk",
-  "version": "4.1.0",
+  "version": "5.0.0",
   "description": "SDK for project-mira",
   "main": "index.js",
   "scripts": {
@@ -9,8 +9,10 @@
     "sdk": "npm run sdk:angular && npm run sdk:fetch",
     "sdk:angular": "npm run clean:sdk:angular && npx openapi-generator-cli generate --generator-key angular",
     "sdk:fetch": "npm run clean:sdk:fetch && npx openapi-generator-cli generate --generator-key fetch",
+    "streaming-sdk:swift6": "npm run clean:streaming-sdk:swift6 && npx openapi-generator-cli generate --generator-key swift6",
     "clean:sdk:angular": "rimraf sdk/angular/projects/mira-sdk-angular/src/**",
-    "clean:sdk:fetch": "rimraf sdk/fetch/src/**"
+    "clean:sdk:fetch": "rimraf sdk/fetch/src/**",
+    "clean:streaming-sdk:swift6": "rimraf streaming-sdk/swift6/**"
   },
   "repository": {
     "type": "git",
