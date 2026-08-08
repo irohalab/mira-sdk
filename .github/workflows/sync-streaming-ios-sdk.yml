@@ -1,28 +1,6 @@
 name: Sync Streaming iOS SDK
 
 on:
-  pull_request:
-    branches:
-      - master
-    paths:
-      - "streaming-spec/**"
-      - "openapitools.json"
-      - "package.json"
-      - "package-lock.json"
-      - "scripts/generate-streaming-swift6.mjs"
-      - "scripts/fix-swift6-generated.mjs"
-      - ".github/workflows/sync-streaming-ios-sdk.yml"
-  push:
-    branches:
-      - master
-    paths:
-      - "streaming-spec/**"
-      - "openapitools.json"
-      - "package.json"
-      - "package-lock.json"
-      - "scripts/generate-streaming-swift6.mjs"
-      - "scripts/fix-swift6-generated.mjs"
-      - ".github/workflows/sync-streaming-ios-sdk.yml"
   workflow_dispatch:
 
 permissions:
@@ -63,7 +41,6 @@ jobs:
         run: swift build --package-path "$MIRA_SWIFT_OUTPUT_DIR"
 
       - name: Check out iOS SDK repository
-        if: github.event_name != 'pull_request'
         uses: actions/checkout@v4
         with:
           repository: irohalab/mira-streaming-ios-sdk
@@ -72,7 +49,6 @@ jobs:
           path: ${{ env.IOS_SDK_CHECKOUT_DIR }}
 
       - name: Synchronize generated SDK
-        if: github.event_name != 'pull_request'
         run: |
           rsync -a --delete \
             --exclude '.git/' \
@@ -82,7 +58,6 @@ jobs:
             "$IOS_SDK_CHECKOUT_DIR/"
 
       - name: Create or update iOS SDK pull request
-        if: github.event_name != 'pull_request'
         uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.IOS_SDK_SYNC_TOKEN }}
