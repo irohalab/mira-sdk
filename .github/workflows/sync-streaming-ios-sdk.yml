@@ -1,0 +1,82 @@
+name: Sync Streaming iOS SDK
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "streaming-spec/**"
+      - "openapitools.json"
+      - "package.json"
+      - "package-lock.json"
+      - "scripts/generate-streaming-swift6.mjs"
+      - "scripts/fix-swift6-generated.mjs"
+      - ".github/workflows/sync-streaming-ios-sdk.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sync-streaming-ios-sdk
+  cancel-in-progress: true
+
+jobs:
+  generate-and-open-pr:
+    runs-on: macos-latest
+    env:
+      MIRA_SWIFT_OUTPUT_DIR: ${{ runner.temp }}/MiraStreamingSDK
+      IOS_SDK_CHECKOUT_DIR: work/mira-streaming-ios-sdk
+    steps:
+      - name: Check out mira-sdk
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install generator dependencies
+        run: npm ci
+
+      - name: Validate OpenAPI document
+        run: npx openapi-generator-cli validate -i streaming-spec/openapi.yaml
+
+      - name: Generate Swift SDK
+        run: npm run streaming-sdk:swift6
+
+      - name: Build Swift package
+        run: swift build --package-path "$MIRA_SWIFT_OUTPUT_DIR"
+
+      - name: Check out iOS SDK repository
+        uses: actions/checkout@v4
+        with:
+          repository: irohalab/mira-streaming-ios-sdk
+          ref: master
+          token: ${{ secrets.IOS_SDK_SYNC_TOKEN }}
+          path: ${{ env.IOS_SDK_CHECKOUT_DIR }}
+
+      - name: Synchronize generated SDK
+        run: |
+          rsync -a --delete \
+            --exclude '.git/' \
+            --exclude '.github/' \
+            --exclude 'LICENSE' \
+            "$MIRA_SWIFT_OUTPUT_DIR/" \
+            "$IOS_SDK_CHECKOUT_DIR/"
+
+      - name: Create or update iOS SDK pull request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          token: ${{ secrets.IOS_SDK_SYNC_TOKEN }}
+          path: ${{ env.IOS_SDK_CHECKOUT_DIR }}
+          base: master
+          branch: automation/update-generated-sdk
+          delete-branch: true
+          commit-message: "chore: regenerate streaming iOS SDK"
+          title: "chore: update generated streaming iOS SDK"
+          body: |
+            This pull request was generated automatically from `irohalab/mira-sdk`.
+
+            Source commit: https://github.com/irohalab/mira-sdk/commit/${{ github.sha }}

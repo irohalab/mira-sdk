@@ -134,3 +134,6 @@ dist
 
 # openapi-generator-files
 openapi-generator-files
+
+# Locally generated SDKs
+.generated/
