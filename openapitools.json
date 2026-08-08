@@ -37,9 +37,13 @@
       },
       "streaming-swift6": {
         "generatorName": "swift6",
-        "output": "#{cwd}/streaming-sdk/swift6",
+        "output": "${env.MIRA_SWIFT_OUTPUT_DIR}",
         "glob": "streaming-spec/openapi.yaml",
+        "gitHost": "github.com",
+        "gitUserId": "irohalab",
+        "gitRepoId": "mira-streaming-ios-sdk",
         "additionalProperties": {
+          "projectName": "MiraStreamingSDK",
           "library": "urlsession",
           "responseAs": "AsyncAwait",
           "useSPMFileStructure": true,
