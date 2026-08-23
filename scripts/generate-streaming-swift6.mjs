@@ -30,6 +30,9 @@ await rm(outputDirectory, { recursive: true, force: true });
 
 const environment = {
   ...process.env,
+  MIRA_KOTLIN_OUTPUT_DIR:
+    process.env.MIRA_KOTLIN_OUTPUT_DIR ||
+    path.join(repositoryRoot, ".generated", "streaming-kotlin-unused"),
   MIRA_SWIFT_OUTPUT_DIR: outputDirectory,
 };
 

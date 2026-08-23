@@ -1,0 +1,82 @@
+name: Validate Streaming Kotlin SDK
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/validate-streaming-kotlin-sdk.yml
+      - openapitools.json
+      - package.json
+      - package-lock.json
+      - scripts/fix-streaming-kotlin-generated.mjs
+      - scripts/generate-streaming-kotlin-candidate.mjs
+      - scripts/kotlin-candidate-tests/**
+      - scripts/test-streaming-kotlin-candidate.mjs
+      - streaming-spec/kotlin-sdk-version.txt
+      - streaming-spec/openapi.yaml
+  push:
+    branches:
+      - master
+    paths:
+      - .github/workflows/validate-streaming-kotlin-sdk.yml
+      - openapitools.json
+      - package.json
+      - package-lock.json
+      - scripts/fix-streaming-kotlin-generated.mjs
+      - scripts/generate-streaming-kotlin-candidate.mjs
+      - scripts/kotlin-candidate-tests/**
+      - scripts/test-streaming-kotlin-candidate.mjs
+      - streaming-spec/kotlin-sdk-version.txt
+      - streaming-spec/openapi.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-streaming-kotlin-sdk-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  generate-test-and-assemble:
+    runs-on: ubuntu-latest
+    env:
+      MIRA_KOTLIN_ALLOW_PLACEHOLDER_IDENTITY: "true"
+      MIRA_KOTLIN_GROUP_ID: com.example
+      MIRA_KOTLIN_ARTIFACT_ID: mira-streaming-kotlin-sdk
+      MIRA_KOTLIN_PACKAGE_NAME: com.example.mira.streaming
+    steps:
+      - name: Check out mira-sdk
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: gradle
+
+      - name: Install generator dependencies
+        run: npm ci
+
+      - name: Configure SDK version
+        run: echo "MIRA_KOTLIN_VERSION=$(tr -d '[:space:]' < streaming-spec/kotlin-sdk-version.txt)" >> "$GITHUB_ENV"
+
+      - name: Validate OpenAPI document
+        run: npx openapi-generator-cli validate -i streaming-spec/openapi.yaml
+
+      - name: Generate, test, and assemble SDK
+        run: npm run streaming-sdk:kotlin:test
+
+      - name: Validate Central publication artifacts
+        run: >-
+          .generated/streaming-kotlin-jvm/gradlew
+          -p .generated/streaming-kotlin-jvm
+          generatePomFileForMavenPublication
+          sourcesJar
+          plainJavadocJar

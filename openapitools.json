@@ -2,7 +2,7 @@
   "$schema": "./node_modules/@openapitools/openapi-generator-cli/config.schema.json",
   "spaces": 2,
   "generator-cli": {
-    "version": "7.22.0",
+    "version": "7.24.0",
     "storageDir": "openapi-generator-files",
     "generators": {
       "angular": {
@@ -55,6 +55,108 @@
           "hashableModels": true,
           "identifiableModels": true,
           "validatable": true
+        }
+      },
+      "streaming-kotlin-jvm": {
+        "generatorName": "kotlin",
+        "output": "${env.MIRA_KOTLIN_OUTPUT_DIR}",
+        "glob": "streaming-spec/openapi.yaml",
+        "gitHost": "github.com",
+        "gitUserId": "irohalab",
+        "gitRepoId": "mira-streaming-kotlin-sdk",
+        "additionalProperties": {
+          "artifactId": "replace-before-publishing",
+          "artifactVersion": "0.0.0",
+          "dateLibrary": "java8",
+          "generateOneOfAnyOfWrappers": true,
+          "groupId": "org.openapitools",
+          "hideGenerationTimestamp": true,
+          "library": "jvm-retrofit2",
+          "packageName": "org.openapitools.client",
+          "serializationLibrary": "kotlinx_serialization",
+          "useCoroutines": true,
+          "useResponseAsReturnType": true
+        }
+      },
+      "streaming-kotlin-retrofit-kotlinx": {
+        "generatorName": "kotlin",
+        "output": "${env.MIRA_KOTLIN_OUTPUT_DIR}",
+        "glob": "streaming-spec/openapi.yaml",
+        "additionalProperties": {
+          "artifactId": "mira-streaming-kotlin-candidate",
+          "artifactVersion": "0.0.0",
+          "dateLibrary": "java8",
+          "generateOneOfAnyOfWrappers": true,
+          "groupId": "org.openapitools",
+          "hideGenerationTimestamp": true,
+          "library": "jvm-retrofit2",
+          "packageName": "org.openapitools.client",
+          "serializationLibrary": "kotlinx_serialization",
+          "useCoroutines": true,
+          "useResponseAsReturnType": true
+        }
+      },
+      "streaming-kotlin-retrofit-gson": {
+        "generatorName": "kotlin",
+        "output": "${env.MIRA_KOTLIN_OUTPUT_DIR}",
+        "glob": "streaming-spec/openapi.yaml",
+        "additionalProperties": {
+          "artifactId": "mira-streaming-kotlin-candidate",
+          "artifactVersion": "0.0.0",
+          "dateLibrary": "java8",
+          "generateOneOfAnyOfWrappers": true,
+          "groupId": "org.openapitools",
+          "hideGenerationTimestamp": true,
+          "library": "jvm-retrofit2",
+          "packageName": "org.openapitools.client",
+          "serializationLibrary": "gson",
+          "useCoroutines": true,
+          "useResponseAsReturnType": true
+        }
+      },
+      "streaming-kotlin-okhttp-moshi": {
+        "generatorName": "kotlin",
+        "output": "${env.MIRA_KOTLIN_OUTPUT_DIR}",
+        "glob": "streaming-spec/openapi.yaml",
+        "additionalProperties": {
+          "artifactId": "mira-streaming-kotlin-candidate",
+          "artifactVersion": "0.0.0",
+          "dateLibrary": "java8",
+          "groupId": "org.openapitools",
+          "hideGenerationTimestamp": true,
+          "library": "jvm-okhttp4",
+          "packageName": "org.openapitools.client",
+          "serializationLibrary": "moshi"
+        }
+      },
+      "streaming-kotlin-ktor-jackson": {
+        "generatorName": "kotlin",
+        "output": "${env.MIRA_KOTLIN_OUTPUT_DIR}",
+        "glob": "streaming-spec/openapi.yaml",
+        "additionalProperties": {
+          "artifactId": "mira-streaming-kotlin-candidate",
+          "artifactVersion": "0.0.0",
+          "dateLibrary": "java8",
+          "groupId": "org.openapitools",
+          "hideGenerationTimestamp": true,
+          "library": "jvm-ktor",
+          "packageName": "org.openapitools.client",
+          "serializationLibrary": "jackson"
+        }
+      },
+      "streaming-kotlin-multiplatform": {
+        "generatorName": "kotlin",
+        "output": "${env.MIRA_KOTLIN_OUTPUT_DIR}",
+        "glob": "streaming-spec/openapi.yaml",
+        "additionalProperties": {
+          "artifactId": "mira-streaming-kotlin-candidate",
+          "artifactVersion": "0.0.0",
+          "dateLibrary": "kotlinx-datetime",
+          "groupId": "org.openapitools",
+          "hideGenerationTimestamp": true,
+          "library": "multiplatform",
+          "packageName": "org.openapitools.client",
+          "serializationLibrary": "kotlinx_serialization"
         }
       }
     }

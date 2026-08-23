@@ -1,0 +1,126 @@
+name: Sync Streaming Kotlin SDK
+
+on:
+  workflow_dispatch:
+    inputs:
+      group_id:
+        description: Verified Maven Central group ID
+        required: true
+        type: string
+      artifact_id:
+        description: Maven artifact ID
+        required: true
+        default: mira-streaming-kotlin-sdk
+        type: string
+      package_name:
+        description: Kotlin source package
+        required: true
+        type: string
+  workflow_call:
+    inputs:
+      group_id:
+        description: Verified Maven Central group ID
+        required: true
+        type: string
+      artifact_id:
+        description: Maven artifact ID
+        required: true
+        type: string
+      package_name:
+        description: Kotlin source package
+        required: true
+        type: string
+    secrets:
+      KOTLIN_SDK_SYNC_TOKEN:
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sync-streaming-kotlin-sdk
+  cancel-in-progress: true
+
+jobs:
+  generate-and-open-pr:
+    runs-on: ubuntu-latest
+    env:
+      KOTLIN_SDK_CHECKOUT_DIR: work/mira-streaming-kotlin-sdk
+      MIRA_KOTLIN_GROUP_ID: ${{ inputs.group_id }}
+      MIRA_KOTLIN_ARTIFACT_ID: ${{ inputs.artifact_id }}
+      MIRA_KOTLIN_PACKAGE_NAME: ${{ inputs.package_name }}
+    steps:
+      - name: Check out mira-sdk
+        uses: actions/checkout@v4
+
+      - name: Configure generated SDK
+        run: |
+          echo "MIRA_KOTLIN_OUTPUT_DIR=$RUNNER_TEMP/mira-streaming-kotlin-sdk" >> "$GITHUB_ENV"
+          echo "MIRA_KOTLIN_VERSION=$(tr -d '[:space:]' < streaming-spec/kotlin-sdk-version.txt)" >> "$GITHUB_ENV"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: gradle
+
+      - name: Install generator dependencies
+        run: npm ci
+
+      - name: Validate OpenAPI document
+        run: npx openapi-generator-cli validate -i streaming-spec/openapi.yaml
+
+      - name: Generate, test, and assemble Kotlin SDK
+        run: npm run streaming-sdk:kotlin:test
+
+      - name: Validate Central publication artifacts
+        run: >-
+          "$MIRA_KOTLIN_OUTPUT_DIR/gradlew"
+          -p "$MIRA_KOTLIN_OUTPUT_DIR"
+          generatePomFileForMavenPublication
+          sourcesJar
+          plainJavadocJar
+
+      - name: Check out Kotlin SDK repository
+        uses: actions/checkout@v4
+        with:
+          repository: irohalab/mira-streaming-kotlin-sdk
+          ref: master
+          token: ${{ secrets.KOTLIN_SDK_SYNC_TOKEN }}
+          path: ${{ env.KOTLIN_SDK_CHECKOUT_DIR }}
+
+      - name: Synchronize generated SDK
+        run: |
+          rsync -a --delete \
+            --exclude '.git/' \
+            --exclude '.github/' \
+            --exclude '.gradle/' \
+            --exclude 'LICENSE' \
+            --exclude 'build/' \
+            "$MIRA_KOTLIN_OUTPUT_DIR/" \
+            "$KOTLIN_SDK_CHECKOUT_DIR/"
+
+      - name: Create or update Kotlin SDK pull request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          token: ${{ secrets.KOTLIN_SDK_SYNC_TOKEN }}
+          path: ${{ env.KOTLIN_SDK_CHECKOUT_DIR }}
+          base: master
+          branch: automation/update-generated-sdk
+          delete-branch: true
+          commit-message: "chore: regenerate streaming Kotlin SDK"
+          title: "chore: update generated streaming Kotlin SDK"
+          body: |
+            This pull request was generated automatically from `irohalab/mira-sdk`.
+
+            Source commit: https://github.com/irohalab/mira-sdk/commit/${{ github.sha }}
+
+            The generated project was contract-tested and its Maven Central POM,
+            sources JAR, and Javadoc JAR were assembled before synchronization.

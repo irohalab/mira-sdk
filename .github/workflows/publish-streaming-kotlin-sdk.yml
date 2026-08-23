@@ -1,0 +1,60 @@
+name: Publish Streaming Kotlin SDK
+
+on:
+  workflow_call:
+    secrets:
+      MAVEN_CENTRAL_USERNAME:
+        required: true
+      MAVEN_CENTRAL_PASSWORD:
+        required: true
+      SIGNING_IN_MEMORY_KEY:
+        required: true
+      SIGNING_IN_MEMORY_KEY_PASSWORD:
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Kotlin SDK
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: gradle
+
+      - name: Verify release tag
+        shell: bash
+        run: |
+          if [[ "$GITHUB_REF_TYPE" != "tag" || ! "$GITHUB_REF_NAME" =~ ^v[0-9]+\.[0-9]+\.[0-9]+([+-][0-9A-Za-z.-]+)?$ ]]; then
+            echo "Expected a semantic version tag such as v0.1.0" >&2
+            exit 1
+          fi
+
+          project_version="$(./gradlew properties --console=plain -q | awk '$1 == "version:" { print $2; exit }')"
+          if [[ "v$project_version" != "$GITHUB_REF_NAME" ]]; then
+            echo "Tag $GITHUB_REF_NAME does not match Gradle version $project_version" >&2
+            exit 1
+          fi
+
+      - name: Test and validate publication
+        run: >-
+          ./gradlew
+          test
+          generatePomFileForMavenPublication
+          sourcesJar
+          plainJavadocJar
+
+      - name: Upload for Maven Central approval
+        env:
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
+          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_IN_MEMORY_KEY }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_IN_MEMORY_KEY_PASSWORD }}
+        run: ./gradlew publishToMavenCentral

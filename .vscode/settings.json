@@ -1,0 +1,14 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "npx openapi-generator-cli": true,
+        "./gradlew": true,
+        "/^cd /home/everett/iroha/everett/mira-sdk/\\.generated/streaming-kotlin-retrofit-gson && bash gradlew test --stacktrace$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^cd /home/everett/iroha/everett/mira-sdk/\\.generated/streaming-kotlin-okhttp-moshi && bash gradlew test --stacktrace$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}
