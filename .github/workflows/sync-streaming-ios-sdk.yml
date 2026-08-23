@@ -17,15 +17,15 @@ jobs:
       IOS_SDK_CHECKOUT_DIR: work/mira-streaming-ios-sdk
     steps:
       - name: Check out mira-sdk
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Configure generated SDK path
         run: echo "MIRA_SWIFT_OUTPUT_DIR=$RUNNER_TEMP/MiraStreamingSDK" >> "$GITHUB_ENV"
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: 20
+          node-version: 24
           cache: npm
 
       - name: Install generator dependencies
@@ -41,7 +41,7 @@ jobs:
         run: swift build --package-path "$MIRA_SWIFT_OUTPUT_DIR"
 
       - name: Check out iOS SDK repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: irohalab/mira-streaming-ios-sdk
           ref: master

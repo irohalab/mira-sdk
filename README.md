@@ -8,7 +8,7 @@ Generated Swift sources are not committed to this repository; the
 `Sync Streaming iOS SDK` workflow opens or updates a pull request in
 [`irohalab/mira-streaming-ios-sdk`](https://github.com/irohalab/mira-streaming-ios-sdk).
 
-Generate and build the package locally with Node.js 20, Java, and Swift 6:
+Generate and build the package locally with Node.js 24, Java, and Swift 6:
 
 ```sh
 npm ci
