@@ -2,34 +2,7 @@ name: Sync Streaming Kotlin SDK
 
 on:
   workflow_dispatch:
-    inputs:
-      group_id:
-        description: Verified Maven Central group ID
-        required: true
-        type: string
-      artifact_id:
-        description: Maven artifact ID
-        required: true
-        default: mira-streaming-kotlin-sdk
-        type: string
-      package_name:
-        description: Kotlin source package
-        required: true
-        type: string
   workflow_call:
-    inputs:
-      group_id:
-        description: Verified Maven Central group ID
-        required: true
-        type: string
-      artifact_id:
-        description: Maven artifact ID
-        required: true
-        type: string
-      package_name:
-        description: Kotlin source package
-        required: true
-        type: string
     secrets:
       KOTLIN_SDK_SYNC_TOKEN:
         required: true
@@ -46,17 +19,12 @@ jobs:
     runs-on: ubuntu-latest
     env:
       KOTLIN_SDK_CHECKOUT_DIR: work/mira-streaming-kotlin-sdk
-      MIRA_KOTLIN_GROUP_ID: ${{ inputs.group_id }}
-      MIRA_KOTLIN_ARTIFACT_ID: ${{ inputs.artifact_id }}
-      MIRA_KOTLIN_PACKAGE_NAME: ${{ inputs.package_name }}
     steps:
       - name: Check out mira-sdk
         uses: actions/checkout@v7
 
       - name: Configure generated SDK
-        run: |
-          echo "MIRA_KOTLIN_OUTPUT_DIR=$RUNNER_TEMP/mira-streaming-kotlin-sdk" >> "$GITHUB_ENV"
-          echo "MIRA_KOTLIN_VERSION=$(tr -d '[:space:]' < streaming-spec/kotlin-sdk-version.txt)" >> "$GITHUB_ENV"
+        run: echo "MIRA_KOTLIN_OUTPUT_DIR=$RUNNER_TEMP/mira-streaming-kotlin-sdk" >> "$GITHUB_ENV"
 
       - name: Set up Node.js
         uses: actions/setup-node@v7

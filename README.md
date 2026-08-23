@@ -26,17 +26,17 @@ The selected Android-compatible client is a Kotlin/JVM JAR generated from
 Kotlin serialization, coroutines, Java 11 bytecode, and Android API 26 as its
 documented compatibility baseline. Generation and publishing run on JDK 17.
 
-Generate, contract-test, and assemble the production SDK by supplying its final
-Maven identity:
+Generate, contract-test, and assemble the production SDK:
 
 ```sh
 npm ci
-MIRA_KOTLIN_GROUP_ID=com.your-verified-namespace \
-MIRA_KOTLIN_ARTIFACT_ID=mira-streaming-kotlin-sdk \
-MIRA_KOTLIN_PACKAGE_NAME=com.yourorg.mira.streaming \
-MIRA_KOTLIN_VERSION="$(tr -d '[:space:]' < streaming-spec/kotlin-sdk-version.txt)" \
 npm run streaming-sdk:kotlin:test
 ```
+
+The public identity is version-controlled in `openapitools.json` as
+`io.iroha.mira:mira-streaming-kotlin-sdk`, with Kotlin package
+`io.iroha.mira.streaming`. The independent SDK version is stored in
+`streaming-spec/kotlin-sdk-version.txt`.
 
 The command produces primary, sources, and Javadoc JARs under
 `.generated/streaming-kotlin-jvm/build/libs/`. Empty arrays are invalid for the

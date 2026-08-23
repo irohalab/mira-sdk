@@ -15,8 +15,9 @@ Generator 7.24.0 and records the resulting production decision.
 - Start at version `0.1.0` and release from downstream tag `v0.1.0`.
 - Upload initial releases for manual Central Portal approval.
 
-Final Maven coordinates and the Kotlin package remain deferred until a Central
-namespace is verified.
+The verified parent namespace is `io.iroha`; the selected group is
+`io.iroha.mira`, artifact is `mira-streaming-kotlin-sdk`, and Kotlin package is
+`io.iroha.mira.streaming`.
 
 ## Contract gates
 
@@ -85,9 +86,3 @@ npm run streaming-sdk:kotlin:test:retrofit-kotlinx
 ```
 
 Each generated project is disposable and remains under `.generated/`.
-
-## Deferred identity
-
-- Final Maven Central `groupId`.
-- Final Maven `artifactId` if it differs from `mira-streaming-kotlin-sdk`.
-- Final Kotlin source package.

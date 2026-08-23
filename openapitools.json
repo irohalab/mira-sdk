@@ -65,14 +65,13 @@
         "gitUserId": "irohalab",
         "gitRepoId": "mira-streaming-kotlin-sdk",
         "additionalProperties": {
-          "artifactId": "replace-before-publishing",
-          "artifactVersion": "0.0.0",
+          "artifactId": "mira-streaming-kotlin-sdk",
           "dateLibrary": "java8",
           "generateOneOfAnyOfWrappers": true,
-          "groupId": "org.openapitools",
+          "groupId": "io.iroha.mira",
           "hideGenerationTimestamp": true,
           "library": "jvm-retrofit2",
-          "packageName": "org.openapitools.client",
+          "packageName": "io.iroha.mira.streaming",
           "serializationLibrary": "kotlinx_serialization",
           "useCoroutines": true,
           "useResponseAsReturnType": true
