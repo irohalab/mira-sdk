@@ -4,17 +4,18 @@ The generated Kotlin/JVM SDK is synchronized by pull request to
 `irohalab/mira-streaming-kotlin-sdk`. That downstream repository owns its tags,
 Maven Central credentials, and final release approval.
 
-## 1. Choose Maven identity
+## 1. Maven identity
 
-Verify a namespace in the [Central Portal](https://central.sonatype.com/), then
-choose:
+The public identity is stored in `openapitools.json`:
 
-- `groupId`: a value under that verified namespace;
-- `artifactId`: normally `mira-streaming-kotlin-sdk`; and
-- Kotlin package: normally a Java-compatible package under the same domain.
+- `groupId`: `io.iroha.mira`;
+- `artifactId`: `mira-streaming-kotlin-sdk`; and
+- Kotlin package: `io.iroha.mira.streaming`.
 
-The synchronization workflow rejects empty, malformed, and common placeholder
-identities. Coordinates are immutable after a version is published.
+The parent `io.iroha` namespace must be verified in the
+[Central Portal](https://central.sonatype.com/). Child group IDs, artifact IDs,
+and Kotlin packages do not require separate registration. Coordinates are
+immutable after a version is published.
 
 ## 2. Prepare the downstream repository
 
@@ -53,9 +54,9 @@ Publish the corresponding public key to a Central-supported key server.
 In this repository, add `KOTLIN_SDK_SYNC_TOKEN` as an Actions secret. It must be
 able to push branches and open pull requests in the downstream repository.
 
-Run the **Sync Streaming Kotlin SDK** workflow and supply the final `groupId`,
-`artifactId`, and Kotlin package. The workflow reads the version from
-`kotlin-sdk-version.txt`, validates the OpenAPI document, runs all contracts,
+Run the **Sync Streaming Kotlin SDK** workflow. No coordinate inputs are needed:
+the workflow reads identity from `openapitools.json` and version from
+`kotlin-sdk-version.txt`. It validates the OpenAPI document, runs all contracts,
 assembles the Maven artifacts, and opens or updates a downstream pull request.
 It preserves the downstream `.github` directory and `LICENSE`, excludes Gradle
 caches and build outputs, and replaces the remaining generated project files.

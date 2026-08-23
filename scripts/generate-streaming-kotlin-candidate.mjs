@@ -11,50 +11,42 @@ if (!generatorKey?.match(/^streaming-kotlin-[a-z0-9-]+$/)) {
 }
 
 const isProductionGenerator = generatorKey === "streaming-kotlin-jvm";
-const productionProperties = {
-  MIRA_KOTLIN_GROUP_ID: process.env.MIRA_KOTLIN_GROUP_ID,
-  MIRA_KOTLIN_ARTIFACT_ID: process.env.MIRA_KOTLIN_ARTIFACT_ID,
-  MIRA_KOTLIN_PACKAGE_NAME: process.env.MIRA_KOTLIN_PACKAGE_NAME,
-  MIRA_KOTLIN_VERSION: process.env.MIRA_KOTLIN_VERSION,
-};
+let productionConfiguration;
+let productionProperties;
 
 if (isProductionGenerator) {
-  const missingProperties = Object.entries(productionProperties)
-    .filter(([, value]) => !value)
-    .map(([name]) => name);
-
-  if (missingProperties.length > 0) {
-    throw new Error(
-      `Missing production SDK environment variables: ${missingProperties.join(", ")}`,
-    );
-  }
+  const openApiToolsConfiguration = JSON.parse(
+    await readFile(path.join(repositoryRoot, "openapitools.json"), "utf8"),
+  );
+  productionConfiguration =
+    openApiToolsConfiguration["generator-cli"].generators[generatorKey];
+  productionProperties = {
+    groupId: productionConfiguration.additionalProperties.groupId,
+    artifactId: productionConfiguration.additionalProperties.artifactId,
+    packageName: productionConfiguration.additionalProperties.packageName,
+    version: (
+      await readFile(
+        path.join(repositoryRoot, "streaming-spec", "kotlin-sdk-version.txt"),
+        "utf8",
+      )
+    ).trim(),
+  };
 
   const mavenIdentifier = /^[A-Za-z0-9_.-]+$/;
   const kotlinPackage = /^[A-Za-z_][A-Za-z0-9_]*(\.[A-Za-z_][A-Za-z0-9_]*)+$/;
   const semanticVersion = /^\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?$/;
 
-  if (!mavenIdentifier.test(productionProperties.MIRA_KOTLIN_GROUP_ID)) {
-    throw new Error("MIRA_KOTLIN_GROUP_ID is not a valid Maven identifier");
+  if (!mavenIdentifier.test(productionProperties.groupId)) {
+    throw new Error("Configured Kotlin groupId is not a valid Maven identifier");
   }
-  if (!mavenIdentifier.test(productionProperties.MIRA_KOTLIN_ARTIFACT_ID)) {
-    throw new Error("MIRA_KOTLIN_ARTIFACT_ID is not a valid Maven identifier");
+  if (!mavenIdentifier.test(productionProperties.artifactId)) {
+    throw new Error("Configured Kotlin artifactId is not a valid Maven identifier");
   }
-  if (!kotlinPackage.test(productionProperties.MIRA_KOTLIN_PACKAGE_NAME)) {
-    throw new Error("MIRA_KOTLIN_PACKAGE_NAME is not a valid Kotlin package");
+  if (!kotlinPackage.test(productionProperties.packageName)) {
+    throw new Error("Configured Kotlin packageName is not a valid Kotlin package");
   }
-  if (!semanticVersion.test(productionProperties.MIRA_KOTLIN_VERSION)) {
-    throw new Error("MIRA_KOTLIN_VERSION must be a semantic version");
-  }
-
-  if (
-    process.env.MIRA_KOTLIN_ALLOW_PLACEHOLDER_IDENTITY !== "true" &&
-    (productionProperties.MIRA_KOTLIN_GROUP_ID === "com.example" ||
-      productionProperties.MIRA_KOTLIN_ARTIFACT_ID === "replace-before-publishing" ||
-      productionProperties.MIRA_KOTLIN_PACKAGE_NAME.startsWith("com.example."))
-  ) {
-    throw new Error(
-      "Placeholder Maven identity is forbidden outside explicit smoke tests",
-    );
+  if (!semanticVersion.test(productionProperties.version)) {
+    throw new Error("Configured Kotlin SDK version must be a semantic version");
   }
 }
 
@@ -90,17 +82,12 @@ let generatorArguments = [
 ];
 
 if (isProductionGenerator) {
-  const openApiToolsConfiguration = JSON.parse(
-    await readFile(path.join(repositoryRoot, "openapitools.json"), "utf8"),
-  );
-  const productionConfiguration =
-    openApiToolsConfiguration["generator-cli"].generators[generatorKey];
   const additionalProperties = {
     ...productionConfiguration.additionalProperties,
-    groupId: productionProperties.MIRA_KOTLIN_GROUP_ID,
-    artifactId: productionProperties.MIRA_KOTLIN_ARTIFACT_ID,
-    artifactVersion: productionProperties.MIRA_KOTLIN_VERSION,
-    packageName: productionProperties.MIRA_KOTLIN_PACKAGE_NAME,
+    groupId: productionProperties.groupId,
+    artifactId: productionProperties.artifactId,
+    artifactVersion: productionProperties.version,
+    packageName: productionProperties.packageName,
   };
 
   generatorArguments = [
@@ -168,6 +155,10 @@ if (isProductionGenerator) {
         env: {
           ...process.env,
           MIRA_KOTLIN_OUTPUT_DIR: outputDirectory,
+          MIRA_KOTLIN_GROUP_ID: productionProperties.groupId,
+          MIRA_KOTLIN_ARTIFACT_ID: productionProperties.artifactId,
+          MIRA_KOTLIN_PACKAGE_NAME: productionProperties.packageName,
+          MIRA_KOTLIN_VERSION: productionProperties.version,
         },
         stdio: "inherit",
       },
@@ -231,7 +222,7 @@ if (isProductionGenerator) {
     generatedContractTest,
     contractTestSource.replaceAll(
       "org.openapitools.client",
-      productionProperties.MIRA_KOTLIN_PACKAGE_NAME,
+      productionProperties.packageName,
     ),
   );
 } else {
