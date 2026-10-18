@@ -7,7 +7,6 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ItemSubType } from './itemSubType';
 import { ItemType } from './itemType';
 import { SubItem } from './subItem';
 import { PropertyValue } from './propertyValue';
@@ -27,7 +26,7 @@ export interface MainItem {
     properties: { [key: string]: PropertyValue; };
     mainType: MainType;
     type: ItemType;
-    subType?: ItemSubType;
+    subType?: string;
     /**
      * determine if the MainItem is collection item
      */

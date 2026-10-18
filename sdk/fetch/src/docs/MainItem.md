@@ -14,7 +14,7 @@ Name | Type
 `properties` | [{ [key: string]: PropertyValue; }](PropertyValue.md)
 `mainType` | [MainType](MainType.md)
 `type` | [ItemType](ItemType.md)
-`subType` | [ItemSubType](ItemSubType.md)
+`subType` | string
 `isCollection` | boolean
 `coverImage` | [ImageInfo](ImageInfo.md)
 `squareImage` | [ImageInfo](ImageInfo.md)

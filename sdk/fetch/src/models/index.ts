@@ -701,10 +701,10 @@ export interface MainItem {
     type: ItemType;
     /**
      * 
-     * @type {ItemSubType}
+     * @type {string}
      * @memberof MainItem
      */
-    subType?: ItemSubType;
+    subType?: string;
     /**
      * determine if the MainItem is collection item
      * @type {boolean}
