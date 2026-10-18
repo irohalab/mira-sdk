@@ -954,7 +954,7 @@ components:
             type:
               $ref: '#/components/schemas/ItemType'
             subType:
-              $ref: '#/components/schemas/ItemSubType'
+              type: string
             isCollection:
               type: boolean
               description: determine if the MainItem is collection item
