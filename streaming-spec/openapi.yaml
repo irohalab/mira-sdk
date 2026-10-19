@@ -105,9 +105,9 @@ paths:
             $ref: '#/components/schemas/ItemTypeQuery'
         - name: subType
           in: query
-          description: TypeScript enum key used by the controller.
+          description: 'most common value see #/components/schemas/ItemSubTypeQuery'.
           schema:
-            $ref: '#/components/schemas/ItemSubTypeQuery'
+            type: string
         - name: eps
           in: query
           description: Exact episode-count filter.
@@ -535,7 +535,8 @@ paths:
       tags:
         - Favorite
       operationId: syncFavorites
-      summary: Synchronize all local favorites with the upstream service
+      summary: Queue synchronization of all local favorites with the upstream service
+      description: Progress is available from the authenticated account. The latest request/response log is admin-only.
       security:
         - bearerAuth: []
       parameters:
@@ -546,8 +547,25 @@ paths:
             type: boolean
             default: false
       responses:
-        '200':
-          description: Favorites and watched episode progress were synchronized.
+        '202':
+          description: Favorite synchronization was queued.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FavoriteSyncProgress'
+        '409':
+          description: A favorite synchronization is already running for this account.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - message
+                properties:
+                  message:
+                    type: string
+                  progress:
+                    $ref: '#/components/schemas/FavoriteSyncProgress'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '403':
@@ -850,6 +868,50 @@ components:
         role:
           type: string
           nullable: true
+        favoriteSyncProgress:
+          $ref: '#/components/schemas/FavoriteSyncProgress'
+
+    FavoriteSyncProgress:
+      type: object
+      nullable: true
+      required:
+        - syncId
+        - status
+        - stage
+        - completedBatches
+        - totalBatches
+        - percentage
+        - startedAt
+        - updatedAt
+      properties:
+        syncId:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum: [queued, running, completed, failed]
+        stage:
+          type: string
+          enum: [queued, preparing, syncing, applying, completed, failed]
+        completedBatches:
+          type: integer
+          minimum: 0
+        totalBatches:
+          type: integer
+          minimum: 0
+        percentage:
+          type: integer
+          minimum: 0
+          maximum: 100
+        startedAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        finishedAt:
+          type: string
+          format: date-time
 
     LegacyNameResponse:
       type: object
